@@ -14,8 +14,6 @@
             array_push($betting, $bettings);
         }
         
-       
-
         $mail = Session::get('user')['email']; 
         $mail1 = $item->email;
         if ($mail == $mail1){
@@ -24,7 +22,6 @@
     }
     rsort($betting);
 
-    
     
 ?>
 <section>
