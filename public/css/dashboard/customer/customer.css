@@ -1,0 +1,74 @@
+.success-title {
+    font-family: 'Urbanist', sans-serif;
+}
+
+.success-title .trend {
+    color: #d33e2d;
+    font-size: 10px;
+    font-weight: 400;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: inline-block;
+}
+
+.success-title h4 {
+    color: rgb(39 39 39 / 87%);
+    font-weight: 600;
+    border-left: 5px solid rgb(84,174,63);
+    padding-left: 15px;
+    font-size: 25px;
+}
+
+
+#success-carousel-img1{
+    background-image: url("/image/home/wed4.jpg") ;
+    border-radius: 2%;
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin-top: 20px;
+    min-height: 255px;
+    position: relative;
+}
+
+.success-carousel-details ul{
+    list-style-type: none;
+    margin-left: 0;
+    padding-left: 0;
+    font-size: 16px;
+    color: gray;
+}
+
+.success-carousel-details ul li{
+    line-height: 30px;
+}
+
+.success-carousel-details ul li a{
+    cursor: pointer;
+}
+
+
+.success-carousel-details h6{
+    font-family: 'Poppins', sans-serif;
+    color: rgba(0, 0, 0, 0.83);
+    font-size: 17px;
+    font-weight: 600;
+}
+
+.success-carousel-details p{   
+    margin-top: 5px;
+    font-size: 15px;
+    color: #6e6767;   
+}
+
+
+.btn{
+    padding: .300rem 1.15rem;
+}
+
+#blog-btn{  
+    background-color:lightgrey;
+    color: #4f074c;
+    font-weight: 550; 
+    border-radius: 1.15rem;
+}

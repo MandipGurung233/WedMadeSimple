@@ -1,0 +1,133 @@
+.header{
+    background:url("/image/about/aboutBanner.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	min-height: 300px;
+    position: relative;
+}
+
+.slider-text {
+    height: 250px;  
+}
+
+#bann{
+    margin-top: 1rem!important;
+    color: white;
+    font-size: 17px;
+    text-align: center;
+}
+
+#bann a{
+    color: white;
+}
+
+#bann a:hover{
+    color: pink;
+}
+
+
+/*Blog section*/
+/*2nd row*/
+#blog{
+    padding-top: 80px;
+    padding-bottom: 50px;
+}
+
+
+#blogtxt{
+    margin-right: 10px;
+    margin-left: 10px;
+    box-shadow: rgb(0 0 0 / 5%) 0px 4px 30px;
+    z-index: 5;
+    width: 28%;
+}
+
+#blogtxt h5{
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: bold;
+    color: #4f074c;
+}
+
+
+/*blog image*/
+.bgImage1{
+    background:url("/image/blog/blog1.jfif");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	min-height: 250px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.bgImage2{
+    background:url("/image/blog/blog2.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	min-height: 250px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+.bgImage3{
+    background:url("/image/blog/blog3.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	min-height: 250px;
+    margin-top: 10px;
+    border-radius: 10px;
+}
+
+/*end of image*/
+
+.content{
+    margin-top: 10px;
+    padding: 15px;
+}
+
+.created h6{
+    font-size: 13px;
+    color: rgb(112, 110, 110);
+}
+
+#blog-btn{  
+    background-color:white;
+    color: #4f074c;
+    margin-left: 0px;
+    margin-bottom: 10px;   
+}
+
+#blog-btn:hover{
+    box-shadow: rgb(0 0 0 / 5%) 0px 4px 30px;
+}
+
+@media (max-width: 768px)
+{
+    #blogtxt{
+        width:28%;
+        margin-right: 10px;
+        margin-bottom: 20px;
+    }
+}
+
+@media (max-width: 600px)
+{
+    #blogtxt{
+        width: 165px;
+        margin-right: 10px;
+        margin-left: 0px;
+    }
+}
+
+@media (max-width: 375px)
+{
+    #blogtxt{
+        width: 160px;
+        margin-right: 10px;
+        margin-left: 0px;
+    }
+}

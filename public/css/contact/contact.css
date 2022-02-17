@@ -1,0 +1,194 @@
+.header{
+    background:url("/image/about/aboutBanner.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	min-height: 300px;
+    position: relative;
+}
+
+.slider-text {
+    height: 250px;  
+}
+
+#bann{
+    margin-top: 1rem!important;
+    color: white;
+    font-size: 17px;
+    text-align: center;
+}
+
+#bann a{
+    color: white;
+}
+
+#bann a:hover{
+    color: pink;
+}
+
+/*contact*/
+/*first row*/
+/*impression*/
+/**/
+#contact{
+    padding-top: 130px;
+    padding-bottom: 90px;
+}
+
+@media (max-width: 768px)
+{#contact{
+    min-height:470px;
+}}
+
+/*left side content*/
+
+.col-10{
+    text-align: center;
+}
+
+@media (min-width: 768px)
+{#contacttxt{
+    text-align:left !important
+}}
+
+
+#contacttxt{
+    margin-right: 0px;
+}
+
+#contactCol1 {
+    margin-right: 20px;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: rgb(0 0 0 / 10%) 0px 1px 10px;
+    border: 2px solid rgba(0, 0, 0, 0.1);
+    width: 75%;
+}
+
+
+#contactRow1{
+    padding-bottom: 35px;
+}
+
+/*innertxt*/
+#contacttxt p {
+    padding: 3px;
+    margin-top: 6px;
+    margin-bottom: 0px;
+    font-weight: 545;
+    font-family: 'Roboto', sans-serif;
+}
+
+#contacttxt h4{
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#contacttxt a {
+    text-decoration: none!important;
+    color: black!important;
+}
+
+#contacttxt a:hover {
+    text-decoration: underline!important;
+    color: black!important;
+}
+
+#contacttxt{
+    position: relative;
+}
+
+.iconned{
+    font-size: 2.5rem !important;
+    color: rgb(98, 122, 228) !important;
+}
+
+/*end of innertext*/
+
+.img{
+    padding: 15px;
+}
+
+/*icon*/
+
+/*icon end*/
+
+
+/*right side content*/
+
+#contactright{
+    text-align: left;
+}
+
+#contactright h3{
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-size: 25px;
+    margin-bottom: 30px;
+    font-family: 'Roboto', sans-serif;
+}
+
+#contactright p{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+.btn{
+    padding: .575rem 1.35rem;
+}
+
+.form-control {
+    display: block;
+    width: 100%;
+    padding: 1.3rem 1.75rem;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.5;
+    color: #212529;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    appearance: none;
+    border-radius: 2.5rem;
+    text-align:left;
+    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+}
+
+.formcontrol {
+    border-radius: 2rem;
+}
+
+.space{
+    padding: 1.2rem 1.75rem;
+    
+}
+
+@media (max-width: 768px)
+{.space1{
+    margin-bottom: 45px;
+}}
+
+#contactBtn{
+    background-color:#e72e77;
+    border:1px;
+    color:white;
+    padding-left: 80px;
+    padding-right: 80px;
+    border-radius:40px;
+}
+
+.form-control:focus {
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 0%);
+}
+
+#contactBtn:hover{
+    box-shadow: 0px 13px 30px -14px rgb(0 0 0 / 50%);
+    transition: all 0.3s ease;
+    color: white;
+}
+
+

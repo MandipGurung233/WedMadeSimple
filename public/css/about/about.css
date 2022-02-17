@@ -1,0 +1,183 @@
+.header{
+    background:url("/image/about/aboutBanner.jpg");
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	min-height: 300px;
+    position: relative;
+}
+
+.slider-text {
+    height: 250px;  
+}
+
+#bann{
+    margin-top: 1rem!important;
+    color: white;
+    font-size: 17px;
+    text-align: center;
+}
+
+#bann a{
+    color: white;
+}
+
+#bann a:hover{
+    color: pink;
+}
+
+
+/*after aboutBanner*/
+.no-gutters {
+    margin-right: 0px;
+    margin-left: 0;
+}
+
+.img{
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: cover;
+	min-height: 300px;
+}
+
+@media (max-width: 767.98px)
+{.img-2 {
+    height: 200px;
+    margin-bottom: 30px;
+}}
+
+.no-gutters>.col, .no-gutters>[class*="col-"] {
+    padding-right: 0px;
+    padding-left: 0;
+}
+
+@media (min-width: 992px)
+{.wrap-about .heading-section {
+    margin-left: -120px;
+    background: #fff;
+    box-shadow: -20px 5px 14px -15px rgb(0 0 0 / 13%);
+}}
+
+/*end of afterBanner*/
+
+
+/*js*/
+
+
+/*left side content*/
+
+@media (max-width: 768px)
+{#sec{
+    min-height:470px;
+}}
+
+#sec{
+    padding-top: 20px;
+    padding-bottom: 60px;
+    margin-bottom: 40px;
+}
+
+
+
+#sectxt{
+    margin-top: 50px;
+    padding-left: 50px;
+}
+
+#sectxt h1{
+    color: black;
+    font-size: 30px;
+    font-weight: bolder;
+    margin-top: 5px;
+}
+
+.col-10{
+    text-align: center;
+
+}
+
+@media (min-width: 768px)
+{#sectxt{
+    text-align:left !important
+}}
+
+
+/*hover effect*/
+
+.btn:focus{
+    outline:0!important;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 0%);
+}
+
+.btn{  
+    background-color:#ffffff00;
+    border-bottom: 4px solid;
+    color: grey;
+    margin-left: 0px;
+    margin-right: 8px;
+    padding-left:0.4rem;
+    padding-right:0.4rem;
+    margin-bottom: 10px;   
+}
+
+.btn:hover{
+    color:#b4245d;
+    
+}
+
+.btn:hover .sth{
+    color:black!important;
+    font-weight:bold!important;
+}
+
+
+#content{
+    margin-top: 20px;
+    text-align: justify !important;
+}
+
+.as #btnMiss{
+    color:#b4245d;
+}
+
+.as #btnMiss .sth{
+    color:black!important;
+    font-weight:bold!important;
+}
+
+.activeMiss #btnMiss{
+    color:#b4245d;
+}
+
+.activeMiss #btnMiss .sth{
+    color:black!important;
+    font-weight:bold!important;
+}
+
+.activeVis #btnVis{
+    color:#b4245d;
+}
+
+.activeVis #btnVis .sth{
+    color:black!important;
+    font-weight:bold!important;
+}
+
+.activeVal #btnVal{
+    color:#b4245d;
+}
+
+.activeVal #btnVal .sth{
+    color:black!important;
+    font-weight:bold!important;
+}
+
+/*right side content*/
+.secimgs .img-fluid{
+    margin-top: 40px;
+    padding-left: 0px;
+    width: 500px;
+}
+
+
+
