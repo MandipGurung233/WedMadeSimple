@@ -43,8 +43,9 @@ class home extends Controller
         return view ('pages.makeUp.makeUp');
     }
 
-    public function indereni(){
-        return view ('pages.vendorPage.makeUp.indreni');
+    public function indereni($id){
+        $value = makeUp::find($id);
+        return view ('pages.vendorPage.makeUp.indreni',compact('value'));
     }
 
     public function adminLogin(){
@@ -192,6 +193,29 @@ class home extends Controller
             'caption' => 'required',
         ]);
 
+            $post = new Post;
+            $post->uploadDate = $request->uploadDate;
+            $post->imgFile = $request->imgFile;
+            $post->sessionEmail = $sessionEmail;
+            $post->caption = $request->caption;
+            $post->save();
+            return redirect()->back()->with('status','Successfully Posted');
+   
+    }
+
+    public function deletePost($id){
+        $value = Post::find($id);
+        $value->delete();
+        return redirect()->back();
+    }
+
+    /*public function vendorPost(Request $request, $sessionEmail){
+        $request->validate([
+            'uploadDate' => 'required',
+            'imgFile' => 'required',
+            'caption' => 'required',
+        ]);
+
         $sessionEmail = $sessionEmail;
         $user = Post::where(['sessionEmail'=>$sessionEmail])->first();
         if (!$user){
@@ -214,7 +238,7 @@ class home extends Controller
         }
         
    
-    }
+    }*/
 
     /* Booking details */
     public function books(){

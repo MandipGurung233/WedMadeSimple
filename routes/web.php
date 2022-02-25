@@ -21,7 +21,7 @@ Route::get('/blog',[home::class,'blog']);
 Route::get('/service',[home::class,'service']);
 Route::get('/contact',[home::class,'contact']);
 Route::get('/makeUp',[home::class,'makeUp']);
-Route::get('/indereni',[home::class,'indereni']);
+Route::get('indereni/{id}',[home::class,'indereni']);
 Route::get('/adminDashboard',[home::class,'adminDash']);
 Route::get('/custDash',[home::class,'customerDash']);
 Route::get('/vendDash',[home::class,'vendorDash']);
@@ -69,4 +69,5 @@ Route::get('/newsFeed',[home::class,'newsFeed']);
 /*contact details */
 Route::post('/contact',[home::class,'contacts']);
 Route::delete('deleteContact/{id}',[home::class,'deleteContact']);
+Route::delete('deletePost/{id}',[home::class,'deletePost']);
 

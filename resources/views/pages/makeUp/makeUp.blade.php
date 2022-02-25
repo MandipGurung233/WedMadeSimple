@@ -1,3 +1,7 @@
+<?php
+    use App\Models\makeUp;
+    $make = makeUp::all();
+?>
 @extends('pages.makeUp.makeUpMain')
 @section('home')
 <!--banner-->
@@ -43,20 +47,37 @@
     <div class="row justify-content-evenly" id="category">
         <div class="col-md-12 col-10" id="categorytxt">
             <div class="row justify-content-center" id="categoryRow1">
-                <div class="col-md-3" id="categoryCol1">
-                        <div class=" img1 d-none d-md-block">
-                            
-                               <a href="/indereni"> 
-                                   <button type="button" class="btn mt-2" id="blog-btn">Details</button>
-                                </a>
-                            
-                        </div>  
-                        <div class="" id="categorytxt">
-                            <h5>Indreni Makeup</h5>
-                            <p><span style="font-weight:bold;">Experience:</span> 2 years | <span style="font-weight:bold;">Service:</span> Both home and studio | <span style="font-weight:bold;">Location:</span> Dharan</p>            
-                        </div>
+                <div class="col-md-3" id="categoryCol1" style="background-color: rgb(223, 178, 173);">
+                    <div class=" img2 d-none d-md-block">
+                        <a href="{{ url('indereni/'.1) }}"> 
+                            <button type="button" class="btn mt-2" id="blog-btn">Details</button>
+                        </a>
+                    </div>  
+                    <div class="" id="categorytxt">
+                        <h5>Pareli Makeup</h5>
+                        <p><span style="font-weight:bold;">Experience:</span> 2 years | <span style="font-weight:bold;">Service:</span> Both home and studio | <span style="font-weight:bold;">Location:</span> Dharan</p>       
+                    </div>
                 </div>
-                          
+                <!--
+                @foreach ($make as $item)
+                    <div class="col-md-3" id="categoryCol1">
+                            <div class=" img1 d-none d-md-block">
+                                
+                    
+                                <a href="{{ url('indereni/'.$item->id) }}"> 
+                                    <button type="button" class="btn mt-2" id="blog-btn">Details</button>
+                                </a>
+                                
+                            </div>  
+                            <div class="" id="categorytxt">
+                                <h5>{{ $item->name}}</h5>
+                                <p><span style="font-weight:bold;">Location: {{ $item->address}}</span></p>            
+                            </div>
+                    </div>
+                @endforeach-->
+            </div>
+        </div>
+             <!--             
                 <div class="col-md-3" id="categoryCol1" style="background-color: rgb(223, 178, 173);">
                     <div class=" img2 d-none d-md-block">
                         <button type="button" class="btn mt-2" id="blog-btn">Details</button>
@@ -110,7 +131,7 @@
                     </div>
                 </div>              
             </div>   
-        </div>   
+        </div>--> 
     </div>
 </div>
 @endsection

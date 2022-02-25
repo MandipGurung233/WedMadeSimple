@@ -32,25 +32,6 @@
         $txt = 'N\A';
     }
 }?>
-
-<?php
- foreach ($post as $items){
-   
-    $mail = Session::get('user')['email']; 
-    $mail1 = $items->sessionEmail;
-    $value = 0;
-    if ($mail == $mail1)
-    {
-        $uploadDate = $items->uploadDate;
-        $imgFile = $items->imgFile;
-        $caption = $items->caption;
-        break;
-    } else{
-        $uploadDate = 'N\A';
-        $imgFile = 'N\A';
-        $caption = 'N\A';
-    }
-}?>
     
     <!--latest post and description-->
     <div class="container pb-4 pt-5">
@@ -62,32 +43,63 @@
         </div>
     
         <div class="row justify-content-evenly">
-         
-            <div class="col-md-3">
-              
-                    <div class="row justify-content-center">
-                                    <div class="col-md-10">
-                                                <div class="container" id="success-carousel-img1">                                                              
-                                                    <p>{{$uploadDate}}</p>            
-                                                </div>
-                                                <div class=" container success-carousel-details">
-                                                    <ul>
+        @foreach ($post as $postItem)
+            <?php
+                $mail = Session::get('user')['email']; 
+                $mail1 = $postItem->sessionEmail;
+               
+                if ($mail == $mail1)
+                {
+                    $uploadDate = $postItem->created_at;
+                    $imgFile = $postItem->imgFile;
+                    $caption = $postItem->caption;  
+                } else{
+                    $uploadDate = 'N\A';
+                    $imgFile = 'N\A';
+                    $caption = 'N\A';
+                }
+            ?>
+            @if ($mail == $mail1)
+                <div class="col-md-3">
+                
+                        <div class="row justify-content-center">
+                                        <div class="col-md-10">
+                                                    <div class="container" id="success-carousel-img1">                                                              
+                                                        <p>{{$uploadDate}}</p>            
+                                                    </div>
+                                                    <div class=" container success-carousel-details">
                                                         <div class="row mt-3">
                                                             <div class="col-md-11">
                                                                 <p>{{$caption}}</p>
                                                             </div>
-                                                        </div>        
-                                                        <li>
-                                                            <a href="/indereni"> 
-                                                                <button type="button" class="btn" id="blog-btn">Share</button>
-                                                            </a>
-                                                        </li>
-                                                    </ul>
-                                                </div> 
-                                    </div>
-                    </div>
-          
-            </div> 
+                                                        </div>  
+                                                        <ul style="display:flex">
+                                                                  
+                                                            <li>
+                                                                <a href="/indereni"> 
+                                                                    <button type="button" class="btn" id="blog-btn">Share</button>
+                                                                </a>
+                                                            
+                                                            </li>
+                                                            <li>
+                                                                <form action="{{ url('deletePost/'.$postItem->id) }}" method="POST">
+                                                                    @csrf
+                                                                    @method('DELETE')
+                                                                    <button type="submit" class="btn"><i class="bi bi-trash"></i></button>
+                                                                </form>
+                                                            </li>
+                                                            
+                                                        </ul>
+                                                    </div> 
+                                        </div>
+                        </div>
+            
+                </div>
+            @endif 
+        @endforeach
+
+        
+        
           
 
             <div class="col-md-5 desc " style="margin-left:10px;">

@@ -207,6 +207,11 @@
     color: rgb(39 39 39 / 87%);
 }
 
+.btn:focus {
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgb(13 110 253 / 0%);
+}
+
 /*rating + textarea*/
 .rating ul{
     list-style-type: none;
