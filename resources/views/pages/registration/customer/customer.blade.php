@@ -6,6 +6,17 @@
             
             <div class="col-md-9">
                         <h2 class="form-title1">Customer Registration</h2>
+                        <!--<form action="/random" method="POST">
+                            @csrf
+                            <div class="form-group1">
+                                <label for="your_name" class="labels"><span style="color:#6dabe4;"><i class="bi bi-person-fill"></i></span></label>
+                                <input type="text" class="form-control inputs" name="name" id="your_name" placeholder="Your Name"/>
+                            </div>
+                            <div class="form-group1 form-button">
+                                <input type="submit" name="signin" id="signin" class="form-submit1" value="Register"/>
+                            </div>
+                        </form>-->
+
                         <form action="/customerRegister" method="POST">
                             @csrf
                             @if (session('status'))

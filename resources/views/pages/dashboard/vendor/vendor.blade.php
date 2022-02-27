@@ -107,31 +107,7 @@
                             
                                     <h2> <span style="font-weight:bold">|</span> {{ Session::get('user')['name'] }}</h2>
                             </div>
-                            
-                            <div class="ratings">  
-                                <ul style="padding-left: 15px !important;">
-                                    <li>
-                                        <div class="aboutButton as">
-                                            <button class="btnn" id="btnMiss">
-                                                <span class="sth">
-                                                    <div id="content">
-                                                        <p><i class="bi bi-hand-thumbs-up-fill"></i> &nbsp;&nbsp;&nbsp;Like</p>
-                                                    </div>
-                                                </span>
-                                            </button>
-                                        </div>
-                                        <div class="aboutButton as">
-                                            <button class="btnn" id="btnVal">
-                                                <span class="sth">
-                                                    <div id="content">
-                                                        <p><i class="bi bi-hand-thumbs-down-fill"></i></p>
-                                                    </div>
-                                                </span>
-                                            </button>
-                                        </div>  
-                                    </li>  
-                                </ul> 
-                            </div> 
+                        <br>
                     
                         <div class="row justify-content-center">
                             <div class="col-md-6 exp">

@@ -43,11 +43,10 @@ class home extends Controller
         return view ('pages.makeUp.makeUp');
     }
 
-    public function indereni($id){
-        $value = makeUp::find($id);
-        return view ('pages.vendorPage.makeUp.indreni',compact('value'));
+    public function venued(){
+        return view ('pages.makeUp.venue');
     }
-
+  
     public function adminLogin(){
         return view ('pages.login.admin.login');
     }
@@ -110,6 +109,18 @@ class home extends Controller
         $request->delete();
         return redirect()->back()->with('status','Successfully Approved');
 
+    }
+
+    public function customize($id){
+        $value = makeUp::find($id);
+        $values = $value->email;
+        return view('pages.vendorPage.makeUp.indreni',compact('values'));  
+    }
+
+    public function customizeVenue($id){
+        $value = venue::find($id);
+        $values = $value->email;
+        return view('pages.vendorPage.makeUp.indreni',compact('values'));  
     }
 
     /*vendor details upload*/

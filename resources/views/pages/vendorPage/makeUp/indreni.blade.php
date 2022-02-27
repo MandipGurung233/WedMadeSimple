@@ -1,197 +1,265 @@
 @extends('pages.vendorPage.makeUp.indereniMain')
 @section('home')
+<?php
+    use App\Models\vendorDetails;
+    use App\Models\Post;
+    use App\Models\Approved;
+    use App\Models\Follow;
+    use App\Models\makeUp;
+    use App\Models\User;
+    $detail = vendorDetails::all();
+    $post = Post::all();
+    $customer = User::all();
+    $makeUp = Approved::all();
+?>
 
-<!--banner-->
-<div class="header">     
-    <div class="container">
-        <div class="row justify-content-center slider-text align-items-center mt-6">
-            <div class="col-md-6 col-lg-8 area">
-                <div class="text-center">
-                    <h1 class="mt-5" style="color: white;font-size:35px;">Welcome to Indereni Make-up</h1>
-                    <h1 id="bann"><a href="/">Home</a>><a href="/service">Service</a>><a href="/makeUp">Makeup Vendors</a>><a href="/makeUp">Indereni MakeUp</a></h1>
-                </div>
-            </div>
-        </div>   
-    </div>
-</div>
-
-<!--latest post and description-->
-<div class="container pb-5 pt-5">
-    <div class="row">
-        <div class="col-xl-5   success-title">
-            <span class="trend mb-2">Activities</span>
-            <h4>Latest Post</h4>
-        </div>
-    </div>
-
-  
-    <div class="row justify-content-evenly">
-        <div class="col-md-6">
-            <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
-                <div class="carousel-inner">
-                    <div class="carousel-item active" data-bs-interval="20000">
-                        <div class="row justify-content-evenly">
-                                <div class="col-md-6">
-                                            <div class="container" id="success-carousel-img1">                                                              
-                                                <p>11 july, 2020</p>            
-                                            </div>
-                                            <div class=" container success-carousel-details">
-                                                <ul>
-                                                    <div class="row mt-3">
-                                                        <div class="col-md-11">
-                                                            <p>New birdal makeup, hurry up for the limited offer !!</p>
-                                                        </div>
-                                                    </div>        
-                                                    <li>
-                                                        <a href="/indereni"> 
-                                                            <button type="button" class="btn" id="blog-btn">Share</button>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div> 
-                                </div>
-                                <div class="col-md-6">
-                                            <div class="container" id="success-carousel-img2">                                                              
-                                                <p>11 july, 2020</p>            
-                                            </div>
-                                            <div class=" container success-carousel-details">
-                                                <ul>
-                                                    <div class="row mt-3">
-                                                        <div class="col-md-11">
-                                                            <p>New birdal makeup, hurry up for the limited offer !!</p>
-                                                        </div>
-                                                    </div>        
-                                                    <li>
-                                                        <a href="/indereni"> 
-                                                            <button type="button" class="btn" id="blog-btn">Share</button>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div> 
-                                </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                            <div class="row justify-content-evenly">
-                                <div class="col-md-6">
-                                            <div class="container" id="success-carousel-img1">                                                              
-                                                <p>11 july, 2020</p>            
-                                            </div>
-                                            <div class=" container success-carousel-details">
-                                                <ul>
-                                                    <div class="row mt-3">
-                                                        <div class="col-md-11">
-                                                            <p>New birdal makeup, hurry up for the limited offer !!</p>
-                                                        </div>
-                                                    </div>        
-                                                    <li>
-                                                        <a href="/indereni"> 
-                                                            <button type="button" class="btn" id="blog-btn">Share</button>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div> 
-                                </div>
-                                <div class="col-md-6">
-                                            <div class="container" id="success-carousel-img2">                                                              
-                                                <p>11 july, 2020</p>            
-                                            </div>
-                                            <div class=" container success-carousel-details">
-                                                <ul>
-                                                    <div class="row mt-3">
-                                                        <div class="col-md-11">
-                                                            <p>New birdal makeup, hurry up for the limited offer !!</p>
-                                                        </div>
-                                                    </div>        
-                                                    <li>
-                                                        <a href="/indereni"> 
-                                                            <button type="button" class="btn" id="blog-btn">Share</button>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div> 
-                                </div>
-                            </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
-                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                     <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
-                     <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                     <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>  
-
-        <div class="col-md-5 desc " style="margin-left:10px;">
-                        <div>
-                            <h2> <span style="font-weight:bold">|</span> Indereni Makeup </h2>
-                        </div>
-                        
-                        <div class="ratings">  
-                            <ul style="padding-left: 15px !important;">
-                                <li>
-                                    <div class="aboutButton as">
-                                        <button class="btnn" id="btnMiss">
-                                            <span class="sth">
-                                                <div id="content">
-                                                    <p><i class="bi bi-hand-thumbs-up-fill"></i> &nbsp;&nbsp;&nbsp;Like</p>
-                                                </div>
-                                            </span>
-                                        </button>
-                                    </div>
-                                    <div class="aboutButton as">
-                                        <button class="btnn" id="btnVal">
-                                            <span class="sth">
-                                                <div id="content">
-                                                    <p><i class="bi bi-hand-thumbs-down-fill"></i></p>
-                                                </div>
-                                            </span>
-                                        </button>
-                                    </div>  
-                                </li>  
-                            </ul> 
-                        </div> 
-                  
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 exp">
-                            <h3><span style="font-weight:bold;">Experience:<br></span> 2 years </h3>
-                        </div>
-                        <div class="col-md-5 ser">
-                            <h3><span style="font-weight:bold;">Service:<br></span> Both home and studio </h3>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-6 exp">
-                            <h3><span style="font-weight:bold;">Location:<br></span> Jhapa-9, sallaghari </h3>
-                        </div>
-                        <div class="col-md-5 ser">
-                            <h3><span style="font-weight:bold;">Payment:<br></span> Both online / cash </h3>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-11 exp" style="margin-top:10px;">
-                            <h3><span style="font-weight:bold;margin-top:10px;">Price:<br></span> Nrs: 3000 per day | Nrs 2000 for bridal </h3>
-                        </div>
-                    </div>
-                    <div class="row justify-content-center exp">
-                        <div class="col-md-11" style="margin-top:10px;">
-                            <h3><span style="font-weight:bold;">Story:</h3>
-                        </div>    
-                    </div>
-                    <div class="row justify-content-center">
-                        <div class="col-md-11 exp" style="text-align:justify;">
-                            <h3>lorem ipsum dipsum lorem ipsum dipsum lorem ipsum dipsum v lorem ipsum dipsum m dipsum v lorem ipsum dipsum m dipsum v lorem ipsum dipsum m dipsum v lorem ipsum dipsum</h3>
-                        </div>
-                    </div>
-                </div>          
     
+    <!--latest post and description-->
+    <div class="container pb-4 pt-5">
+        <div class="row">
+            <div class="col-xl-5   success-title">
+                <span class="trend mb-2">Activities</span>
+                <h4>Latest Post</h4>
+            </div>
         </div>
-    </div> 
-</div>    
-</div>
+    
+        <div class="row justify-content-evenly">
+        @foreach ($post as $postItem)
+            <?php
+                $mail = $values; 
+                $mail1 = $postItem->sessionEmail;
+               
+                if ($mail == $mail1)
+                {
+                    $uploadDate = $postItem->created_at;
+                    $imgFile = $postItem->imgFile;
+                    $caption = $postItem->caption;  
+                } else{
+                    $uploadDate = 'N\A';
+                    $imgFile = 'N\A';
+                    $caption = 'N\A';
+                }
+            ?>
+            @if ($mail == $mail1)
+                <div class="col-md-3">
+                
+                        <div class="row justify-content-center">
+                                        <div class="col-md-10">
+                                                    <div class="container" id="success-carousel-img1">                                                              
+                                                        <p>{{$uploadDate}}</p>            
+                                                    </div>
+                                                    <div class=" container success-carousel-details">
+                                                        <div class="row mt-3">
+                                                            <div class="col-md-11">
+                                                                <p>{{$caption}}</p>
+                                                            </div>
+                                                        </div>  
+                                                        <ul style="display:flex">
+                                                                  
+                                                            <li>
+                                                                <a href="/indereni"> 
+                                                                    <button type="button" class="btn" id="blog-btn">Share</button>
+                                                                </a>
+                                                            
+                                                            </li>
+                                                            @if(Session::has('user'))
+                                                                <?php
+                                                            
+                                                                    $founds = 'N\A';
+                                                                    $userEmail=Session::get('user')['email'];
+                                                                    foreach ($customer as $cust){
+                                                                        if ($userEmail == $cust->email || $userEmail == 'admin@gmail.com'){
+                                                                            $founds = 'yes';
+                                                                            break;
+                                                                        }
+                                                                    }
+                                                                ?>
+                                                                @if ($founds != 'yes')
+                                                                <li>
+                                                                    <form action="{{ url('deletePost/'.$postItem->id) }}" method="POST">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="submit" class="btn"><i class="bi bi-trash"></i></button>
+                                                                    </form>
+                                                                </li>
+                                                                @endif
+                                                            @endif
+                                                        </ul>
+                                                    </div> 
+                                        </div>
+                        </div>
+            
+                </div>
+            @endif 
+        @endforeach
+
+        
+      
+           <?php
+            foreach ($detail as $item){
+            
+                $mail = $values; 
+                $mail1 = $item->email;
+                if ($mail == $mail1)
+                {
+                    $experience = $item->experience;
+                    $service = $item->service;
+                    $payment = $item->payment;
+                    $price = $item->price;
+                    $date = $item->date;
+                    $location = $item->location;
+                    $txt = $item->txt;
+                    break;
+                } else{
+                    $experience = 'N\A';
+                    $service = 'N\A';
+                    $payment = 'N\A';
+                    $price = 'N\A';
+                    $date = 'N\A';
+                    $location = 'N\A';
+                    $txt = 'N\A';
+                }
+            }?>
+
+            <?php
+            foreach ($makeUp as $makeitem){
+            
+                $mail = $values;  
+                $mail1 = $makeitem->email;
+                if ($mail == $mail1)
+                {
+                    $name = $makeitem->name;
+                    break;
+                } else{
+                    $name = 'N\A';
+                }
+            }?>
+
+            <div class="col-md-5 desc " style="margin-left:10px;">
+                            <div>
+                            
+                                    <h2> <span style="font-weight:bold">|</span> {{$name}}</h2>
+                            </div>
+                            @if(Session::has('user'))
+                                <?php
+                                    $venEmail = $values;
+                                    $found = 'N\A';
+                                    $userEmail=Session::get('user')['email'];
+                                    foreach ($makeUp as $item){
+                                        if ($userEmail == $item->email || $userEmail == 'admin@gmail.com'){
+                                            $found = 'yes';
+                                            break;
+                                        }
+                                    }
+                                ?>
+                                
+                                
+                                @if ($found != 'yes')
+                                    @if (session('status'))
+                                        <h6 style="font-size:12px;" class="alert alert-success">{{ session('status') }}</h6>
+                                    @endif
+                                    <div class="ratings">  
+                                        <ul style="padding-left: 15px !important;">
+                                            <li>
+                                                
+                                            
+                                                    <?php      
+                                                        $follow = Follow::all();                                                                                                                                 
+                                                        $vendorMail = $values;
+                                                        $currentUser = Session::get('user')['email'];
+                                                        $userFollowing = 'N\A';
+                                                        $vendorFollowing = 'N\A';
+                                                        $iid = 'N/A'; 
+                                                        foreach ($follow as $following){
+                                                            $userFollowing = $following->userEmail;
+                                                            $vendorFollowing = $following->followedVendor;
+                                                            $iid = $following->id;
+                                                            if ($currentUser == $userFollowing && $vendorMail == $vendorFollowing)
+                                                            {
+                                                                break;
+                                                            } else{
+                                                                $userFollowing = 'N\A';
+                                                                $vendorFollowing = 'N\A';
+                                                                $iid = 'N/A';
+                                                            }
+                                                        }                                                     
+                                                    ?>
+                                                    @if ($currentUser == $userFollowing && $vendorMail == $vendorFollowing)
+                                                        <div class="aboutButton as">
+                                                            <form action="{{url('deleteFollow/'.$iid)}}" method="POST">
+                                                                @csrf
+                                                                <button class="btnn" id="btnVal">
+                                                                    <span class="sth">
+                                                                        <div id="content">
+                                                                            <p><i class="bi bi-hand-thumbs-down-fill"></i></p>
+                                                                        </div>
+                                                                    </span>
+                                                                </button>
+                                                            </form>
+                                                        </div>
+                                                    @else 
+                                                        <div class="aboutButton as">
+                                                            <form action="{{url('followSystem/'.$userEmail)}}" method="POST">
+                                                                @csrf
+                                                                <input class="form-check-input" type="hidden" name="followedVendor" value={{$venEmail}}>
+                                                                <button class="btnn" type="submit" id="btnMiss">
+                                                                        <span class="sth">
+                                                                            <div id="content">
+                                                                                <p><i class="bi bi-hand-thumbs-up-fill"></i> &nbsp;&nbsp;&nbsp;Like</p>
+                                                                            </div>
+                                                                        </span>
+                                                                </button>
+                                                            </form>        
+                                                        </div>                                                  
+                                                    @endif
+                                        
+                                            </li>  
+                                        </ul> 
+                                    </div>
+                                @endif
+                            @else
+                                <br>
+                            @endif
+                    
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 exp">
+                                <h3><span style="font-weight:bold;">Experience:<br></span>{{$experience}}</h3>
+                            </div>
+                            <div class="col-md-5 ser">
+                                <h3><span style="font-weight:bold;">Service:<br></span>{{$service}}</h3>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-6 exp">
+                                <h3><span style="font-weight:bold;">Location:<br></span>{{$location}}</h3>
+                            </div>
+                            <div class="col-md-5 ser">
+                                <h3><span style="font-weight:bold;">Payment:<br></span>{{$payment}}</h3>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-11 exp" style="margin-top:10px;">
+                                <h3><span style="font-weight:bold;margin-top:10px;">Price:<br></span>{{$price}}</h3>
+                            </div>
+                        </div>
+                        <div class="row justify-content-center exp">
+                            <div class="col-md-11" style="margin-top:10px;">
+                                <h3><span style="font-weight:bold;">Story:</h3>
+                            </div>    
+                        </div>
+                        <div class="row justify-content-center">
+                            <div class="col-md-11 exp" style="text-align:justify;">
+                                <h3>{{$txt}}</h3>
+                            </div>
+                        </div>
+                    </div>          
+        
+            </div>
+     
+        </div> 
+    </div>    
+    </div>
+
 
 <!--calender-->
 <div class="container" style="padding-top:20px;">
@@ -224,7 +292,7 @@
                                 </li>  
                             </ul> 
             </div> 
-            <p><span style="font-weight:bold;">Not available: </span> 10, 20, 23, 45</p>
+            <p><span style="font-weight:bold;">Not available: </span>{{$date}}</p>
         </div>
         <div class="col-md-7">
             <form>

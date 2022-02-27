@@ -42,7 +42,7 @@
                     </div>
                  </a>
 
-                <a href="/avaVend">
+                <a href="/venue">
                     <div class="col-md-5" id="categoryCol1" style="background-color: rgb(223, 178, 173);">
                         <div class="row justify-content-evenly">
                             <div class="col-md-5" id="categorytxt">

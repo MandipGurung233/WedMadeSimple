@@ -20,9 +20,7 @@
             $enteredValue = $item->value;
         }
     }
-    rsort($betting);
-
-    
+    rsort($betting);   
 ?>
 <section>
     <div class="container login">

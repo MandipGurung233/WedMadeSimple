@@ -1,3 +1,7 @@
+<?php
+    use App\Models\Approved;
+    $approvedOne = Approved::all();
+?>
 @extends('pages.home.homeMain')
 @section('home')
 
@@ -58,35 +62,40 @@
     </div>
 
     <div class="row justify-content-center" id="feature">
-        <a href="">
-            <div class="col-md-3 text-center" id="featuretxt">
-                <div class="container" id="feature-img1">                                                              
-                                                        
-                </div>
-                <h5>Binita Make-up | <i class="bi bi-file-earmark-check-fill" style="color: green"></i></h5>
-                <p>lorem ipsum dipsum dipsum dipsum lore mlorem lorem lorem lorem</p>
-            </div>
-        </a>
+        @foreach ($approvedOne as $approve)
+            <?php
+                $valued = array();
+                foreach ($approvedOne as $app){
+                    $value2 = '';
+                    $value1 = $app->value;
+                    if (!$value1){
+                        $value2 = '0';
+                        array_push($valued, $value2);
+                    } else{
+                        array_push($valued, $value1);
+                    }
+                }
+                rsort($valued);
+                $valued1 = array();
+                for ($x = 0; $x <= 2; $x++) {
+                    array_push($valued1, $valued[$x]);
+                }
+                $vv = $approve->value;
+            ?>
+            @if (in_array($vv, $valued1))
+                <a href="{{ url('customizeFeature/'.$approve->id) }}">
+                    <div class="col-md-3 text-center" id="featuretxt">
+                        <div class="container" id="feature-img1">                                                              
+                                                                
+                        </div>
+                        <h5>{{$approve->name}} | <i class="bi bi-file-earmark-check-fill" style="color: green"></i></h5>
+                        <p><span style="font-weight:bold;">Location: {{ $approve->address}}</span></p>                                    
+                    </div>
+                </a>
+            @endif
+        @endforeach
 
-        <a href="">
-            <div class="col-md-3 text-center" id="featuretxt">
-                <div class="container" id="feature-img2">                                                              
-                                                        
-                </div>
-                <h5>Perfect Photo | <i class="bi bi-file-earmark-check-fill" style="color: green"></i></h5>
-                <p>lorem ipsum dipsum dipsum dipsum lore mlorem lorem lorem lorem</p>
-            </div>
-        </a>
-
-        <a href="">
-            <div class="col-md-3 text-center" id="featuretxt">
-                <div class="container" id="feature-img3">                                                              
-                                                        
-                </div>
-                <h5>Fashion | <i class="bi bi-file-earmark-check-fill" style="color: green"></i></h5>
-                <p>lorem ipsum dipsum dipsum dipsum lore mlorem lorem lorem lorem</p>
-            </div>
-        </a>   
+       
     </div>
 </div>
 
@@ -309,7 +318,7 @@
                     </div>
                 </a>
 
-                <a href="/avaVend">
+                <a href="/venue">
                     <div class="col-md-5" id="categoryCol1" style="background-color: rgb(223, 178, 173);">
                         <div class="row justify-content-evenly">
                             <div class="col-md-5" id="categorytxt">

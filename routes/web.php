@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\home;
 use App\Http\Controllers\logging;
+use App\Http\Controllers\followSystem;
 
 /*
 |--------------------------------------------------------------------------
@@ -21,7 +22,7 @@ Route::get('/blog',[home::class,'blog']);
 Route::get('/service',[home::class,'service']);
 Route::get('/contact',[home::class,'contact']);
 Route::get('/makeUp',[home::class,'makeUp']);
-Route::get('indereni/{id}',[home::class,'indereni']);
+Route::get('/venue',[home::class,'venued']);
 Route::get('/adminDashboard',[home::class,'adminDash']);
 Route::get('/custDash',[home::class,'customerDash']);
 Route::get('/vendDash',[home::class,'vendorDash']);
@@ -37,6 +38,8 @@ Route::get('/logout',[logging::class,'logout']);
 
 /* Admin dashboard*/
 Route::get('approved/{id}', [home::class,'approved']);
+Route::get('customize/{email}', [home::class,'customize']);
+Route::get('customizeVenue/{email}', [home::class,'customizeVenue']);
 Route::get('/generate', [home::class,'generate']);
 Route::delete('destroy/{id}', [home::class,'destroy']);
 Route::delete('destroyApprove/{id}', [home::class,'destroyApprove']);
@@ -70,4 +73,14 @@ Route::get('/newsFeed',[home::class,'newsFeed']);
 Route::post('/contact',[home::class,'contacts']);
 Route::delete('deleteContact/{id}',[home::class,'deleteContact']);
 Route::delete('deletePost/{id}',[home::class,'deletePost']);
+
+/*Follow system*/
+Route::post('followSystem/{userEmail}',[followSystem::class,'following']);
+Route::post('deleteFollow/{iid}',[followSystem::class,'deleteFollow']);
+
+/*Feature page*/
+Route::get('customizeFeature/{id}', [followSystem::class,'customizeFeature']);
+
+/*random*/
+Route::post('/random',[followSystem::class,'random']);
 

@@ -2,19 +2,13 @@
 <html lang="en">
     <head>
         {{ View::make('layout.main') }}
-        
-        <link rel="stylesheet" href="css/vendorPage/makeUp/makeUp.css">
-        <link rel="stylesheet" href="css/customer/customer.css">
+        <link rel="stylesheet" href="{{ asset('css/vendorPage/makeUp/makeUp.css') }}">
+        <link rel="stylesheet" href="{{ asset('css/customer/customer.css') }}">
         <script type="text/javascript" src="{{ asset('js/vendor/makeUp/makeUp.js') }}" defer></script>
     </head>
     <body>
         {{ View::make('pages.vendorPage.makeUp.header') }}
         @yield('home')
-        <script type="text/javascript">
-            $(function() {
-                $('#datetimepicker1').datetimepicker();
-            });
-        </script>
         <script>
             $(document).ready(function(){
              $('.owl-carousel').owlCarousel({

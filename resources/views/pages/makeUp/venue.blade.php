@@ -1,6 +1,6 @@
 <?php
-    use App\Models\makeUp;
-    $make = makeUp::all();
+    use App\Models\venue;
+    $make = venue::all();
 ?>
 @extends('pages.makeUp.makeUpMain')
 @section('home')
@@ -11,7 +11,7 @@
             <div class="col-md-6 col-lg-8 area">
                 <div class="text-center">
                     <h1 class="mt-5" style="color: white;font-size:35px;">Vendor that best fit for you</h1>
-                    <h1 id="bann"><a href="/">Home</a>><a href="/service">Service</a>><a href="/makeUp">Makeup Vendors</a></h1>
+                    <h1 id="bann"><a href="/">Home</a>><a href="/service">Service</a>><a href="/venue">Venue Vendors</a></h1>
                 </div>
                 <form action="/search" class="search-location mt-md-5">
                     <div class="row justify-content-center">
@@ -37,7 +37,7 @@
 <!--first row of category-->
 <div class="row justify-content-center rows" style="padding-top: 70px;">
         <div class="col-md-12 heading-section text-center mt-0">
-            <span class="subheading mb-2">Make-up Vendor</span>
+            <span class="subheading mb-2">Venue Vendor</span>
             <h3 style="margin-bottom:20px">The best that suits you</h3>
         </div>
 </div>
@@ -49,10 +49,10 @@
             <div class="row justify-content-center" id="categoryRow1">
                 
                 @foreach ($make as $item)
-                    <div class="col-md-3" id="categoryCol1">
+                    <div class="col-md-3" id="categoryCol1" style="background-color: rgb(223, 178, 173);">
                             <div class=" img1 d-none d-md-block">
                                
-                            <a href="{{ url('customize/'.$item->id) }}" class="btn btn-primary btn-sm">
+                            <a href="{{ url('customizeVenue/'.$item->id) }}" class="btn btn-primary btn-sm">
                                 <button type="submit" class="btn mt-2" id="blog-btn">Details</button>
                             </a>
                                 
