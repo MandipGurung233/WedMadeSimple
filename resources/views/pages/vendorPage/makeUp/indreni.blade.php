@@ -261,6 +261,10 @@
     </div>
 
 
+    <?php
+        $venEmail = $values;
+    ?>
+
 <!--calender-->
 <div class="container" style="padding-top:20px;">
     <div class="row justify-content-evenly">
@@ -270,7 +274,7 @@
                             <ul style="padding-left: 0px !important;">
                                 <li>
                                     <div>
-                                        <a href="/books">
+                                        <a href="{{url('books/'.$venEmail)}}">
                                             <button class="book">
                                                 <span class="sth">
                                                     <div id="content">

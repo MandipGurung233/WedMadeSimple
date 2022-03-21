@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use Illuminate\Http\Request;
 use App\Models\Vendor;
 use App\Models\clothing;
@@ -10,11 +9,15 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\File;
 use App\Models\photography;
 use App\Models\venue;
+use App\Notifications\booking;
+use Illuminate\Support\Facades\Notification;
 use App\Models\Approved;
 use App\Models\vendorDetails;
 use App\Models\Post;
+use App\Models\User;
 use App\Models\contact;
 use App\Models\bookDetail;
+use Session;
 
 class home extends Controller
 {
@@ -68,6 +71,17 @@ class home extends Controller
     }
 
     public function customerDash(){
+        /*$users = bookDetail::select(
+            "book_details.id",
+            "book_details.bookDate",
+            "book_details.service",
+            "book_details.venEmail"
+        )
+        ->join("approveds","approveds.email","=", "book_details.venEmail")
+        ->get();
+    
+        dd($users);*/
+
         return view ('pages.dashboard.customer.customer');
     }
 
@@ -88,6 +102,43 @@ class home extends Controller
         $value = Vendor::find($id);
         $value->delete();
         return redirect()->back();
+    }
+
+    public function destroyBooking($id){
+        $value = bookDetail::find($id);
+        $venEmail = $value->venEmail;
+        $value1 = $value->email;
+        $user = User::where(['email'=>$value1])->first();
+        $user->notify(new booking($user, $value));
+      
+        /*
+        $id = Session::get('user'); 
+        $user->notify(new booking($user));
+        /*
+        $value->delete();
+        return redirect()->back();*/
+    }
+
+    public function destroyCustomer($id){
+        $value = bookDetail::find($id);
+        $name=Session::get('user')['email'];
+      
+        return $user;
+        /*
+        $now = $value->created_at;
+        $now1 = strtotime(date('Y-m-d H:i:s'));
+        $diff = $now1 - strtotime($now);
+        
+        if ($diff >= 86400){
+            return redirect()->back()->with('status', 'Booking cancellation failed !! 24 hrs crossed');
+        } else {
+            
+            
+            $value->delete();
+          
+            return redirect()->back();
+        }*/
+       
     }
 
     public function destroyApprove($id){
@@ -211,7 +262,6 @@ class home extends Controller
             $post->caption = $request->caption;
             $post->save();
             return redirect()->back()->with('status','Successfully Posted');
-   
     }
 
     public function deletePost($id){
@@ -252,37 +302,37 @@ class home extends Controller
     }*/
 
     /* Booking details */
-    public function books(){
-        return view ('pages.vendorPage.makeUp.book');
+    public function books($venEmail){
+        
+        $value = Approved::where(['email'=>$venEmail])->first();
+      
+        $values = $value->email;
+        return view ('pages.vendorPage.makeUp.book',compact('values'));
     }
 
     public function book(Request $request, $emails){
         if($request->session()->has('user'))
         {
-          
             $request->validate([
-                'fullName' => 'required',
-                'phone' => 'required',
                 'bookDate' => 'required',
-                'place' => 'required',
-                'flexRadio' => 'required',
-                'venEmail' => 'required',
+                'service' => 'required',
+               
             ]);
 
+            $customerMail=Session::get('user')['email'];
+
             $book = new bookDetail;
-            $book->fullName=$request->fullName;
-            $book->phone=$request->phone;
             $book->bookDate=$request->bookDate;
-            $book->place=$request->place;
-            $book->flexRadio=$request->flexRadio;
-            $book->venEmail=$request->venEmail;
-            $book->custEmail=$emails;
-            $book->save(); 
-            return redirect()->back()->with('status','Pending');
+            $book->service=$request->service;
+            $book->venEmail=$emails;
+            $book->email=$customerMail;
+           
+            $book->save();
+            
+            return redirect()->back()->with('status','Successfully booked');
         } else{
             return redirect('/custLogin');
-        }
-       
+        }  
     }
 
     public function anyBook(){
@@ -290,7 +340,8 @@ class home extends Controller
     }
 
     public function bookingHistory(){
-        return view ('pages.dashboard.customer.customer');
+        $value = bookDetail::all();
+        return view ('pages.dashboard.customer.customer',compact('value'));
     }
 
     public function payment(){
@@ -323,6 +374,13 @@ class home extends Controller
             return redirect()->back();
     }
     
-  
+    public function markasread($id){
+        $iid = Session::get('user')['id']; 
+        $user = User::find($iid);
+        if($id){
+            $user->unreadNotifications->where('id', $id)->markAsRead();
+        }
+        return back();
+    }
 
 }

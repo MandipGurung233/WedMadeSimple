@@ -38,6 +38,7 @@ Route::get('/logout',[logging::class,'logout']);
 
 /* Admin dashboard*/
 Route::get('approved/{id}', [home::class,'approved']);
+Route::get('appro', [home::class,'appro']);
 Route::get('customize/{email}', [home::class,'customize']);
 Route::get('customizeVenue/{email}', [home::class,'customizeVenue']);
 Route::get('/generate', [home::class,'generate']);
@@ -61,7 +62,7 @@ Route::post('auction/{emails}',[home::class,'auctions']);
 
 /*Book details */
 Route::post('book/{emails}',[home::class,'book']);
-Route::get('/books',[home::class,'books']);
+Route::get('books/{venEmail}',[home::class,'books']);
 Route::get('/payment',[home::class,'payment']);
 Route::get('/bookingHistory',[home::class,'bookingHistory']);
 Route::get('/anyBooking',[home::class,'anyBook']);
@@ -83,4 +84,9 @@ Route::get('customizeFeature/{id}', [followSystem::class,'customizeFeature']);
 
 /*random*/
 Route::post('/random',[followSystem::class,'random']);
+
+Route::delete('destroyed/{id}', [home::class,'destroyBooking']);
+Route::delete('cancel/{id}', [home::class,'destroyCustomer']);
+
+Route::get('/markasread/{id}',[home::class, 'markasread'])->name('markasread');
 

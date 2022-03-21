@@ -71,6 +71,7 @@ if(Session::has('user')){
                                     <a class="dropdown-item" href="/logout">Logout</a>
                                 </div>
                             </div>
+                            
                             <li class="nav-item">
                                     <a class="nav-link"  href="#"><i class="bi bi-bell-fill"></i></a>
                             </li>
