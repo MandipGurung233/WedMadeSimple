@@ -214,6 +214,7 @@ class home extends Controller
             'service' => 'required',
             'payment' => 'required',
             'price' => 'required',
+            'price1' => 'required',
             'date' => 'required',
             'txt' => 'required',
         ]);
@@ -226,6 +227,7 @@ class home extends Controller
             $detail->service=$request->service;
             $detail->payment=$request->payment;
             $detail->price=$request->price;
+            $detail->price1=$request->price1;
             $detail->date=$request->date;
             $detail->location=$request->location;
             $detail->email=$emails;
@@ -239,6 +241,7 @@ class home extends Controller
             $detail->service=$request->service;
             $detail->payment=$request->payment;
             $detail->price=$request->price;
+            $detail->price1=$request->price1;
             $detail->date=$request->date;
             $detail->location=$request->location;
             $detail->email=$emails;
@@ -317,19 +320,16 @@ class home extends Controller
                 'bookDate' => 'required',
                 'service' => 'required',
                
-            ]);
-
+            ]);   
             $customerMail=Session::get('user')['email'];
-
             $book = new bookDetail;
             $book->bookDate=$request->bookDate;
             $book->service=$request->service;
             $book->venEmail=$emails;
             $book->email=$customerMail;
-           
             $book->save();
-            
-            return redirect()->back()->with('status','Successfully booked');
+           
+            return redirect()->back()->with('status','Booking complete !! Please proceed to advance payment'); 
         } else{
             return redirect('/custLogin');
         }  
@@ -344,8 +344,8 @@ class home extends Controller
         return view ('pages.dashboard.customer.customer',compact('value'));
     }
 
-    public function payment(){
-        return view ('pages.dashboard.customer.payment');
+    public function payment(Request $request, $amount){
+        return view ('pages.dashboard.customer.payment',compact('amount'));
     }
 
     public function newsFeed(){

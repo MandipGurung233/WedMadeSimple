@@ -106,6 +106,7 @@
                     $service = $item->service;
                     $payment = $item->payment;
                     $price = $item->price;
+                    $price1 = $item->price1;
                     $date = $item->date;
                     $location = $item->location;
                     $txt = $item->txt;
@@ -115,6 +116,7 @@
                     $service = 'N\A';
                     $payment = 'N\A';
                     $price = 'N\A';
+                    $price1 = 'N\A';
                     $date = 'N\A';
                     $location = 'N\A';
                     $txt = 'N\A';
@@ -238,8 +240,11 @@
                             </div>
                         </div>
                         <div class="row justify-content-center">
-                            <div class="col-md-11 exp" style="margin-top:10px;">
-                                <h3><span style="font-weight:bold;margin-top:10px;">Price:<br></span>{{$price}}</h3>
+                            <div class="col-md-6 exp" style="margin-top:10px;">
+                                <h3><span style="font-weight:bold;margin-top:10px;">Venue Booking (Nrs):<br></span>{{$price}}</h3>
+                            </div>
+                            <div class="col-md-5 ser" style="margin-top:10px;">
+                                <h3><span style="font-weight:bold;margin-top:10px;">Home Booking (Nrs):<br></span>{{$price1}}</h3>
                             </div>
                         </div>
                         <div class="row justify-content-center exp">

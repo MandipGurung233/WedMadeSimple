@@ -18,7 +18,7 @@ class CreateBookDetailsTable extends Migration
             $table->string('bookDate');
             $table->string('service');
             $table->string('venEmail');
-            $table->string('email'); 
+            $table->string('email');
             $table->timestamps();
         });
     }

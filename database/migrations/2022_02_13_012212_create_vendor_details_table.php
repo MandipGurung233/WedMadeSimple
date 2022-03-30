@@ -18,7 +18,8 @@ class CreateVendorDetailsTable extends Migration
             $table->string('experience');
             $table->string('service');
             $table->string('payment'); 
-            $table->string('price'); 
+            $table->integer('price'); 
+            $table->integer('price1')->nullable(); 
             $table->string('date');
             $table->string('location');
             $table->string('email')->unique(); 

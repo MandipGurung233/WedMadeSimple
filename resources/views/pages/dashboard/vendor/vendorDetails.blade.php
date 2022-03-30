@@ -36,8 +36,13 @@
                             </div>
                             <div class="form-group1">
                                 <label for="your_name" class="form-label labels"><span style="color:#6dabe4;"><i class="bi bi-unlock-fill"></i></span></label>
-                                <input type="text" class="form-control inputs" name="price" id="your_name" placeholder="Price"/>
+                                <input type="number" class="form-control inputs" name="price" id="your_name" placeholder="venue booking price"/>
                                 <span style="color: red; font-size:12px;">@error('price'){{ $message }}@enderror</span>   
+                            </div>
+                            <div class="form-group1">
+                                <label for="your_name" class="form-label labels"><span style="color:#6dabe4;"><i class="bi bi-unlock-fill"></i></span></label>
+                                <input type="number" class="form-control inputs" name="price1" id="your_name" placeholder="home booking price"/>
+                                <span style="color: red; font-size:12px;">@error('price1'){{ $message }}@enderror</span>   
                             </div>
                             <div class="form-group1">
                                 <label for="your_name" class="form-label labels"><span style="color:#6dabe4;"><i class="bi bi-unlock-fill"></i></span></label>

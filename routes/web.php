@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\home;
 use App\Http\Controllers\logging;
 use App\Http\Controllers\followSystem;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -63,7 +64,7 @@ Route::post('auction/{emails}',[home::class,'auctions']);
 /*Book details */
 Route::post('book/{emails}',[home::class,'book']);
 Route::get('books/{venEmail}',[home::class,'books']);
-Route::get('/payment',[home::class,'payment']);
+Route::get('payment/{amount}',[home::class,'payment']);
 Route::get('/bookingHistory',[home::class,'bookingHistory']);
 Route::get('/anyBooking',[home::class,'anyBook']);
 
@@ -90,3 +91,5 @@ Route::delete('cancel/{id}', [home::class,'destroyCustomer']);
 
 Route::get('/markasread/{id}',[home::class, 'markasread'])->name('markasread');
 
+Route::post('/khalti/payment/verify',[PaymentController::class,'verifyPayment'])->name('khalti.verifyPayment');
+Route::post('/khalti/payment/store',[PaymentController::class,'storePayment'])->name('khalti.storePayment');
