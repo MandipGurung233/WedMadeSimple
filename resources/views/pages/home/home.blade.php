@@ -115,6 +115,52 @@
             <div class="row">
                 <div class="container">
                     <div class="owl-carousel owl-theme owl-carousel-wrapper mt-2 pt-4">
+    
+                        <?php   
+                            $data = array();
+                            foreach ($approvedOne as $app){
+                                $key = $app->id;
+                                $value = $app->bookNo; 
+                                $data[$key] = $value;        
+                            }
+                            arsort($data);
+                        ?>
+
+                        @foreach ($data as $key => $value)
+                            <?php
+                                foreach ($approvedOne as $app){
+                                    $id = $app->id;
+                                    $name = $app->name;
+                                    $address = $app->address;
+                                    $bookNo = $app->bookNo; 
+                                    if ($key == $id && $value == $bookNo){
+                                        break;
+                                    }    
+                                }
+                            ?>
+
+                            <a href="{{ url('customizeFeature/'.$id) }}" style="text-decoration: none;">
+                                <div class="item popular-carousel-item pt-2">
+                                    <div class="container" id="popular-carousel-img1">                                                              
+                                                        
+                                    </div>
+                                    <div class=" container popular-carousel-details">
+                                        <ul>
+                                            <div class="row mt-3">
+                                                <div class="col-md-6">
+                                                    <li><h6 style="margin-bottom:0px !important;">{{$name}}  </h6></li>
+                                                    <li><span style="color:grey; font-size:13px;">Total Booking: {{$bookNo}}</span></li>
+                                                    <li><p>Location: {{$address}}</p></li>
+                                                </div>
+                                                
+                                            </div>        
+                                            
+                                        </ul>
+                                    </div>
+                                </div>
+                            </a>
+                        @endforeach
+<!--
                         <a href="" style="text-decoration: none;">
                             <div class="item popular-carousel-item pt-2">
                                 <div class="container" id="popular-carousel-img1">                                                              
@@ -281,7 +327,7 @@
                                     </ul>
                                 </div>
                             </div>
-                        </a>                       
+                        </a>-->                 
                     </div>
                 </div>
             </div>  

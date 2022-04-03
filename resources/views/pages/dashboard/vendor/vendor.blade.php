@@ -4,8 +4,10 @@
 <?php
     use App\Models\vendorDetails;
     use App\Models\Post;
+    use App\Models\Approved;
     $detail = vendorDetails::all();
     $post = Post::all();
+    $makeUp = Approved::all();
 ?>
 <?php
  foreach ($detail as $item){
@@ -34,6 +36,8 @@
         $txt = 'N\A';
     }
 }?>
+
+
     
     <!--latest post and description-->
     <div class="container pb-4 pt-5">
@@ -101,13 +105,24 @@
         @endforeach
 
         
-        
-          
+            <?php
+                foreach ($makeUp as $makeitem){
+                    $mail = Session::get('user')['email']; 
+                    $mail1 = $makeitem->email;
+                    if ($mail == $mail1)
+                    {
+                        $view = $makeitem->view;
+                        break;
+                    } else{
+                        $view = 'N\A';
+                    }
+                }
+            ?>
 
             <div class="col-md-5 desc " style="margin-left:10px;">
                             <div>
                             
-                                    <h2> <span style="font-weight:bold">|</span> {{ Session::get('user')['name'] }}</h2>
+                                    <h2> <span style="font-weight:bold">|</span> {{ Session::get('user')['name'] }} <span style="color:grey; font-size:13px; margin-left:10px;">{{$view}} views</span></h2>
                             </div>
                         <br>
                     

@@ -131,16 +131,20 @@
                 if ($mail == $mail1)
                 {
                     $name = $makeitem->name;
+                    $view = $makeitem->view;
                     break;
                 } else{
                     $name = 'N\A';
+                    $view = 'N\A';
                 }
             }?>
 
             <div class="col-md-5 desc " style="margin-left:10px;">
                             <div>
                             
-                                    <h2> <span style="font-weight:bold">|</span> {{$name}}</h2>
+                                    <h2> <span style="font-weight:bold">|</span> {{$name}}   <span style="color:grey; font-size:13px; margin-left:10px;">{{$view}} views</span></h2>
+                                  
+                       
                             </div>
                             @if(Session::has('user'))
                                 <?php

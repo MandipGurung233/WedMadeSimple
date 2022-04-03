@@ -27,6 +27,7 @@ Route::get('/venue',[home::class,'venued']);
 Route::get('/adminDashboard',[home::class,'adminDash']);
 Route::get('/custDash',[home::class,'customerDash']);
 Route::get('/vendDash',[home::class,'vendorDash']);
+
 /*Register*/
 Route::get('/customer',[home::class,'customer']);
 Route::get('/vendor',[home::class,'vendor']);
@@ -90,6 +91,7 @@ Route::delete('destroyed/{id}', [home::class,'destroyBooking']);
 Route::delete('cancel/{id}', [home::class,'destroyCustomer']);
 
 Route::get('/markasread/{id}',[home::class, 'markasread'])->name('markasread');
+Route::get('/mark_as_read/{id}',[home::class, 'mark_as_read'])->name('mark_as_read');
 
 Route::post('/khalti/payment/verify',[PaymentController::class,'verifyPayment'])->name('khalti.verifyPayment');
 Route::post('/khalti/payment/store',[PaymentController::class,'storePayment'])->name('khalti.storePayment');

@@ -16,7 +16,7 @@ use App\Models\Approved;
 $name='';  
 if(Session::has('user')){
     $name=Session::get('user')['email'];
-    
+
     $user = User::where(['email'=>$name])->first();
     $user1 = Approved::where(['email'=>$name])->first();
     if (!$user){
@@ -57,8 +57,32 @@ if(Session::has('user')){
                             <li class="nav-item">
                                 <a class="nav-link"  href="/contact">Contact</a>
                             </li>
-                            
                             @if(Session::has('user'))
+                        
+                            <div class="dropdown">
+                                <a class="dropdown" data-bs-toggle="dropdown" href="#" class="signup"><button type="button" class="btns" id="banner-btn-1"><i class="bi bi-bell-fill" style="color:white;"></i><span style="color:red;"> {{$user1->unreadNotifications->count()}}</span></button></a>        
+                                <div class="dropdown-menu">
+                                    @foreach($user1->unreadNotifications as $notification)   
+                                        <?php
+                                    
+                                        $custEmail = $notification->data['email']; 
+                                        $name=Session::get('user')['email'];
+                                        if ($custEmail == $name){
+                                            $email = $notification->data['customerMail']; 
+                                            $find = User::where(['email'=>$email])->first();
+                                            $custName = $find->name;   
+                                        }
+                                        ?>
+                                        @if ($custEmail == $name)
+                                            <p class="dropdown-item" href=""> <b>{{$custName}}</b><br>has booked you<br>
+                                            <a href="{{ route('mark_as_read', $notification->id)}}" style="color:red;text-decoration:underline;">Mark as read</a>
+                                            </p>                                        
+                                        @endif
+                                                                                                                              
+                                    @endforeach                                   
+                                </div>
+                            </div>
+                            
                             <div class="dropdown">
                                 <a class="dropdown-toggle " data-bs-toggle="dropdown" href="{{$name}}" class="signup"><button type="button" class="btns" id="banner-btn-1">{{ Session::get('user')['name'] }}</button></a>        
                                 <div class="dropdown-menu">
@@ -71,10 +95,7 @@ if(Session::has('user')){
                                     <a class="dropdown-item" href="/logout">Logout</a>
                                 </div>
                             </div>
-                            
-                            <li class="nav-item">
-                                    <a class="nav-link"  href="#"><i class="bi bi-bell-fill"></i></a>
-                            </li>
+                           
                             @else
                             <div class="dropdown">
                                 <a class="dropdown-toggle " data-bs-toggle="dropdown" href="#" class="signup"><button type="button" class="btns" id="banner-btn-1">Log-In</button></a>        
@@ -84,7 +105,7 @@ if(Session::has('user')){
                                     <a class="dropdown-item" href="/custLogin">Customer</a>
                                 </div>
                             </div>
-                            @endif
+                            @endif                                            
                     </ul>
                 </div>  
             </div>

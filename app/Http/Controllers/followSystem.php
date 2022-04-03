@@ -21,6 +21,9 @@ class followSystem extends Controller
     public function customizeFeature($id){
         $value = Approved::find($id);
         $values = $value->email;
+        $views = Approved::where(['email'=>$values])->first();
+        $views->view = $views->view + '1';
+        $views->update();
         return view('pages.vendorPage.makeUp.indreni',compact('values'));  
     }
 

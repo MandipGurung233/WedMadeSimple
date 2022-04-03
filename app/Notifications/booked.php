@@ -7,21 +7,22 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
-class booking extends Notification
+class booked extends Notification
 {
     use Queueable;
     public $user;
-    public $value;
+    public $emails;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct($user, $value)
+    public function __construct($vendor, $customerMail)
     {
-        $this->user = $user;
-        $this->value = $value;
+        //
+        $this->vendor = $vendor;
+        $this->customerMail = $customerMail;
     }
 
     /**
@@ -35,13 +36,14 @@ class booking extends Notification
         return ['database'];
     }
 
+
     public function toArray($notifiable)
     {
         return [
-            'id'=>$this->user['id'],
-            'email'=>$this->user['email'],
-            'venEmail'=>$this->value['venEmail']
-            
+            //
+            'id'=>$this->vendor['id'],
+            'email'=>$this->vendor['email'],
+            'customerMail'=>$this->customerMail
         ];
     }
 }

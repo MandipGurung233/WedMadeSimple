@@ -116,9 +116,9 @@ if(Session::has('user')){
    
 <br><br>
 <?php
-        $value = $amount;
-        
+        $value = $amount;   
         $value1 = $value / 2;
+        $value2 = $value1 / 100;
 ?>
 <div class="container">    
                 <div class="row pt-2 justify-content-center">
@@ -209,7 +209,7 @@ if(Session::has('user')){
         var btn = document.getElementById("payment-button");
         btn.onclick = function () {
             // minimum transaction amount must be 10, i.e 1000 in paisa.
-            checkout.show({amount: 1000});
+            checkout.show({amount: 100 * {{$value2}}});
         }
     </script>
 </body>

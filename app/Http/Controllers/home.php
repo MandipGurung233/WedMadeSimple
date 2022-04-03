@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\File;
 use App\Models\photography;
 use App\Models\venue;
 use App\Notifications\booking;
+use App\Notifications\booked;
 use Illuminate\Support\Facades\Notification;
 use App\Models\Approved;
 use App\Models\vendorDetails;
@@ -18,6 +19,7 @@ use App\Models\User;
 use App\Models\contact;
 use App\Models\bookDetail;
 use Session;
+use Mail;
 
 class home extends Controller
 {
@@ -110,21 +112,24 @@ class home extends Controller
         $value1 = $value->email;
         $user = User::where(['email'=>$value1])->first();
         $user->notify(new booking($user, $value));
-      
-        /*
-        $id = Session::get('user'); 
-        $user->notify(new booking($user));
-        /*
+
+        $find = Approved::where(['email'=>$venEmail])->first();
+        $vendName = $find->name;
+        $data = ['name'=>$vendName,'data'=>'cancelled your booking', 'us'=>'User'];
+        $user['to'] = $value1;
+        Mail::send('mail',$data,function($messages) use ($user){
+            $messages->to($user['to']);
+            $messages->subject('Booking Cancellation !!');
+        });
         $value->delete();
-        return redirect()->back();*/
+        return redirect()->back();
     }
 
     public function destroyCustomer($id){
         $value = bookDetail::find($id);
         $name=Session::get('user')['email'];
       
-        return $user;
-        /*
+        
         $now = $value->created_at;
         $now1 = strtotime(date('Y-m-d H:i:s'));
         $diff = $now1 - strtotime($now);
@@ -137,7 +142,7 @@ class home extends Controller
             $value->delete();
           
             return redirect()->back();
-        }*/
+        }
        
     }
 
@@ -159,18 +164,23 @@ class home extends Controller
         $approved->save(); 
         $request->delete();
         return redirect()->back()->with('status','Successfully Approved');
-
     }
 
     public function customize($id){
         $value = makeUp::find($id);
         $values = $value->email;
+        $views = Approved::where(['email'=>$values])->first();
+        $views->view = $views->view + '1';
+        $views->update();
         return view('pages.vendorPage.makeUp.indreni',compact('values'));  
     }
 
     public function customizeVenue($id){
         $value = venue::find($id);
         $values = $value->email;
+        $views = Approved::where(['email'=>$values])->first();
+        $views->view = $views->view + '1';
+        $views->update();
         return view('pages.vendorPage.makeUp.indreni',compact('values'));  
     }
 
@@ -328,7 +338,23 @@ class home extends Controller
             $book->venEmail=$emails;
             $book->email=$customerMail;
             $book->save();
+
+            $bookNo = Approved::where(['email'=>$emails])->first();
+            $bookNo->bookNo = $bookNo->bookNo + '1';
+            $bookNo->update();
+
+            $vendor = Approved::where(['email'=>$emails])->first();
+            $vendor->notify(new booked($vendor, $customerMail));
            
+            $find = User::where(['email'=>$customerMail])->first();
+            $vendName = $find->name;
+            $data = ['name'=>$vendName, 'data'=>'has booked your vendor', 'us'=>'vendor'];
+            $user['to'] = $emails;
+            Mail::send('mail',$data,function($messages) use ($user){
+                $messages->to($user['to']);
+                $messages->subject('Alert New Booking!!');
+            });
+
             return redirect()->back()->with('status','Booking complete !! Please proceed to advance payment'); 
         } else{
             return redirect('/custLogin');
@@ -377,6 +403,15 @@ class home extends Controller
     public function markasread($id){
         $iid = Session::get('user')['id']; 
         $user = User::find($iid);
+        if($id){
+            $user->unreadNotifications->where('id', $id)->markAsRead();
+        }
+        return back();
+    }
+
+    public function mark_as_read($id){
+        $iid = Session::get('user')['id']; 
+        $user = Approved::find($iid);
         if($id){
             $user->unreadNotifications->where('id', $id)->markAsRead();
         }

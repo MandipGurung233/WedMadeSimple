@@ -10,10 +10,11 @@ class PaymentController extends Controller
     public function verifyPayment(Request $request)
     {
         $token = $request->token;
+        $amount = $request->amount;
 
         $args = http_build_query(array(
             'token' => $token,
-            'amount'  => 1000
+            'amount'  => $amount
         ));
 
         $url = "https://khalti.com/api/v2/payment/verify/";
