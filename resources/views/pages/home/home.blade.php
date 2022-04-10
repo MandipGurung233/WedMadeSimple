@@ -11,7 +11,7 @@
 <div class="header">   
     <div class="overlay"></div>  
     <div class="container">
-      <!--banner-->
+      <!--bann-->
         <div class="row justify-content-center slider-text align-items-center mt-6">
             <div class="col-md-6 col-lg-8 mt-10">
             <div class="text text-center">
