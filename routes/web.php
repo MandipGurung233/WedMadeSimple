@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\home;
 use App\Http\Controllers\logging;
 use App\Http\Controllers\followSystem;
+use App\Http\Controllers\recommend;
 use App\Http\Controllers\PaymentController;
 
 /*
@@ -27,6 +28,7 @@ Route::get('/venue',[home::class,'venued']);
 Route::get('/adminDashboard',[home::class,'adminDash']);
 Route::get('/custDash',[home::class,'customerDash']);
 Route::get('/vendDash',[home::class,'vendorDash']);
+Route::get('/search',[home::class,'search']);
 
 /*Register*/
 Route::get('/customer',[home::class,'customer']);
@@ -95,3 +97,6 @@ Route::get('/mark_as_read/{id}',[home::class, 'mark_as_read'])->name('mark_as_re
 
 Route::post('/khalti/payment/verify',[PaymentController::class,'verifyPayment'])->name('khalti.verifyPayment');
 Route::post('/khalti/payment/store',[PaymentController::class,'storePayment'])->name('khalti.storePayment');
+
+/* Recommendation*/
+Route::get('/recommend',[recommend::class,'recommend']);

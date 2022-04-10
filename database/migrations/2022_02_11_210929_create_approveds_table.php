@@ -19,8 +19,9 @@ class CreateApprovedsTable extends Migration
             $table->string('address');
             $table->string('email')->unique();
             $table->string('password'); 
-            $table->string('vendorType'); 
-            $table->string('file')->nullable();
+            $table->string('vendorType');
+            $table->string('file')->nullable(); 
+            $table->string('description')->nullable(); 
             $table->string('view')->nullable();
             $table->string('bookNo')->nullable();
             $table->string('value')->nullable(); 

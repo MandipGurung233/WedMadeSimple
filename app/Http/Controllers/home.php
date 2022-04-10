@@ -161,6 +161,7 @@ class home extends Controller
         $approved->password=$request->password;
         $approved->vendorType=$request->vendorType;
         $approved->file=$request->file;
+        $approved->description=$request->description;
         $approved->save(); 
         $request->delete();
         return redirect()->back()->with('status','Successfully Approved');
@@ -360,6 +361,25 @@ class home extends Controller
             return redirect('/custLogin');
         }  
     }
+
+    public function search(Request $request){
+
+        $search = request()->query('search');
+        if(!$search){
+            return redirect('/');
+        }
+
+        $user = Approved::where(['address'=>$request->search])->first();
+        if (!$user){
+            return back()->with('status','!! No any properties on that location');
+        }
+        else{
+            $data = Approved::find($user['id']);
+            return view ('pages.home.search',compact('data'));   
+        }
+        
+    }
+
 
     public function anyBook(){
         return view ('pages.dashboard.vendor.anyBook');

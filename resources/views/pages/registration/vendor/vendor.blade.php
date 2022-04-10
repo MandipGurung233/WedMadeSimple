@@ -87,7 +87,14 @@
                                 </div>
 
                             
-                            <hr>       
+                            
+                            <div class="form-group1">
+                                <label for="your_name" class="form-label labels"><span style="color:#6dabe4;"><i class="bi bi-file-text-fill"></i></span></label>
+                                <textarea type="text" class="form-control inputs" name="description" id="your_name" placeholder="write description"></textarea>
+                                <span style="color: red; font-size:12px;">@error('description'){{ $message }}@enderror</span>
+                            
+                            </div>
+                                       
                             <div class="form-group1 form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit1" value="Register"/>
                             </div>

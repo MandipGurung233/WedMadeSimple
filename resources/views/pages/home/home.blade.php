@@ -1,7 +1,10 @@
 <?php
     use App\Models\Approved;
     $approvedOne = Approved::all();
+   
+
 ?>
+
 @extends('pages.home.homeMain')
 @section('home')
 
@@ -13,23 +16,24 @@
             <div class="col-md-6 col-lg-8 mt-10">
             <div class="text text-center">
                 <h1 class="mb-4" id="bann">And So<br>The adventure Begins</h1>
+                
                 <form action="/search" class="search-location mt-md-5">
-                <div class="row justify-content-center">
-                    <div class="col-lg-10 align-items-end">
-                    <div class="form-group">
-                        <div class="form-field">
-                        
-                        <input type="text" name="search" class="form-control" placeholder="Search City">
-                        <button>
-                                <i class="bi bi-search" id="nn"></i>
-                        </button>
-                        
+                    <div class="row justify-content-center">
+                        <div class="col-lg-10 align-items-end">
+                        <div class="form-group">
+                            <div class="form-field">
+                            
+                            <input type="text" name="search" class="form-control" placeholder="@if (session('status')) {{ session ('status') }} @else Search location @endif">
+                            <button>
+                                    <i class="bi bi-search" id="nn"></i>
+                            </button>
+                            
+                            </div>
+                        </div>
                         </div>
                     </div>
-                    </div>
-                </div>
                 </form>
-            
+        
             </div>
             </div>
         </div>
@@ -159,183 +163,129 @@
                                     </div>
                                 </div>
                             </a>
-                        @endforeach
-<!--
-                        <a href="" style="text-decoration: none;">
-                            <div class="item popular-carousel-item pt-2">
-                                <div class="container" id="popular-carousel-img1">                                                              
-                                                     
-                                </div>
-                                <div class=" container popular-carousel-details">
-                                    <ul>
-                                        <div class="row mt-3">
-                                            <div class="col-md-6">
-                                                <li><h6>Oceana Resort</h6></li>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <li class="star-rating">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span>(3)</span>
-                                                </li>
-                                            </div>
-                                        </div>        
-                                        <li><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Toptio excepturi distinctio aspernatur unde</p></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="" style="text-decoration: none;">
-                            <div class="item popular-carousel-item pt-2">
-                                <div class="container" id="popular-carousel-img2">                                                              
-                                                     
-                                </div>
-                                <div class=" container popular-carousel-details">
-                                    <ul>
-                                        <div class="row mt-3">
-                                            <div class="col-md-6">
-                                                <li><h6>Chandragiri</h6></li>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <li class="star-rating">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span>(3)</span>
-                                                </li>
-                                            </div>
-                                        </div>        
-                                        <li><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Toptio excepturi distinctio aspernatur unde</p></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-                                               
-                        <a href="" style="text-decoration: none;">
-                            <div class="item popular-carousel-item pt-2">
-                                <div class="container" id="popular-carousel-img3">                                                              
-                                                     
-                                </div>
-                                <div class=" container popular-carousel-details">
-                                    <ul>
-                                        <div class="row mt-3">
-                                            <div class="col-md-6">
-                                                <li><h6>Banjagiri</h6></li>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <li class="star-rating">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span>(3)</span>
-                                                </li>
-                                            </div>
-                                        </div>        
-                                        <li><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Toptio excepturi distinctio aspernatur unde</p></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="" style="text-decoration: none;">
-                            <div class="item popular-carousel-item pt-2">
-                                <div class="container" id="popular-carousel-img4">                                                              
-                                                     
-                                </div>
-                                <div class=" container popular-carousel-details">
-                                    <ul>
-                                        <div class="row mt-3">
-                                            <div class="col-md-6">
-                                                <li><h6>Darpan hotel</h6></li>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <li class="star-rating">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span>(3)</span>
-                                                </li>
-                                            </div>
-                                        </div>        
-                                        <li><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Toptio excepturi distinctio aspernatur unde</p></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="" style="text-decoration: none;">
-                            <div class="item popular-carousel-item pt-2">
-                                <div class="container" id="popular-carousel-img5">                                                              
-                                                     
-                                </div>
-                                <div class=" container popular-carousel-details">
-                                    <ul>
-                                        <div class="row mt-3">
-                                            <div class="col-md-6">
-                                                <li><h6>Kanxa palace</h6></li>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <li class="star-rating">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span>(3)</span>
-                                                </li>
-                                            </div>
-                                        </div>        
-                                        <li><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Toptio excepturi distinctio aspernatur unde</p></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>
-
-                        <a href="" style="text-decoration: none;">
-                            <div class="item popular-carousel-item pt-2">
-                                <div class="container" id="popular-carousel-img6">                                                              
-                                                     
-                                </div>
-                                <div class=" container popular-carousel-details">
-                                    <ul>
-                                        <div class="row mt-3">
-                                            <div class="col-md-6">
-                                                <li><h6>3 star palace</h6></li>
-                                            </div>
-                                            <div class="col-md-6">
-                                                <li class="star-rating">
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star checked"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span class="fa fa-star"></span>
-                                                    <span>(3)</span>
-                                                </li>
-                                            </div>
-                                        </div>        
-                                        <li><p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Toptio excepturi distinctio aspernatur unde</p></li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </a>-->                 
+                        @endforeach               
                     </div>
                 </div>
             </div>  
         </div>
     </div>
-
    
+        <?php
+            use App\Models\User;
+            use App\Models\bookDetail;
+            $info = bookDetail::all();
+            $detail = User::all();
+            $value='1';
+            $email = 'n/a';
+            $email2 = 'n/';
+            $value = 'n';
+            $value1 = '0';
+            $total = '0';
+            $customer = 'wd';
+            $descriptions = 'de';
+            $string = 'Get all your make up need with best price and get both home as well as studio service';
+            if(Session::has('user')){
+               
+                $email=Session::get('user')['email'];
+               
+                foreach ($detail as $em){
+                    $customer = $em->email;
+                    if ($email == $customer){
+                        $vendorEmail = array();
+                        foreach ($info as $infos){      
+                            $recodescri = $infos->email;
+                            if ($email == $recodescri){
+                                $value1 = $infos->venEmail;
+                                array_push($vendorEmail, $value1);
+                            }
+                        }
+                        $total = count($vendorEmail);
+                            
+                        $i = 0;
+                        $finalRecommend = array();
+                        while ($i < $total){
+                            $descriptions = $vendorEmail[$i];
+                            $description1 = Approved::where(['email'=>$descriptions])->first();
+                            $string = $description1->description;
+                            $result = shell_exec('cd / && cd xampp/htdocs/WedMadeSimple/public/recommendation && c:/xampp/htdocs/WedMadeSimple/public/recommendation/venv/Scripts/Activate.ps1 && c:/xampp/htdocs/WedMadeSimple/public/recommendation/venv/Scripts/python.exe c:/xampp/htdocs/WedMadeSimple/public/recommendation/recommend.py 2>&1 "'.$string.'"');
+                            $result1 = substr("$result",0,-2);
+                            $value = explode(",",$result1);
+                            $obtainedRecomm = count($value);
+                            $j = 0;
+                            while ($j < $obtainedRecomm){
+                                $recommend = $value[$j];
+                                array_push($finalRecommend, $recommend);
+                                $j = $j + 1;
+                            }
+                            $i = $i + 1;
+                        }
+                        $totals = count($finalRecommend);
+                        $k = 0;
+                        break;
+                        
+                    }
+                    
+                }
+                
+            }
+        ?>
+       
+        @if($email == $customer)
+                <!--Popular vendor-->
+                <div class="container pb-5">
+                        <div class="row">
+                            <div class="col-xl-5   popular-title">
+                                <span class="trend mb-2">Popular</span>
+                                <h4>Recommendation</h4>
+                            </div>
+                        </div>
 
+                        <div>
+                            <div class="row">
+                                <div class="container">
+                                    <div class="owl-carousel owl-theme owl-carousel-wrapper mt-2 pt-4">
+                    
+                                        @for ($k = 0; $k < $totals; $k++)
+
+                                            <?php
+                                                $valuee = $finalRecommend[$k];
+                                                $finds = Approved::where(['description'=>$valuee])->first();
+                                                $id = $finds->id;
+                                                $name = $finds->name;
+                                                $description = $finds->description;
+                                                $address = $finds->address;
+                                            ?>                           
+                                            
+                                            <a href="{{ url('customizeFeature/'.$id) }}" style="text-decoration: none;">
+                                                <div class="item popular-carousel-item pt-2">
+                                                    <div class="container" id="popular-carousel-img1">                                                              
+                                                                        
+                                                    </div>
+                                                    <div class=" container popular-carousel-details">
+                                                        <ul>
+                                                            <div class="row mt-3">
+                                                                <div class="col-md-6">
+                                                                    <li><h6 style="margin-bottom:0px !important;">{{$name}}  </h6></li>
+                                                                    <li><span style="color:grey; font-size:13px;">Location: {{$address}}</span></li>                                   
+                                                                </div>
+                                                                
+                                                            </div>        
+                                                            
+                                                        </ul>
+                                                    </div>
+                                                </div>
+                                            </a>
+                                        @endfor
+                                                        
+                                    
+                                        
+                                    </div>
+                                </div>
+                            </div>  
+                        </div>
+                    </div>
+            
+        @endif
 <!--Category-->
 <div class="container pb-3">
     <div class="row">

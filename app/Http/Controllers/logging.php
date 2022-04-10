@@ -146,6 +146,7 @@ class logging extends Controller
         $vendor->password=$request->password;
         $vendor->vendorType=$purpose;
         $vendor->file=$request->file;
+        $vendor->description=$request->description;
         if($request->hasfile('file')){
             $file = $request->file('file');
             $extension = $file->getClientOriginalExtension();
