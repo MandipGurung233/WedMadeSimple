@@ -21,10 +21,12 @@ class CreateApprovedsTable extends Migration
             $table->string('password'); 
             $table->string('vendorType');
             $table->string('file')->nullable(); 
-            $table->string('description')->nullable(); 
+            $table->string('description'); 
             $table->string('view')->nullable();
             $table->string('bookNo')->nullable();
             $table->string('value')->nullable(); 
+            $table->string('approves')->nullable();
+            $table->string('paid')->nullable();
             $table->timestamps();
         });
     }

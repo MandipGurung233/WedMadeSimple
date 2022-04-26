@@ -7,9 +7,17 @@
     use App\Models\Approved;
     $detail = vendorDetails::all();
     $post = Post::all();
+    use App\Models\service;
+    use App\Models\vendorDate;
+    $vendorDate = vendorDate::all();
     $makeUp = Approved::all();
+    $approvedOne = Approved::all();
 ?>
+
 <?php
+$experience = 'N\A';                  
+$payment = 'N\A';
+$txt = 'N\A';
  foreach ($detail as $item){
    
     $mail = Session::get('user')['email']; 
@@ -17,27 +25,12 @@
     if ($mail == $mail1)
     {
         $experience = $item->experience;
-        $service = $item->service;
         $payment = $item->payment;
-        $price = $item->price;
-        $price1 = $item->price1;
-        $date = $item->date;
-        $location = $item->location;
-        $txt = $item->txt;
-        break;
-    } else{
-        $experience = 'N\A';
-        $service = 'N\A';
-        $payment = 'N\A';
-        $price = 'N\A';
-        $price1 = 'N\A';
-        $date = 'N\A';
-        $location = 'N\A';
-        $txt = 'N\A';
-    }
-}?>
-
-
+        
+                    break;
+                }
+}
+?>
     
     <!--latest post and description-->
     <div class="container pb-4 pt-5">
@@ -59,10 +52,6 @@
                     $uploadDate = $postItem->created_at;
                     $imgFile = $postItem->imgFile;
                     $caption = $postItem->caption;  
-                } else{
-                    $uploadDate = 'N\A';
-                    $imgFile = 'N\A';
-                    $caption = 'N\A';
                 }
             ?>
             @if ($mail == $mail1)
@@ -104,18 +93,23 @@
             @endif 
         @endforeach
 
-        
             <?php
                 foreach ($makeUp as $makeitem){
                     $mail = Session::get('user')['email']; 
                     $mail1 = $makeitem->email;
                     if ($mail == $mail1)
                     {
+                        $name = $makeitem->name;
+                        $location = $makeitem->address;
                         $view = $makeitem->view;
+                        $txt = $makeitem->description;
                         break;
                     } else{
+                        $name = 'N\A';
                         $view = 'N\A';
-                    }
+                        $location = 'N\A';
+                        $txt = 'N\A';
+                    }                   
                 }
             ?>
 
@@ -131,9 +125,52 @@
                                 <h3><span style="font-weight:bold;">Experience:<br></span>{{$experience}}</h3>
                             </div>
                             <div class="col-md-5 ser">
-                                <h3><span style="font-weight:bold;">Service:<br></span>{{$service}}</h3>
-                            </div>
+                                <h3><span style="font-weight:bold;">Service:</span>                             
+                                <?php
+                                    $datuu = 'N\A';
+                                    $datuuu = 'N\A';
+                                    $datu = 'N\A';
+                                    $service = array();
+                                    $service1 = array();
+                                    $servic = service::all();
+                                    foreach ($servic as $services){
+                                        $emails = Session::get('user')['email'];  
+                                        $ema = $services->email;       
+                                        if ($ema == $emails){
+                                            $seerv = $services->service;
+                                            $pricee = $services->price;
+                                            array_push($service, $seerv);
+                                            array_push($service1, $pricee);
+                                        }
+                                    }
+                                    $total_count1 = count($service);
+                                    $total_count2 = count($service1);
+                                    if ($total_count1 == 1){ 
+                                        $seerv = 'N\A';
+                                        $pricee = 'N\A';         
+                                        array_push($service, $seerv);
+                                        array_push($service1, $pricee);
+                                       
+                                    }
+
+                                    if ($total_count1 != 0){
+                                        $datuu = $service[0];
+                                        $datuuu = $service[1];
+                                    }
+                                  
+                                
+                                ?>
+                                    @for ($k = 0; $k < $total_count1; $k++)
+                                        <?php
+
+                                            $datu = $service[$k];
+                                        ?>
+                                        {{$datu}}, 
+                                    @endfor
+                                </h3>
+                            </div>     
                         </div>
+            
                         <div class="row justify-content-center">
                             <div class="col-md-6 exp">
                                 <h3><span style="font-weight:bold;">Location:<br></span>{{$location}}</h3>
@@ -144,10 +181,29 @@
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-6 exp" style="margin-top:10px;">
-                                <h3><span style="font-weight:bold;margin-top:10px;">Venue Booking (Nrs)<br></span>{{$price}}</h3>
-                            </div>
-                            <div class="col-md-5 ser" style="margin-top:10px;">
-                                <h3><span style="font-weight:bold;margin-top:10px;">Home Booking (Nrs)<br></span>{{$price1}}</h3>
+                                <h3><span style="font-weight:bold;margin-top:10px;">{{$datuu}} Booking (Nrs):</span>
+                           
+                                    <?php
+                                        if ($total_count2 != 0){
+                                            $datu = $service1[0];
+                                        }
+                                           
+                                    ?>
+                                
+                                    {{$datu}}
+                        
+                                </h3>
+                            </div> 
+                            <div class="col-md-5 ser">
+                                <h3><span style="font-weight:bold;margin-top:10px;">{{$datuuu}} Booking (Nrs):</span>
+                                    <?php
+                                        if ($total_count2 != 0){
+                                            $datu = $service1[1];
+                                        }
+                                    ?>
+                                
+                                    {{$datu}}
+                                </h3>
                             </div>
                         </div>
                         <div class="row justify-content-center exp">
@@ -172,31 +228,27 @@
         <div class="row justify-content-evenly">
             <div class="col-md-4">
                 <iframe src="https://www.hamropatro.com/widgets/calender-medium.php" frameborder="0" scrolling="no" marginwidth="0" marginheight="0" style="border:none; overflow:hidden; width:295px; height:385px;" allowtransparency="true"></iframe>      
-                <div class="ratings">  
-                                <ul style="padding-left: 0px !important;">
-                                    <li>
-                                        <div>
-                                            <button class="book" data-toggle="modal" data-target=".bd-example-modal-lg">
-                                                <span class="sth">
-                                                    <div id="content">
-                                                        <p>Book</p>
-                                                    </div>
-                                                </span>
-                                            </button>
-                                        </div>
-                                        <div>
-                                            <button class="book" data-toggle="modal" data-target=".bd-example-modal-lg3">
-                                                <span class="sth">
-                                                    <div id="content">
-                                                        <p>Cancel</p>
-                                                    </div>
-                                                </span>
-                                            </button>
-                                        </div>  
-                                    </li>  
-                                </ul> 
-                </div> 
-                <p><span style="font-weight:bold;">Not available: </span>{{$date}}</p>
+                    <p><span style="font-weight:bold;">Not available:<br></span>
+            <?php
+            $seer = array();
+            foreach ($vendorDate as $dates){
+                $emails = Session::get('user')['email']; 
+                $emai = $dates->email;       
+                if ($emai == $emails){
+                    $see = $dates->date;
+                    array_push($seer, $see);
+                }
+            }
+            $total_count = count($seer);
+            ?>
+            @for ($k = 0; $k < $total_count; $k++)
+                <?php
+                    $datu = $seer[$k];
+                ?>
+               {{$datu}}<br> 
+            @endfor
+          
+          </p>
             </div>
             <div class="col-md-7">
                 <form>
@@ -271,142 +323,4 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade bd-example-modal-lg" id="models" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel" style="font-weight:bold;">Make a Reservation</h6>  
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="container">    
-                    <div class="row pt-2">
-                        <div class="col-6">
-                            <form>
-                                <div class="form-group pt-3">
-                                    <h6 style="font-weight:550px;">Full Name *</h6>
-                                    <input type="text" class="form-control" placeholder="Full Name">
-                                    <br>
-                                    <h6 style="font-weight:550px;">Phone No. *</h6>
-                                    <input type="email" class="form-control" placeholder="Phone No.">
-                                    <br>
-                                    <h6 style="font-weight:550px;">Choose date *</h6>
-                                    <input type="email" class="form-control" placeholder="Enter the date">
-                                    
-                                    <br>
-                                
-                                </div>
-                            </form>
-                        </div>
-                            
-                        <div class="col-6">
-                            <form>
-                                <div class="form-group pt-3">
-                                    <h6 style="font-weight:550px;">Email Address *</h6>
-                                    <input type="text" class="form-control" placeholder="Enter your email address">
-                                    <br>
-                                    <h6 style="font-weight:550px;">Location *</h6>
-                                    <input type="email" class="form-control" placeholder="Enter your location">
-                                    <br>
-                                    <h6 style="font-weight:550px;">Service *</h6>
-                                    <div class="form-check booking">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
-                                        <label class="form-check-label" for="flexRadioDefault1">
-                                            Home
-                                        </label>
-                                    </div>
-                                    <div class="form-check booking">
-                                        <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" checked>
-                                        <label class="form-check-label" for="flexRadioDefault2">
-                                            Studio
-                                        </label>
-                                    </div>
-                                <br>
-                                <button type="button" class="btn btn-danger mb-5" id="submit" data-toggle="modal" data-target=".bd-example-modal-lg1" data-dismiss="modal">Submit</button>
-                                <button type="button" class="btn btn-danger mb-5" id="cancel" data-dismiss="modal">Cancel</button>
-                            
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade bd-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h6 class="modal-title" id="exampleModalLabel" style="font-weight:bold;">Make a Reservation</h6>  
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="container">    
-                    <div class="row pt-2 justify-content-center">
-                        <div class="col-md-4">
-                            <br>
-                            <h5>Powered By:</h5>
-                            <img src="/image/Book/Khalti logo.png" alt="image" class="img-fluid">
-                            <form>
-                                <div class="form-group pt-3">
-                                    <button type="button" class="btn btn-danger mb-5" data-toggle="modal" data-target=".bd-example-modal-lg2" data-dismiss="modal">Advance Payment</button>              
-                                </div>
-                            </form>
-                        </div>  
-                        <div class="col-md-7">
-                            <form>
-                                <div class="form-group pt-3">
-                                    <h6 style="font-weight:550px;">Total Payment</h6>
-                                    <input type="text" class="form-control" placeholder="5000">
-                                    <br>
-                                    <h6 style="font-weight:550px;">Comment/question *</h6>
-                                    <textarea type="text" class="form-control" placeholder="Message" rows="8"></textarea>
-                                    <br>    
-                                </div>
-                            </form>
-                        </div>
-                                
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-
-    <div class="modal bd-example-modal-lg2" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header alert alert-success">
-            <h5 class="modal-title" id="exampleModalLabel">Message</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-        <p>Successfully Booked !!</p>   
-        </div>
-        </div>
-    </div>
-    </div>
-
-    <div class="modal bd-example-modal-lg3" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header alert alert-danger">
-            <h5 class="modal-title" id="exampleModalLabel">Cancellation</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-        <p>Your booking has been cancelled !</p>   
-        </div>
-        </div>
-    </div>
-    </div>
-
 @endsection

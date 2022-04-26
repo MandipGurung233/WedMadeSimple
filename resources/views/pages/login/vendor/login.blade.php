@@ -1,13 +1,5 @@
 <?php
-    use App\Models\clothing;
-    use App\Models\makeUp;
-    use App\Models\photography;
-    use App\Models\venue;
     use Illuminate\Support\Facades\Hash;
-    $cloth = clothing::all();
-    $venue = venue::all();
-    $photo = photography::all();
-    $make = makeUp::all();
 ?>
 @extends('pages.login.vendor.loginMain')
 @section('home')

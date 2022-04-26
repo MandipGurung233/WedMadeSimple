@@ -16,6 +16,8 @@ use App\Models\Approved;
 use App\Models\vendorDetails;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\vendorDate;
+use App\Models\service;
 use App\Models\contact;
 use App\Models\bookDetail;
 use Session;
@@ -92,8 +94,7 @@ class home extends Controller
     }
 
     public function adminDash(){
-        $value = Vendor::all();
-        return view ('pages.dashboard.admin.admin',compact('value'));
+        return view ('pages.dashboard.admin.admin');
     }
 
     public function vendorDash(){
@@ -101,7 +102,13 @@ class home extends Controller
     }
 
     public function destroy($id){
-        $value = Vendor::find($id);
+        $value = Approved::find($id);
+        $value->delete();
+        return redirect()->back();
+    }
+
+    public function destroyID($id){
+        $value = vendorDate::find($id);
         $value->delete();
         return redirect()->back();
     }
@@ -128,8 +135,6 @@ class home extends Controller
     public function destroyCustomer($id){
         $value = bookDetail::find($id);
         $name=Session::get('user')['email'];
-      
-        
         $now = $value->created_at;
         $now1 = strtotime(date('Y-m-d H:i:s'));
         $diff = $now1 - strtotime($now);
@@ -146,15 +151,17 @@ class home extends Controller
        
     }
 
-    public function destroyApprove($id){
+    /*public function destroyApprove($id){
         $value = Approved::find($id);
         $value->delete();
         return redirect()->back();
-    }
+    }*/
 
     public function approved($id){
-        $request = Vendor::find($id);
-        $approved = new Approved;
+        $request = Approved::find($id);
+        $request->approves = $request->approves = '1';
+        $request->update();
+        /*$approved = new Approved;
         $approved->name=$request->name;
         $approved->address=$request->address;
         $approved->email=$request->email;
@@ -163,22 +170,20 @@ class home extends Controller
         $approved->file=$request->file;
         $approved->description=$request->description;
         $approved->save(); 
-        $request->delete();
+        $request->delete();*/
         return redirect()->back()->with('status','Successfully Approved');
     }
 
-    public function customize($id){
-        $value = makeUp::find($id);
-        $values = $value->email;
+    public function customize($email){
+        $values = $email;
         $views = Approved::where(['email'=>$values])->first();
         $views->view = $views->view + '1';
         $views->update();
         return view('pages.vendorPage.makeUp.indreni',compact('values'));  
     }
 
-    public function customizeVenue($id){
-        $value = venue::find($id);
-        $values = $value->email;
+    public function customizeVenue($email){
+        $values = $email;
         $views = Approved::where(['email'=>$values])->first();
         $views->view = $views->view + '1';
         $views->update();
@@ -219,44 +224,109 @@ class home extends Controller
         }
     }
 
+    public function vendorService(Request $request,$emails){
+        $request->validate([
+            'service' => 'required',
+            'price' => 'required',
+        ]);
+
+        $user = service::where(['email'=>$emails])->first();    
+        if (!$user){
+            $detail = new service;
+            $detail->service=$request->service; 
+            $detail->price=$request->price; 
+            $detail->email=$emails;
+            $detail->save(); 
+            return redirect()->back()->with('status','Successfully Updated');    
+        } else{
+            $service = service::all();
+            $seer = array();
+            foreach ($service as $services){
+                $emai = $services->email;       
+                if ($emai == $emails){
+                    $see = $services->service;
+                    array_push($seer, $see);
+                }
+            }
+            $total = count($seer);
+           
+             
+            if ($total == 2){
+                foreach ($service as $services){
+                    $emai = $services->email;
+                    if ($emai == $emails){
+                        $serviceType = $services->service;
+                        if ($serviceType == $request->service){
+                            service::destroy($services->id);
+                            $detail = new service;
+                            $detail->service=$request->service; 
+                            $detail->price=$request->price; 
+                            $detail->email=$emails;
+                            $detail->save(); 
+                            return redirect()->back()->with('status','Successfully Updated');
+                        }
+                    }        
+                }
+            } elseif ($total == 1){
+                foreach ($service as $services){
+                    $emai = $services->email;
+                    if ($emai == $emails){
+                        $serviceType = $services->service;
+                        if ($serviceType == $request->service){
+                            service::destroy($services->id);
+                            $detail = new service;
+                            $detail->service=$request->service; 
+                            $detail->price=$request->price; 
+                            $detail->email=$emails;
+                            $detail->save(); 
+                            return redirect()->back()->with('status','Successfully Updated');
+                        } else{
+                            $detail = new service;
+                            $detail->service=$request->service; 
+                            $detail->price=$request->price; 
+                            $detail->email=$emails;
+                            $detail->save(); 
+                            return redirect()->back()->with('status','Successfully Updated');
+                        }
+                    }        
+                }
+            }
+        }
+    }
+
+    public function vendorDate(Request $request,$emails){
+        $request->validate([
+            'date' => 'required',
+        ]);
+            $detail = new vendorDate;
+            $detail->date=$request->date; 
+            $detail->email=$emails;
+            $detail->save(); 
+            return redirect()->back()->with('status','Successfully Updated');    
+    }
+
     public function vendorDetails(Request $request,$emails){
         $request->validate([
             'experience' => 'required',
-            'service' => 'required',
             'payment' => 'required',
-            'price' => 'required',
-            'price1' => 'required',
-            'date' => 'required',
-            'txt' => 'required',
         ]);
 
         $user = vendorDetails::where(['email'=>$emails])->first();
         if (!$user)
         {
+            
             $detail = new vendorDetails;
-            $detail->experience=$request->experience;
-            $detail->service=$request->service;
-            $detail->payment=$request->payment;
-            $detail->price=$request->price;
-            $detail->price1=$request->price1;
-            $detail->date=$request->date;
-            $detail->location=$request->location;
+            $detail->experience=$request->experience; 
+            $detail->payment=$request->payment; 
             $detail->email=$emails;
-            $detail->txt=$request->txt;
             $detail->save(); 
             return redirect()->back()->with('status','Successfully Updated');
         } else{
             vendorDetails::destroy($user->id);
             $detail = new vendorDetails;
-            $detail->experience=$request->experience;
-            $detail->service=$request->service;
-            $detail->payment=$request->payment;
-            $detail->price=$request->price;
-            $detail->price1=$request->price1;
-            $detail->date=$request->date;
-            $detail->location=$request->location;
+            $detail->experience=$request->experience; 
+            $detail->payment=$request->payment; 
             $detail->email=$emails;
-            $detail->txt=$request->txt;
             $detail->save(); 
             return redirect()->back()->with('status','Successfully Updated');
         }  
@@ -330,52 +400,77 @@ class home extends Controller
             $request->validate([
                 'bookDate' => 'required',
                 'service' => 'required',
+                'comment' => 'required'
                
-            ]);   
+            ]); 
+            $booking = bookDetail::all(); 
             $customerMail=Session::get('user')['email'];
-            $book = new bookDetail;
-            $book->bookDate=$request->bookDate;
-            $book->service=$request->service;
-            $book->venEmail=$emails;
-            $book->email=$customerMail;
-            $book->save();
-
-            $bookNo = Approved::where(['email'=>$emails])->first();
-            $bookNo->bookNo = $bookNo->bookNo + '1';
-            $bookNo->update();
-
-            $vendor = Approved::where(['email'=>$emails])->first();
-            $vendor->notify(new booked($vendor, $customerMail));
-           
             $find = User::where(['email'=>$customerMail])->first();
-            $vendName = $find->name;
-            $data = ['name'=>$vendName, 'data'=>'has booked your vendor', 'us'=>'vendor'];
-            $user['to'] = $emails;
-            Mail::send('mail',$data,function($messages) use ($user){
-                $messages->to($user['to']);
-                $messages->subject('Alert New Booking!!');
-            });
+            if ($find){
+                $value = '0';
+                foreach ($booking as $detail){
+                    if ($detail->venEmail == $emails && $detail->email == $customerMail){
+                        $value = '1';
+                        return redirect()->back()->with('status','Already Booked !!');  
+                        break;
+                    } 
+                }
 
-            return redirect()->back()->with('status','Booking complete !! Please proceed to advance payment'); 
+               
+                        $book = new bookDetail;
+                        $book->bookDate=$request->bookDate;
+                        $book->service=$request->service;
+                        $book->venEmail=$emails;
+                        $book->email=$customerMail;
+                        $book->comment=$request->comment;
+                        $book->save();
+
+                        $bookNo = Approved::where(['email'=>$emails])->first();
+                        $bookNo->bookNo = $bookNo->bookNo + '1';
+                        $bookNo->update();
+
+                        $vendor = Approved::where(['email'=>$emails])->first();
+                        $vendor->notify(new booked($vendor, $customerMail));
+                    
+                        /*$find = User::where(['email'=>$customerMail])->first();
+                        $vendName = $find->name;
+                        $data = ['name'=>$vendName, 'data'=>'has booked your vendor', 'us'=>'vendor'];
+                        $user['to'] = $emails;
+                        Mail::send('mail',$data,function($messages) use ($user){
+                            $messages->to($user['to']);
+                            $messages->subject('Alert New Booking!!');
+                        });*/
+
+                        return redirect()->back()->with('status','Booking complete !! Please proceed to advance payment'); 
+           
+            }else{
+                return redirect()->back()->with('status','Please login as a customer to book !!'); 
+            }
         } else{
             return redirect('/custLogin');
         }  
     }
 
     public function search(Request $request){
-
+        $approved = Approved::all();
         $search = request()->query('search');
         if(!$search){
             return redirect('/');
         }
-
-        $user = Approved::where(['address'=>$request->search])->first();
-        if (!$user){
+        $id = array();
+        foreach ($approved as $approve){
+            $location = $approve->address;
+            $idd = $approve->id;
+            $location1 = $request->search;
+            if (strtolower($location) == strtolower($location1)){
+                array_push($id, $idd);
+            }
+        }
+        if (!$id){
             return back()->with('status','!! No any properties on that location');
         }
         else{
-            $data = Approved::find($user['id']);
-            return view ('pages.home.search',compact('data'));   
+            return view ('pages.home.search',compact('id'));   
         }
         
     }
@@ -390,12 +485,39 @@ class home extends Controller
         return view ('pages.dashboard.customer.customer',compact('value'));
     }
 
-    public function payment(Request $request, $amount){
-        return view ('pages.dashboard.customer.payment',compact('amount'));
+    public function payment(Request $request, $id){
+        return view ('pages.dashboard.customer.payment',compact('id'));
+    }
+
+    public function vendorPayment($id){
+        return view ('pages.dashboard.vendor.vendorPayment',compact('id'));
     }
 
     public function newsFeed(){
         return view ('pages.dashboard.customer.newsfeed');
+    }
+
+    public function replyContact($email){
+        return view ('pages.dashboard.admin.replyContact',compact('email'));
+    }
+
+    public function replyAdmin(Request $request, $email){
+        $request->validate([
+            'reply' => 'required',
+        ]);
+
+        $values = $email;
+        $views = Contact::where(['email'=>$values])->first();
+        $views->reply = $request->reply;
+        $views->update();
+
+        $data = ['comment'=>$request->reply];
+        $user['to'] = $email;
+        Mail::send('mail1',$data,function($messages) use ($user){
+            $messages->to($user['to']);
+            $messages->subject('Wed Made Simple!!');
+        });
+        return redirect()->back()->with('status','replied');
     }
 
     public function contacts(Request $request){

@@ -6,7 +6,7 @@
             
             <div class="col-md-9">
                         <h2 class="form-title1">Vendor Registration</h2>
-                        <form action="/vendorRegister" method="POST">
+                        <form action="/vendorRegister" method="POST" enctype="multipart/form-data">
                             @csrf
                             @if (session('status'))
                                 <h6 style="font-size:12px;" class="alert alert-success">{{ session('status') }}</h6>
@@ -76,7 +76,13 @@
                                 <span style="color: red; font-size:12px;">@error('vendorType'){{ $message }}@enderror</span>
                             
                             </div>
-                            <hr>
+                            <div class="form-group1">
+                                <label for="your_name" class="form-label labels"><span style="color:#6dabe4;"></span></label>   
+                                <textarea type="text" class="form-control inputs" name="description" placeholder="description" id ="your_name" rows="4"></textarea> 
+                                <span style="color: red; font-size:12px;">@error('description'){{ $message }}@enderror</span>   
+                            </div>
+                         
+                            
                             
                                 <div class="form-group1">
                                     <p>Please provide supporting documents: </p>
@@ -87,13 +93,6 @@
                                 </div>
 
                             
-                            
-                            <div class="form-group1">
-                                <label for="your_name" class="form-label labels"><span style="color:#6dabe4;"><i class="bi bi-file-text-fill"></i></span></label>
-                                <textarea type="text" class="form-control inputs" name="description" id="your_name" placeholder="write description"></textarea>
-                                <span style="color: red; font-size:12px;">@error('description'){{ $message }}@enderror</span>
-                            
-                            </div>
                                        
                             <div class="form-group1 form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit1" value="Register"/>

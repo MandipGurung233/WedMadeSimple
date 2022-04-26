@@ -39,23 +39,23 @@ class logging extends Controller
             'password' => 'required',
         ]);
 
-        $user1 = Vendor::where(['email'=>$request->email])->first();
-        $user = Approved::where(['email'=>$request->email])->first();
-        if (!$user1){
-            if (!$user){
-                return redirect()->back()->with('status','Incorrect email or password');
+        $user1 = Approved::where(['email'=>$request->email])->first();
+        if ($user1){
+            $approved = $user1->approves;
+            if (!$approved){
+                return redirect()->back()->with('status','still pending');
             } else{
-                $password = $user->password;
+                $password = $user1->password;
                 $Password1 = $request->password;
                 if ($password == $Password1){
-                    $request->session()->put('user',$user);
+                    $request->session()->put('user',$user1);
                     return redirect('/vendDash');
                 } else{
                     return redirect()->back()->with('status','Incorrect email or password');
                 }
             }
         } else{
-            return redirect()->back()->with('status','Still pending');
+            return redirect()->back()->with('status','Incorrect email or password');
       
         }
         
@@ -100,7 +100,7 @@ class logging extends Controller
         $request->validate([
             'name' => 'required',
             'address' => 'required',
-            'email' => 'required|unique:vendors|unique:admins|unique:users|unique:approveds',
+            'email' => 'required|unique:admins|unique:users|unique:approveds',
             'check' => 'required',
             'password' => 'required',
         ]);
@@ -129,16 +129,35 @@ class logging extends Controller
         $request->validate([
             'name' => 'required',
             'address' => 'required',
-            'email' => 'required|unique:vendors|unique:admins|unique:users',     
+            'email' => 'required|unique:admins|unique:users|unique:approveds',     
             'password' => 'required',
             'vendorType' => 'required',
             'file' => 'required',
+            'description' => 'required'
         ]);
 
         if(isset($_POST['signin'])){
             $purpose = $_POST['vendorType'];
         }
 
+         
+        $approved = new Approved;
+        $approved->name=$request->name;
+        $approved->address=$request->address;
+        $approved->email=$request->email;
+        $approved->password=$request->password;
+        $approved->vendorType=$purpose;
+        if($request->hasfile('file')){
+            $file = $request->file('file');
+            $extention = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extention;
+            $file->move('uploads/doc/',$filename);
+            $approved->file = $filename;    
+        }
+        $approved->description=$request->description;
+        $approved->save();
+        return redirect()->back()->with('status','Pending');
+        /*
         $vendor = new Vendor;
         $vendor->name=$request->name;
         $vendor->address=$request->address;
@@ -153,8 +172,8 @@ class logging extends Controller
             $filename = time().'.'.$extension;
             $file->move('uploads/doc/',$filename);    
         }
-        $vendor->save();
-        return redirect()->back()->with('status','Pending');
+        $vendor->save();*/
+   
         
     }
 

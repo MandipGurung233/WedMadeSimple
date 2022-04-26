@@ -84,15 +84,15 @@ if(Session::has('user')){
                                     @endforeach                                   
                                 </div>
                             </div>
-                            
+                          
                             <div class="dropdown">
                                 
                                 <a class="dropdown-toggle " data-bs-toggle="dropdown" href="{{$name}}" class="signup"><button type="button" class="btns" id="banner-btn-1">{{ Session::get('user')['name'] }}</button></a>        
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="/bookingHistory">Booking Details</a>
                                     <a class="dropdown-item" href="/newsFeed">NewsFeed</a>
-                                    <a class="dropdown-item" href="/payment">Payment</a>
-                                    <a class="dropdown-item" href="#">Status | <span style="color:green">Pending</span></a>
+                                    <a class="dropdown-item" href="{{ url('exportBooks') }}" name="export" class="btn btn-primary float-end repo" style="margin-right:40px; color:red; font-weight:bold;">Booking Details .CSV</a>
+                   
                                     <a class="dropdown-item" href="/logout">Logout</a>
                                 </div>
                             </div>

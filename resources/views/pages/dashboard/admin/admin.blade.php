@@ -1,15 +1,6 @@
 <?php
-    use App\Models\clothing;
-    use App\Models\makeUp;
-    use App\Models\photography;
-    use App\Models\venue;
     use App\Models\Approved;
-    use Illuminate\Support\Facades\Hash;
     $approve = Approved::all();
-    makeUp::truncate();
-    photography::truncate();
-    venue::truncate();
-    clothing::truncate();
 ?>
 @extends('pages.dashboard.admin.adminMain')
 @section('home')
@@ -41,25 +32,27 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($value as $item)
-                            <tr class="heading-value">
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->address }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->vendorType }}</td>
-                                <td>{{ $item->file }}</td>
-                                <td>{{ $item->value }}</td>
-                                <td>{{ $item->created_at }}</td>
-                                <td><a href="{{ url('approved/'.$item->id) }}" class="btn btn-primary btn-sm">Approve</a></td>
-                                <td>
-                                    <form action="{{ url('destroy/'.$item->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
+                            @foreach ($approve as $item)
+                                @if ( $item->approves != 1)
+                                    <tr class="heading-value">
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->address }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->vendorType }}</td>
+                                        <td>{{ $item->file }}</td>
+                                        <td>{{ $item->value }}</td>
+                                        <td>{{ $item->created_at }}</td>
+                                        <td><a href="{{ url('approved/'.$item->id) }}" class="btn btn-primary btn-sm">Approve</a></td>
+                                        <td>
+                                            <form action="{{ url('destroy/'.$item->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -96,23 +89,25 @@
                         </thead>
                         <tbody>
                             @foreach ($approve as $item)
-                            <tr class="heading-value">
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->address }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->vendorType }}</td>
-                                <td>{{ $item->file }}</td>
-                                <td>{{ $item->value }}</td>
-                                <td>{{ $item->created_at }}</td>
-                                <td>
-                                    <form action="{{ url('destroyApprove/'.$item->id) }}" method="POST">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
-                                    </form>
-                                </td>
-                            </tr>
+                                @if ( $item->approves == 1 )
+                                    <tr class="heading-value">
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->address }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->vendorType }}</td>
+                                        <td>{{ $item->file }}</td>
+                                        <td>{{ $item->value }}</td>
+                                        <td>{{ $item->created_at }}</td>
+                                        <td>
+                                            <form action="{{ url('destroy/'.$item->id) }}" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                            </form>
+                                        </td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -123,63 +118,7 @@
     </div>
 </div>
 
-                            @foreach ($approve as $item)
-                                <?php     
-                                    $purpose=$item->vendorType;
-                                    if ($purpose == "Make Up"){
-                                        $makeUp = new makeUp;
-                                        $makeUp->name=$item->name;
-                                        $makeUp->address=$item->address;
-                                        $makeUp->email=$item->email;
-                                        $makeUp->password=Hash::make($item->password);
-                                        $makeUp->vendorType=$purpose;
-                                        $makeUp->file=$item->file;
-                                        $makeUp->save();
-                                     
-                                       
-                                    } elseif ($purpose == "Venue"){
-                            
-                                        $venue = new venue;
-                                        $venue->name=$item->name;
-                                        $venue->address=$item->address;
-                                        $venue->email=$item->email;
-                                        $venue->password=Hash::make($item->password);
-                                        $venue->vendorType=$purpose;
-                                        $venue->file=$item->file;
-                                        $venue->save();
-                            
-                            
-                                    } elseif ($purpose == "Photography"){
-                                       
-                                        $photography = new photography;
-                                        $photography->name=$item->name;
-                                        $photography->address=$item->address;
-                                        $photography->email=$item->email;
-                                        $photography->password=Hash::make($item->password);
-                                        $photography->vendorType=$purpose;
-                                        $photography->file=$item->file;
-                                        $photography->save();
-                            
-                                    } else{
-                                
-                                        $clothing = new clothing;
-                                        $clothing->name=$item->name;
-                                        $clothing->address=$item->address;
-                                        $clothing->email=$item->email;
-                                        $clothing->password=Hash::make($item->password);
-                                        $clothing->vendorType=$purpose;
-                                        $clothing->file=$item->file;
-                                        $clothing->save();
-                                    }
-                                ?>   
-                            @endforeach
-
-<?php
-    $cloth = clothing::all();
-    $venue = venue::all();
-    $photo = photography::all();
-    $make = makeUp::all();
-?>
+<br>
 <br>
 <div class="container">
     <div class="row">
@@ -204,17 +143,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($make as $item)
-                            <tr class="heading-value">
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->address }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->vendorType }}</td>
-                                <td>{{ $item->file }}</td>
-                                <td>{{ $item->value }}</td>
-                                <td>{{ $item->created_at }}</td>
-                            </tr>
+                            <?php
+                                $name = "Make Up";
+                            ?>
+                            @foreach ($approve as $item)
+                                @if ( $item->vendorType == $name && $item->approves == 1 )
+                                    <tr class="heading-value">
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->address }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->vendorType }}</td>
+                                        <td>{{ $item->file }}</td>
+                                        <td>{{ $item->value }}</td>
+                                        <td>{{ $item->created_at }}</td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -247,17 +191,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($photo as $item)
-                            <tr class="heading-value">
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->address }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->vendorType }}</td>
-                                <td>{{ $item->file }}</td>
-                                <td>{{ $item->value }}</td>
-                                <td>{{ $item->created_at }}</td>
-                            </tr>
+                            <?php
+                                $name = "Photography";
+                            ?>
+                            @foreach ($approve as $item)
+                                @if ( $item->vendorType == $name && $item->approves == 1 )
+                                    <tr class="heading-value">
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->address }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->vendorType }}</td>
+                                        <td>{{ $item->file }}</td>
+                                        <td>{{ $item->value }}</td>
+                                        <td>{{ $item->created_at }}</td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -292,17 +241,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($venue as $item)
-                            <tr class="heading-value">
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->address }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->vendorType }}</td>
-                                <td>{{ $item->file }}</td>
-                                <td>{{ $item->value }}</td>
-                                <td>{{ $item->created_at }}</td>
-                            </tr>
+                            <?php
+                                $name = "Venue";
+                            ?>
+                       
+                            @foreach ($approve as $item)
+                                @if ( $item->vendorType == $name && $item->approves == 1 )
+                                    <tr class="heading-value">
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->address }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->vendorType }}</td>
+                                        <td>{{ $item->file }}</td>
+                                        <td>{{ $item->value }}</td>
+                                        <td>{{ $item->created_at }}</td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -337,17 +292,23 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($cloth as $item)
-                            <tr class="heading-value">
-                                <td>{{ $item->id }}</td>
-                                <td>{{ $item->name }}</td>
-                                <td>{{ $item->address }}</td>
-                                <td>{{ $item->email }}</td>
-                                <td>{{ $item->vendorType }}</td>
-                                <td>{{ $item->file }}</td>
-                                <td>{{ $item->value }}</td>
-                                <td>{{ $item->created_at }}</td>
-                            </tr>
+                            <?php
+                                $name = "Clothing";
+                            ?>
+
+                            @foreach ($approve as $item)
+                                @if ( $item->vendorType == $name && $item->approves == 1 )
+                                    <tr class="heading-value">
+                                        <td>{{ $item->id }}</td>
+                                        <td>{{ $item->name }}</td>
+                                        <td>{{ $item->address }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->vendorType }}</td>
+                                        <td>{{ $item->file }}</td>
+                                        <td>{{ $item->value }}</td>
+                                        <td>{{ $item->created_at }}</td>
+                                    </tr>
+                                @endif
                             @endforeach
                         </tbody>
                     </table>

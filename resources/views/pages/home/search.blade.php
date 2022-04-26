@@ -19,7 +19,6 @@
                             <button>
                                     <i class="bi bi-search" id="nn"></i>
                             </button>
-                            
                             </div>
                         </div>
                         </div>
@@ -50,19 +49,31 @@
             <span class="subheading mb-2">Searched Result</span>
         </div>
     </div>
-
+    <div class="row justify-content-center" id="feature">   
 <br>
+    <?php
+        $approve = count($id);
+        use App\Models\Approved;
+        $approvedOne = Approved::all();
+    ?>
+    @for($i=0;$i<$approve;$i++)
+                <?php
+                $value = $id[$i];
+                $data = Approved::where(['id'=>$value])->first();
 
-                <a href="{{ url('customizeFeature/'.$data->id) }}">
-                    <div class="col-md-3 text-center" id="featuretxt">
-                        <div class="container" id="feature-img1">                                                              
-                                                                
-                        </div>
-                        <h5>{{$data->name}} | <i class="bi bi-file-earmark-check-fill" style="color: green"></i></h5>
-                        <p><span style="font-weight:bold;">Location: {{ $data->address}}</span></p>                                    
-                    </div>
-                </a>
-
+                ?>       
+            
+                   
+                        <a href="{{ url('customizeFeature/'.$data->id) }}">
+                            <div class="col-md-3 text-center" id="featuretxt">
+                                <div class="container" id="feature-img1">                                                              
+                                                                        
+                                </div>
+                                <h5>{{$data->name}} | <i class="bi bi-file-earmark-check-fill" style="color: green"></i></h5>
+                                <p><span style="font-weight:bold;">Location: {{ $data->address}}</span></p>                                    
+                            </div>
+                        </a>      
+    @endfor
+    </div>
 <br>
-
 @endsection

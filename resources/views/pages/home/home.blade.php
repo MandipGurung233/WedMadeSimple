@@ -1,10 +1,7 @@
 <?php
     use App\Models\Approved;
     $approvedOne = Approved::all();
-   
-
 ?>
-
 @extends('pages.home.homeMain')
 @section('home')
 
@@ -70,7 +67,7 @@
             <?php
                 $valued = array();
                 foreach ($approvedOne as $app){
-                    $value2 = '';
+                    $value2 = '0';
                     $value1 = $app->value;
                     if (!$value1){
                         $value2 = '0';
@@ -81,7 +78,7 @@
                 }
                 rsort($valued);
                 $valued1 = array();
-                for ($x = 0; $x <= 2; $x++) {
+                for ($x = 0; $x <= 0; $x++) {
                     array_push($valued1, $valued[$x]);
                 }
                 $vv = $approve->value;
@@ -142,7 +139,7 @@
                                     }    
                                 }
                             ?>
-
+                            @if ($bookNo != 0)
                             <a href="{{ url('customizeFeature/'.$id) }}" style="text-decoration: none;">
                                 <div class="item popular-carousel-item pt-2">
                                     <div class="container" id="popular-carousel-img1">                                                              
@@ -163,6 +160,7 @@
                                     </div>
                                 </div>
                             </a>
+                            @endif
                         @endforeach               
                     </div>
                 </div>
@@ -173,6 +171,8 @@
         <?php
             use App\Models\User;
             use App\Models\bookDetail;
+            use App\Models\vendorDetails;
+            $vendDet = vendorDetails::all();
             $info = bookDetail::all();
             $detail = User::all();
             $value='1';
@@ -205,7 +205,7 @@
                         $finalRecommend = array();
                         while ($i < $total){
                             $descriptions = $vendorEmail[$i];
-                            $description1 = Approved::where(['email'=>$descriptions])->first();
+                            $description1 = Approved::where(['email'=>$descriptions])->first();           
                             $string = $description1->description;
                             $result = shell_exec('cd / && cd xampp/htdocs/WedMadeSimple/public/recommendation && c:/xampp/htdocs/WedMadeSimple/public/recommendation/venv/Scripts/Activate.ps1 && c:/xampp/htdocs/WedMadeSimple/public/recommendation/venv/Scripts/python.exe c:/xampp/htdocs/WedMadeSimple/public/recommendation/recommend.py 2>&1 "'.$string.'"');
                             $result1 = substr("$result",0,-2);
@@ -217,16 +217,16 @@
                                 array_push($finalRecommend, $recommend);
                                 $j = $j + 1;
                             }
+                            
                             $i = $i + 1;
                         }
+                        $finalRecommends = array_unique($finalRecommend);
                         $totals = count($finalRecommend);
                         $k = 0;
                         break;
                         
-                    }
-                    
-                }
-                
+                    }                
+                }       
             }
         ?>
        
@@ -245,17 +245,19 @@
                                 <div class="container">
                                     <div class="owl-carousel owl-theme owl-carousel-wrapper mt-2 pt-4">
                     
-                                        @for ($k = 0; $k < $totals; $k++)
+                                        @foreach ($finalRecommends as $key => $value)
 
                                             <?php
-                                                $valuee = $finalRecommend[$k];
+                                                $valuee = $value;
                                                 $finds = Approved::where(['description'=>$valuee])->first();
+                                                if ($finds){
                                                 $id = $finds->id;
                                                 $name = $finds->name;
-                                                $description = $finds->description;
                                                 $address = $finds->address;
+                                                }
                                             ?>                           
                                             
+                                            @if ($finds)
                                             <a href="{{ url('customizeFeature/'.$id) }}" style="text-decoration: none;">
                                                 <div class="item popular-carousel-item pt-2">
                                                     <div class="container" id="popular-carousel-img1">                                                              
@@ -275,7 +277,9 @@
                                                     </div>
                                                 </div>
                                             </a>
-                                        @endfor
+                                            @endif
+                                    
+                                        @endforeach
                                                         
                                     
                                         

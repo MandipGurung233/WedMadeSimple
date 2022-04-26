@@ -69,7 +69,13 @@ class recommend extends Controller
                      
                         
                     }
-                    return $finalRecommend;
+              
+                    $finalRecommends = array_unique($finalRecommend);
+                    return $finalRecommends;
+                    foreach ($finalRecommends as $key => $value){
+                        echo $value;
+                    }
+                  
                        
            
                   

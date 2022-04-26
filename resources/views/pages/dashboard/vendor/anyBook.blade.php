@@ -15,7 +15,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <h5> Pending booking
+                    <h5>Booked by
                     </h5>
                 </div>
                 <div class="card-body">
@@ -26,15 +26,17 @@
                                 <th>Address</th>
                                 <th>Email</th>
                                 <th>bookDate</th>                              
-                                <th>Service type</th>                           
+                                <th>Service type</th> 
+                                <th>Comment</th>                           
                         </thead>
                         <tbody>
                         @foreach ($value as $item)
                             <?php
                                 $mail=Session::get('user')['email'];
                                 $mail1 = $item->venEmail;
+                                $paid = $item->paid;
                             
-                                if ($mail == $mail1)
+                                if ($mail == $mail1 && $paid == 1)
                                 {
                                     $custMail = $item->email;
                                     $find = User::where(['email'=>$custMail])->first();
@@ -42,7 +44,8 @@
                                     $userAddress = $find->address;
                                     $userMail = $find->email;
                                     $book_date = $item->bookDate;
-                                    $service = $item->service;                   
+                                    $service = $item->service; 
+                                    $comment = $item->comment;                   
                                 } else{
                                  
                                     $userName = 'N\A';
@@ -50,16 +53,18 @@
                                     $userMail = 'N\A';
                                     $book_date = 'N\A';
                                     $service = 'N\A';
+                                    $comment = 'N\A';
                          
                                 }
                             ?>
-                            @if ($mail == $mail1)
+                            @if ($mail == $mail1 && $paid == 1)
                                 <tr class="heading-value">
                                     <td>{{ $userName}}</td>
                                     <td>{{ $userAddress}}</td>
                                     <td>{{ $userMail}}</td>
                                     <td>{{ $book_date}}</td>
                                     <td>{{ $service}}</td>
+                                    <td>{{ $comment }}</td>
                             
                                     <td>
                                         <form action="{{ url('destroyed/'.$item->id) }}" method="POST">

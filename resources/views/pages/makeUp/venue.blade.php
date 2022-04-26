@@ -1,6 +1,6 @@
 <?php
-    use App\Models\venue;
-    $make = venue::all();
+    use App\Models\Approved;
+    $make = Approved::all();
 ?>
 @extends('pages.makeUp.makeUpMain')
 @section('home')
@@ -47,21 +47,25 @@
     <div class="row justify-content-evenly" id="category">
         <div class="col-md-12 col-10" id="categorytxt">
             <div class="row justify-content-center" id="categoryRow1">
-                
+                <?php
+                    $name = "Venue";
+                ?>
                 @foreach ($make as $item)
-                    <div class="col-md-3" id="categoryCol1" style="background-color: rgb(223, 178, 173);">
-                            <div class=" img1 d-none d-md-block">
-                               
-                            <a href="{{ url('customizeVenue/'.$item->id) }}" class="btn btn-primary btn-sm">
-                                <button type="submit" class="btn mt-2" id="blog-btn">Details</button>
-                            </a>
+                    @if ( $item->vendorType == $name && $item->approves == 1)
+                        <div class="col-md-3" id="categoryCol1" style="background-color: rgb(223, 178, 173);">
+                                <div class=" img1 d-none d-md-block">
                                 
-                            </div>  
-                            <div class="" id="categorytxt">
-                                <h5>{{ $item->name}}</h5>
-                                <p><span style="font-weight:bold;">Location: {{ $item->address}}</span></p>            
-                            </div>
-                    </div>
+                                <a href="{{ url('customizeVenue/'.$item->email) }}" class="btn btn-primary btn-sm">
+                                    <button type="submit" class="btn mt-2" id="blog-btn">Details</button>
+                                </a>
+                                    
+                                </div>  
+                                <div class="" id="categorytxt">
+                                    <h5>{{ $item->name}}</h5>
+                                    <p><span style="font-weight:bold;">Location: {{ $item->address}}</span></p>            
+                                </div>
+                        </div>
+                    @endif
                 @endforeach
             </div>
         </div>

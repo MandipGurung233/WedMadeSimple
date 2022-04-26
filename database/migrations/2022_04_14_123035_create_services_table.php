@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateVendorDetailsTable extends Migration
+class CreateServicesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,11 +13,11 @@ class CreateVendorDetailsTable extends Migration
      */
     public function up()
     {
-        Schema::create('vendor_details', function (Blueprint $table) {
+        Schema::create('services', function (Blueprint $table) {
             $table->id();
-            $table->string('experience');
-            $table->string('payment');
-            $table->string('email')->unique();  
+            $table->string('service');
+            $table->integer('price');
+            $table->string('email');
             $table->timestamps();
         });
     }
@@ -29,6 +29,6 @@ class CreateVendorDetailsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('vendor_details');
+        Schema::dropIfExists('services');
     }
 }

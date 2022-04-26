@@ -7,7 +7,10 @@
     use App\Models\Follow;
     use App\Models\makeUp;
     use App\Models\User;
+    use App\Models\service;
+    use App\Models\vendorDate;
     $detail = vendorDetails::all();
+    $vendorDate = vendorDate::all();
     $post = Post::all();
     $customer = User::all();
     $makeUp = Approved::all();
@@ -95,7 +98,9 @@
 
         
       
-           <?php
+            <?php
+            $experience = 'N\A';                  
+            $payment = 'N\A';
             foreach ($detail as $item){
             
                 $mail = $values; 
@@ -103,23 +108,11 @@
                 if ($mail == $mail1)
                 {
                     $experience = $item->experience;
-                    $service = $item->service;
-                    $payment = $item->payment;
-                    $price = $item->price;
-                    $price1 = $item->price1;
-                    $date = $item->date;
-                    $location = $item->location;
-                    $txt = $item->txt;
+                    $payment = $item->payment;    
                     break;
                 } else{
                     $experience = 'N\A';
-                    $service = 'N\A';
-                    $payment = 'N\A';
-                    $price = 'N\A';
-                    $price1 = 'N\A';
-                    $date = 'N\A';
-                    $location = 'N\A';
-                    $txt = 'N\A';
+                    $payment = 'N\A';   
                 }
             }?>
 
@@ -131,11 +124,15 @@
                 if ($mail == $mail1)
                 {
                     $name = $makeitem->name;
+                    $location = $makeitem->address;
                     $view = $makeitem->view;
+                    $txt = $makeitem->description;
                     break;
                 } else{
                     $name = 'N\A';
                     $view = 'N\A';
+                    $location = 'N\A';
+                    $txt = 'N\A';
                 }
             }?>
 
@@ -232,8 +229,53 @@
                                 <h3><span style="font-weight:bold;">Experience:<br></span>{{$experience}}</h3>
                             </div>
                             <div class="col-md-5 ser">
-                                <h3><span style="font-weight:bold;">Service:<br></span>{{$service}}</h3>
+                                <h3><span style="font-weight:bold;">Service:</span> 
+                              
+                        
+                            <?php
+                                $datuu = 'N\A';
+                                $datuuu = 'N\A';
+                                $datu = 'N\A';
+                                $service = array();
+                                $service1 = array();
+                                $servic = service::all();
+                                foreach ($servic as $services){
+                                    $emails = $values;  
+                                    $ema = $services->email;       
+                                    if ($ema == $emails){
+                                        $seerv = $services->service;
+                                        $pricee = $services->price;
+
+                                        array_push($service, $seerv);
+                                        array_push($service1, $pricee);
+                                    }
+                                }
+                                $total_count1 = count($service);
+                                $total_count2 = count($service1);
+                                if ($total_count1 == 1){ 
+                                    $seerv = 'N\A';
+                                    $pricee = 'N\A';         
+                                    array_push($service, $seerv);
+                                    array_push($service1, $pricee);
+                                 
+                                }
+                                if ($total_count1 != 0){
+                                    $datuu = $service[0];
+                                    $datuuu = $service[1];
+                                }
+                               
+                              
+                            ?>
+                            @for ($k = 0; $k < $total_count1; $k++)
+                                <?php
+
+                                    $datu = $service[$k];
+                                ?>
+                                {{$datu}}, 
+                            @endfor
+                            </h3>
                             </div>
+                            
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-6 exp">
@@ -245,12 +287,35 @@
                         </div>
                         <div class="row justify-content-center">
                             <div class="col-md-6 exp" style="margin-top:10px;">
-                                <h3><span style="font-weight:bold;margin-top:10px;">Venue Booking (Nrs):<br></span>{{$price}}</h3>
-                            </div>
-                            <div class="col-md-5 ser" style="margin-top:10px;">
-                                <h3><span style="font-weight:bold;margin-top:10px;">Home Booking (Nrs):<br></span>{{$price1}}</h3>
+                                <h3><span style="font-weight:bold;margin-top:10px;">{{$datuu}} Booking (Nrs):</span>
+                           
+                                    <?php
+                                     if ($total_count2 != 0){
+                                        $datu = $service1[0];
+                                    }
+                                           
+                                    ?>
+                                
+                                    {{$datu}}
+                        
+                                </h3>
+                            </div> 
+                            <div class="col-md-5 ser">
+                                <h3><span style="font-weight:bold;margin-top:10px;">{{$datuuu}} Booking (Nrs):</span>
+                                    <?php
+                                     if ($total_count2 != 0){
+                                        $datu = $service1[1];
+                                    }
+                                       
+                                    ?>
+                                
+                                    {{$datu}}
+                                </h3>
                             </div>
                         </div>
+                    
+                        
+
                         <div class="row justify-content-center exp">
                             <div class="col-md-11" style="margin-top:10px;">
                                 <h3><span style="font-weight:bold;">Story:</h3>
@@ -305,7 +370,27 @@
                                 </li>  
                             </ul> 
             </div> 
-            <p><span style="font-weight:bold;">Not available: </span>{{$date}}</p>
+            <p><span style="font-weight:bold;">Not available:<br></span>
+            <?php
+            $seer = array();
+            foreach ($vendorDate as $dates){
+                $emails = $values;  
+                $emai = $dates->email;       
+                if ($emai == $emails){
+                    $see = $dates->date;
+                    array_push($seer, $see);
+                }
+            }
+            $total_count = count($seer);
+            ?>
+            @for ($k = 0; $k < $total_count; $k++)
+                <?php
+                    $datu = $seer[$k];
+                ?>
+               {{$datu}}<br> 
+            @endfor
+          
+          </p>
         </div>
         <div class="col-md-7">
             <form>

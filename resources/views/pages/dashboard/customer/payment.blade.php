@@ -8,11 +8,9 @@
     <body>
     <header>
     <!--Top Navbar-->
-    <?php 
-   
+    <?php
 use App\Http\Controllers\logging;
 use App\Models\User;
-
 use App\Models\Approved;
 $name='';  
 if(Session::has('user')){
@@ -116,9 +114,45 @@ if(Session::has('user')){
    
 <br><br>
 <?php
-        $value = $amount;   
-        $value1 = $value / 2;
-        $value2 = $value1 / 100;
+        use App\Models\bookDetail;
+        use App\Models\service;
+        use App\Models\vendorDetails;
+        $ids = $id;
+        $views = bookDetail::where(['id'=>$ids])->first();
+        $vendorEmail = $views->venEmail;
+        $service = $views->service; 
+                          
+        $servicee = service::all();
+        $counti = count($servicee);
+        $amounts = 'N\A'; 
+        $serviceTypes = array();
+
+        for ($x = 0; $x < $counti; $x++) {
+            $values = $servicee[$x];
+            if ($vendorEmail ==  $values['email']){
+                array_push($serviceTypes,  $values['service']);
+            }
+        } 
+        $totall = count($serviceTypes);
+        if (in_array($service, $serviceTypes)){
+            for ($i = 0; $i < $totall;$i++){
+                $sth = $serviceTypes[$i];
+                if ($service == $sth){
+                    for ($x = 0; $x < $counti; $x++) {
+                        $values = $servicee[$x];
+                        if ($vendorEmail ==  $values['email']){
+                            if ($values['service'] == $sth){
+                                $amounts = $values['price'];
+                            }
+                            
+                        }
+                    }
+                }
+            }
+        }
+        
+        $amount = $amounts;
+        $amount1 = $amount / 2;    
 ?>
 <div class="container">    
                 <div class="row pt-2 justify-content-center">
@@ -138,10 +172,10 @@ if(Session::has('user')){
                         <form>
                             <div class="form-group pt-3">
                                 <h6 style="font-weight:550px;">Total Payment</h6>
-                                <input type="text" class="form-control" placeholder= ' Nrs {{$value}}'>
+                                <input type="text" class="form-control" placeholder= ' Nrs {{$amount}}'>
                                 <br>
                                 <h6 style="font-weight:550px;">Advance Payment (50 %)</h6> 
-                                <input type="text" class="form-control" placeholder= ' Nrs {{$value1}}'>
+                                <input type="text" class="form-control" placeholder= ' Nrs {{$amount1}}'>
                                 <br>
                                  
                             </div>
@@ -172,8 +206,7 @@ if(Session::has('user')){
                             type : 'POST',
                             url : "{{ route('khalti.verifyPayment') }}",
                             data: {
-                                token : payload.token,
-                              
+                                token : payload.token,            
                                 amount : payload.amount,
                                 "_token" : "{{ csrf_token() }}"
                             },
@@ -183,10 +216,11 @@ if(Session::has('user')){
                                     url : "{{ route('khalti.storePayment') }}",
                                     data : {
                                         response : res,
-                                       
+                                        paid : {{$ids}},
                                         "_token" : "{{ csrf_token() }}"
                                     },
                                     success: function(res){
+                                        
                                         console.log('transaction successfull');
                                     }
                                 });
@@ -209,7 +243,7 @@ if(Session::has('user')){
         var btn = document.getElementById("payment-button");
         btn.onclick = function () {
             // minimum transaction amount must be 10, i.e 1000 in paisa.
-            checkout.show({amount: 100 * {{$value2}}});
+            checkout.show({amount: 1000 });
         }
     </script>
 </body>

@@ -227,7 +227,7 @@
 
 .form-control{
     border-radius: 2px;
-    border: 1px solid #d7d7d7;
+    border-bottom: 1px solid #d7d7d7;
     font-size: 0.8rem;
 }
 

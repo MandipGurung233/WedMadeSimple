@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\bookDetail;
+use App\Models\Approved;
 
 class PaymentController extends Controller
 {
@@ -19,6 +21,7 @@ class PaymentController extends Controller
 
         $url = "https://khalti.com/api/v2/payment/verify/";
 
+        
         # Make the call using API.
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
@@ -40,6 +43,28 @@ class PaymentController extends Controller
     {
         // $response = $request->response;
         // store the data to database here
+        $value = $request->paid;
+        $views = bookDetail::where(['id'=>$value])->first();
+        if ($views->paid != 1){
+            $views->paid = $views->paid + '1';
+            $views->update();
+        }     
+                              
+        
+        return response()->noContent();
+    }
+
+    public function storePayments(Request $request)
+    {
+        // $response = $request->response;
+        // store the data to database here
+        $value = $request->paid;
+        $views = Approved::where(['id'=>$value])->first();
+        if ($views->paid != 1){
+            $views->paid = $views->paid + '1';
+            $views->update();
+        }     
+                              
         
         return response()->noContent();
     }

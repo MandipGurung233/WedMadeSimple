@@ -6,6 +6,7 @@ use App\Http\Controllers\logging;
 use App\Http\Controllers\followSystem;
 use App\Http\Controllers\recommend;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\generateReport;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,13 +62,16 @@ Route::get('/details',[home::class,'details']);
 Route::get('/post',[home::class,'post']);
 Route::get('/auction',[home::class,'auction']);
 Route::post('vendorDetails/{emails}',[home::class,'vendorDetails']);
+Route::post('vendorService/{emails}',[home::class,'vendorService']);
 Route::post('vendorPost/{emails}',[home::class,'vendorPost']);
+Route::post('vendorDate/{emails}',[home::class,'vendorDate']);
 Route::post('auction/{emails}',[home::class,'auctions']);
 
 /*Book details */
 Route::post('book/{emails}',[home::class,'book']);
 Route::get('books/{venEmail}',[home::class,'books']);
-Route::get('payment/{amount}',[home::class,'payment']);
+Route::get('payment/{id}',[home::class,'payment']);
+Route::get('vendorPayment/{id}',[home::class,'vendorPayment']);
 Route::get('/bookingHistory',[home::class,'bookingHistory']);
 Route::get('/anyBooking',[home::class,'anyBook']);
 
@@ -76,6 +80,8 @@ Route::get('/newsFeed',[home::class,'newsFeed']);
 
 /*contact details */
 Route::post('/contact',[home::class,'contacts']);
+Route::get('replyContact/{email}',[home::class,'replyContact']);
+Route::post('replyAdmin/{email}',[home::class,'replyAdmin']);
 Route::delete('deleteContact/{id}',[home::class,'deleteContact']);
 Route::delete('deletePost/{id}',[home::class,'deletePost']);
 
@@ -91,12 +97,19 @@ Route::post('/random',[followSystem::class,'random']);
 
 Route::delete('destroyed/{id}', [home::class,'destroyBooking']);
 Route::delete('cancel/{id}', [home::class,'destroyCustomer']);
+Route::delete('destroyDate/{id}', [home::class,'destroyID']);
 
 Route::get('/markasread/{id}',[home::class, 'markasread'])->name('markasread');
 Route::get('/mark_as_read/{id}',[home::class, 'mark_as_read'])->name('mark_as_read');
 
 Route::post('/khalti/payment/verify',[PaymentController::class,'verifyPayment'])->name('khalti.verifyPayment');
 Route::post('/khalti/payment/store',[PaymentController::class,'storePayment'])->name('khalti.storePayment');
+Route::post('/khalti/payment/store',[PaymentController::class,'storePayments'])->name('khalti.storePayments');
 
 /* Recommendation*/
 Route::get('/recommend',[recommend::class,'recommend']);
+Route::get('/export',[generateReport::class,'export']);
+Route::get('/exportBook',[generateReport::class,'exportBook']);
+Route::get('/exportContact',[generateReport::class,'exportContact']);
+Route::get('exportBooks',[generateReport::class,'exportBooks']);
+Route::get('/vendorExport',[generateReport::class,'vendorExport']);

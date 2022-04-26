@@ -43,9 +43,11 @@
                                             Studio
                                         </label>
                                     </div>
-                                    <span style="color: red; font-size:12px;">@error('flexRadio'){{ $message }}@enderror</span>
+                                    <span style="color: red; font-size:12px;">@error('service'){{ $message }}@enderror</span>
                                     <br>
-                                
+                                     <textarea type="text" class="form-control" name="comment" placeholder="Write your comment" rows="4"></textarea>
+                                     <span style="color: red; font-size:12px;">@error('comment'){{ $message }}@enderror</span>
+                                     <br>
                                     <input type="submit" class="btn btn-danger mb-5" id="submit" value="Submit Booking"/>
                                 </div> 
                             </form>     

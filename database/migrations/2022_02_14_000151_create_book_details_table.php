@@ -19,6 +19,8 @@ class CreateBookDetailsTable extends Migration
             $table->string('service');
             $table->string('venEmail');
             $table->string('email');
+            $table->string('comment');
+            $table->string('paid')->nullable();
             $table->timestamps();
         });
     }

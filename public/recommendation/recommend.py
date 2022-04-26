@@ -10,12 +10,8 @@ import numpy as np
 fashion_df = pd.read_csv("wedMadeSimple.csv")
 fashion_df.head()
 
-#Dropping column Unnamed
-fashion_df1 = fashion_df.drop("Unnamed: 10", axis=1)
-fashion_df1.head()
-
 #Dropping year, usage, baseColour column
-fashion_df2 = fashion_df1.drop(columns=['year', 'usage', 'baseColour'])
+fashion_df2 = fashion_df.drop(columns=['year', 'usage', 'baseColour'])
 fashion_df2.head()
 
 #Importing TfidfVectorizer for vector representation
