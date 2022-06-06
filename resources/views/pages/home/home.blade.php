@@ -49,8 +49,6 @@
         </div>
     </div>
 </div>
-    
-
 
 <!--featured-->
 <div class="container">
@@ -78,7 +76,7 @@
                 }
                 rsort($valued);
                 $valued1 = array();
-                for ($x = 0; $x <= 0; $x++) {
+                for ($x = 0; $x <= 2; $x++) {
                     array_push($valued1, $valued[$x]);
                 }
                 $vv = $approve->value;
@@ -86,6 +84,8 @@
             @if (in_array($vv, $valued1))
                 <a href="{{ url('customizeFeature/'.$approve->id) }}">
                     <div class="col-md-3 text-center" id="featuretxt">
+                    <img id="feature-img1" src ="{{ asset('uploads/vendor/'.$approve->img) }}" alt="image">                                                            
+                                                
                         <div class="container" id="feature-img1">                                                              
                                                                 
                         </div>
@@ -133,7 +133,8 @@
                                     $id = $app->id;
                                     $name = $app->name;
                                     $address = $app->address;
-                                    $bookNo = $app->bookNo; 
+                                    $bookNo = $app->bookNo;
+                                    $img = $app->img; 
                                     if ($key == $id && $value == $bookNo){
                                         break;
                                     }    
@@ -142,7 +143,8 @@
                             @if ($bookNo != 0)
                             <a href="{{ url('customizeFeature/'.$id) }}" style="text-decoration: none;">
                                 <div class="item popular-carousel-item pt-2">
-                                    <div class="container" id="popular-carousel-img1">                                                              
+                                <img id="feature-img1" src ="{{ asset('uploads/vendor/'.$img) }}" alt="image">        
+                                    <div class="container" id="popular-carousel-im">                                                              
                                                         
                                     </div>
                                     <div class=" container popular-carousel-details">
@@ -230,7 +232,7 @@
             }
         ?>
        
-        @if($email == $customer)
+        @if($email == $customer && $totals != 0)
                 <!--Popular vendor-->
                 <div class="container pb-5">
                         <div class="row">
@@ -253,6 +255,7 @@
                                                 if ($finds){
                                                 $id = $finds->id;
                                                 $name = $finds->name;
+                                                $img =  $finds->img;
                                                 $address = $finds->address;
                                                 }
                                             ?>                           
@@ -260,7 +263,8 @@
                                             @if ($finds)
                                             <a href="{{ url('customizeFeature/'.$id) }}" style="text-decoration: none;">
                                                 <div class="item popular-carousel-item pt-2">
-                                                    <div class="container" id="popular-carousel-img1">                                                              
+                                                <img id="feature-img1" src ="{{ asset('uploads/vendor/'.$img) }}" alt="image">        
+                                                    <div class="container" id="popular-carousel-im">                                                              
                                                                         
                                                     </div>
                                                     <div class=" container popular-carousel-details">

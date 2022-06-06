@@ -7,7 +7,7 @@
                 <img class="img-fluid images" src="/image/login/login.jpg" alt="sing up image">
             </div>
             <div class="col-md-5">
-                        <h2 class="form-title1">Sign In</h2>
+            
                         <form action="/adminLogin" method="POST">
                             @csrf
                             @if (session('status'))
@@ -27,7 +27,7 @@
                             </div>
                            
                             <div class="form-group1 form-button">
-                                <input type="submit" name="signin" id="signin" class="form-submit1" value="Log in"/>
+                                <input type="submit" name="signin" id="signin" class="form-submit1" value="Admin Login"/>
                             </div>
                             <div class="form-group2">
                                 <ul style="margin-bottom: 0px;">

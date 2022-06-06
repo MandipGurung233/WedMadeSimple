@@ -119,11 +119,8 @@
     background-color:#f5f4f5;
     color: #4f074c;
     margin-left: 0px;
-    margin-bottom: 0px;
+    margin-bottom: 10px;
     font-weight: 550;  
-    position: absolute;
-    bottom: 16px;
-    left: 10px;
     border-radius: 1.25rem;
 }
 
@@ -151,7 +148,7 @@
     padding: 20px;
     border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.05);
-    width: 28%;
+    width: 22%;
     background-color: rgb(216, 223, 252);
     box-shadow: 0px 13px 30px -17px rgb(0 0 0 / 40%);
 }
@@ -192,13 +189,12 @@
 
 .img1{
     /*border-radius: 0% 50% 50% 0%;*/
-    background-image: url("/image/home/makeup.jpg") ;
     background-position: center center;
     background-repeat: no-repeat;
     border-radius: 2%;
-    background-size: cover;
-    min-height: 178px;  
-    position: relative;
+    vertical-align: middle;
+    width: 250px !important;
+    max-height: 200px;  
 }
 
 .img2{

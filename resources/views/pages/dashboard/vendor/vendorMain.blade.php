@@ -94,6 +94,8 @@ if(Session::has('user')){
                                     <a class="dropdown-item" href="/post">Post</a>
                                     <a class="dropdown-item" href="/anyBooking">Booking</a>
                                     <a class="dropdown-item" href="/auction">Auction</a>
+                                    <a class="dropdown-item" href="/reviewVendor">Review & rating</a>
+                                    <a class="dropdown-item" href="/setting">Update Info</a>
                                     <a class="dropdown-item" href="/vendorExport" name="export" class="btn btn-primary float-end repo" style="margin-right:40px; color:red; font-weight:600;">Booked Details .CSV</a>
                                     <?php
                                         $valued = array();
@@ -109,7 +111,7 @@ if(Session::has('user')){
                                         }
                                         rsort($valued);
                                         $valued1 = array();
-                                        for ($x = 0; $x <= 0; $x++) {
+                                        for ($x = 0; $x <= 2; $x++) {
                                             array_push($valued1, $valued[$x]);
                                         }
                                         $vv = 'N\A';

@@ -99,6 +99,11 @@
                                 <td>{{ $item->comment }}</td>
                                 <td>{{ $item->paid }}</td>
                                 <td>{{ $item->created_at }}</td>
+                                <td>  <form action="{{ url('deleteContact/'.$item->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                                </form></td>
                             </tr>
                             @endforeach
 

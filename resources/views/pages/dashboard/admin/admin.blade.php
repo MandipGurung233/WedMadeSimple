@@ -26,8 +26,8 @@
                                 <th>address</th>
                                 <th>email</th>
                                 <th>vendorType</th>
-                                <th style="max-width: 50px!important;">file</th>
-                                <th>value</th>
+                        
+                              
                                 <th>created_at</th>
                             </tr>
                         </thead>
@@ -40,9 +40,9 @@
                                         <td>{{ $item->address }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->vendorType }}</td>
-                                        <td>{{ $item->file }}</td>
-                                        <td>{{ $item->value }}</td>
+                                    
                                         <td>{{ $item->created_at }}</td>
+                                       
                                         <td><a href="{{ url('approved/'.$item->id) }}" class="btn btn-primary btn-sm">Approve</a></td>
                                         <td>
                                             <form action="{{ url('destroy/'.$item->id) }}" method="POST">
@@ -51,6 +51,9 @@
                                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                             </form>
                                         </td>
+                                        <td><a href="{{  url('/view',$item->id) }}" class="btn btn-primary btn-sm" target="_blank">View</a></td>
+                                  
+                                        <td><a href="{{ url('/download',$item->file) }}" class="btn btn-primary btn-sm">Download</a></td>
                                     </tr>
                                 @endif
                             @endforeach
@@ -82,7 +85,7 @@
                                 <th>address</th>
                                 <th>email</th>
                                 <th>vendorType</th>
-                                <th style="max-width: 50px!important;">file</th>
+                         
                                 <th>value</th>
                                 <th>created_at</th>
                             </tr>
@@ -96,7 +99,7 @@
                                         <td>{{ $item->address }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->vendorType }}</td>
-                                        <td>{{ $item->file }}</td>
+                                    
                                         <td>{{ $item->value }}</td>
                                         <td>{{ $item->created_at }}</td>
                                         <td>
@@ -106,6 +109,10 @@
                                                 <button type="submit" class="btn btn-danger btn-sm">Delete</button>
                                             </form>
                                         </td>
+                                        <td><a href="{{  url('/view',$item->id) }}" class="btn btn-primary btn-sm" target="_blank">View</a></td>
+                                  
+                                  <td><a href="{{ url('/download',$item->file) }}" class="btn btn-primary btn-sm">Download</a></td>
+                           
                                     </tr>
                                 @endif
                             @endforeach

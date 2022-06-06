@@ -13,7 +13,7 @@ class generateReport extends Controller
         header('Content-Type: text/csv; charset=utf-8');  
         header('Content-Disposition: attachment; filename=ApprovedVendors.csv');  
         $output = fopen("php://output", "w");  
-        fputcsv($output, array('ID', 'Name', 'Address', 'email', 'password', 'vendorType', 'file', 'description', 'view', 'bookNo', 'value', 'approves', 'paid', 'created_at'));  
+        fputcsv($output, array('ID', 'Name', 'Address', 'email', 'password', 'vendorType', 'file', 'description', 'img', 'view', 'bookNo', 'value', 'approves', 'paid', 'created_at'));  
         $query = "SELECT * from approveds ";  
         $result = mysqli_query($connect, $query);  
         while($row = mysqli_fetch_assoc($result))  

@@ -92,13 +92,21 @@
                                     <span style="color: red; font-size:12px;">@error('file'){{ $message }}@enderror</span>
                                 </div>
 
+                                <div class="form-group1">
+                                    <p>Please upload your profile: </p>
+                                    <label for="exampleFormControlFile1"></label>
+                                    <input type="file" class="form-control-file" name="img" id="exampleFormControlFile1">
+                                    <br>
+                                    <span style="color: red; font-size:12px;">@error('file'){{ $message }}@enderror</span>
+                                </div>
+
                             
                                        
                             <div class="form-group1 form-button">
                                 <input type="submit" name="signin" id="signin" class="form-submit1" value="Register"/>
                             </div>
                             <div class="form-group2">
-                                    <p>Already Registered ! <a href="#" class="signup" style="border-bottom:1px solid;">Login</a></p>      
+                                    <p>Already Registered ! <a href="/vendorLogin" class="signup" style="border-bottom:1px solid;">Login</a></p>      
                                 </ul>
                             </div>
                             

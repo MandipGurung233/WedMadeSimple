@@ -49,7 +49,9 @@
             
                     <div class="row justify-content-center">
                                     <div class="col-md-10">
-                                                <div class="container" id="success-carousel-img1">                                                              
+                                                <div class="container"> 
+                                                <img id="success-carousel-img1" src ="{{ asset('uploads/postImg/'.$item->imgFile) }}" alt="image">                                                            
+                                                                                                                     
                                                     <p>{{$item->created_at}}</p> 
                                                       
                                                 </div>

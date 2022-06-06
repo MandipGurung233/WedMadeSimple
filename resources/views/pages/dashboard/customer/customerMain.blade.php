@@ -92,7 +92,8 @@ if(Session::has('user')){
                                     <a class="dropdown-item" href="/bookingHistory">Booking Details</a>
                                     <a class="dropdown-item" href="/newsFeed">NewsFeed</a>
                                     <a class="dropdown-item" href="{{ url('exportBooks') }}" name="export" class="btn btn-primary float-end repo" style="margin-right:40px; color:red; font-weight:bold;">Booking Details .CSV</a>
-                   
+                                    <a class="dropdown-item" href="/review">Review & Rating</a>
+                                    <a class="dropdown-item" href="/customerInfo">Update Info</a>
                                     <a class="dropdown-item" href="/logout">Logout</a>
                                 </div>
                             </div>

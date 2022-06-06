@@ -12,6 +12,7 @@ use App\Models\venue;
 use App\Notifications\booking;
 use App\Notifications\booked;
 use Illuminate\Support\Facades\Notification;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Approved;
 use App\Models\vendorDetails;
 use App\Models\Post;
@@ -74,6 +75,73 @@ class home extends Controller
         return view ('pages.registration.vendor.vendor');
     }
 
+    public function setting(){
+        return view ('pages.dashboard.vendor.setting');
+    }
+
+    public function updateCustomer(){
+        return view ('pages.dashboard.customer.customerInfo');
+    }
+
+    public function editInf($id){
+        $approved = Approved::find($id);
+        return view('pages.dashboard.vendor.settingUpdate',compact('approved'));
+    }
+
+    public function editCustomer($id){
+        $approved = User::find($id);
+        return view('pages.dashboard.customer.customerInformation',compact('approved'));
+    }
+
+    public function updateApprove(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+            'password' => 'required',
+            'description' => 'required',
+            'img' => 'required',
+        ]);
+
+        
+
+        $book = Approved::find($id);
+        $book->name = $request->input('name');
+        $book->address = $request->input('address');
+        $book->password = $request->input('password');
+        $book->description = $request->input('description');
+        
+        if($request->hasfile('img')){
+            $destination = 'uploads/vendor/'.$book->img;
+            if(File::exists($destination)){
+                File::delete($destination);
+            }
+            $file = $request->file('img');
+            $extension = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extension;
+            $file->move('uploads/vendor/', $filename);
+            $book->img = $filename;
+        }
+        $book->update();
+        return redirect()->back()->with('status','Information updated');
+    }
+
+    public function updateApproved(Request $request, $id)
+    {
+        $request->validate([
+            'name' => 'required',
+            'address' => 'required',
+        ]);
+
+        
+
+        $book = User::find($id);
+        $book->name = $request->input('name');
+        $book->address = $request->input('address');
+        $book->update();
+        return redirect()->back()->with('status','Information updated');
+    }
+
     public function customerDash(){
         /*$users = bookDetail::select(
             "book_details.id",
@@ -113,6 +181,15 @@ class home extends Controller
         return redirect()->back();
     }
 
+    public function file(Request $request,$file){
+        return response()->download(public_path('uploads/doc/'.$file));
+    }
+
+    public function view($id){
+        $value = Approved::find($id);
+        return view('viewFile',compact('value'));
+    }
+
     public function destroyBooking($id){
         $value = bookDetail::find($id);
         $venEmail = $value->venEmail;
@@ -120,14 +197,14 @@ class home extends Controller
         $user = User::where(['email'=>$value1])->first();
         $user->notify(new booking($user, $value));
 
-        $find = Approved::where(['email'=>$venEmail])->first();
+        /*$find = Approved::where(['email'=>$venEmail])->first();
         $vendName = $find->name;
         $data = ['name'=>$vendName,'data'=>'cancelled your booking', 'us'=>'User'];
         $user['to'] = $value1;
         Mail::send('mail',$data,function($messages) use ($user){
             $messages->to($user['to']);
             $messages->subject('Booking Cancellation !!');
-        });
+        });*/
         $value->delete();
         return redirect()->back();
     }
@@ -338,10 +415,15 @@ class home extends Controller
             'imgFile' => 'required',
             'caption' => 'required',
         ]);
-
             $post = new Post;
             $post->uploadDate = $request->uploadDate;
-            $post->imgFile = $request->imgFile;
+            if($request->hasfile('imgFile')){
+                $file = $request->file('imgFile');
+                $extention = $file->getClientOriginalExtension();
+                $filename = time().'.'.$extention;
+                $file->move('uploads/postImg/',$filename);
+                $post->imgFile = $filename;    
+            }
             $post->sessionEmail = $sessionEmail;
             $post->caption = $request->caption;
             $post->save();
@@ -404,6 +486,7 @@ class home extends Controller
                
             ]); 
             $booking = bookDetail::all(); 
+            $vendorDate = vendorDate::all();
             $customerMail=Session::get('user')['email'];
             $find = User::where(['email'=>$customerMail])->first();
             if ($find){
@@ -416,33 +499,40 @@ class home extends Controller
                     } 
                 }
 
-               
-                        $book = new bookDetail;
-                        $book->bookDate=$request->bookDate;
-                        $book->service=$request->service;
-                        $book->venEmail=$emails;
-                        $book->email=$customerMail;
-                        $book->comment=$request->comment;
-                        $book->save();
+                foreach ($vendorDate as $vendorDates){
+                    if ($vendorDates->email == $emails){
+                        if ($vendorDates->date == $request->bookDate){
+                            return redirect()->back()->with('status','Not available on that date');
+                            break;
+                        }
+                    }
+                }
+                $book = new bookDetail;
+                $book->bookDate=$request->bookDate;
+                $book->service=$request->service;
+                $book->venEmail=$emails;
+                $book->email=$customerMail;
+                $book->comment=$request->comment;
+                $book->save();
 
-                        $bookNo = Approved::where(['email'=>$emails])->first();
-                        $bookNo->bookNo = $bookNo->bookNo + '1';
-                        $bookNo->update();
+                $bookNo = Approved::where(['email'=>$emails])->first();
+                $bookNo->bookNo = $bookNo->bookNo + '1';
+                $bookNo->update();
 
-                        $vendor = Approved::where(['email'=>$emails])->first();
-                        $vendor->notify(new booked($vendor, $customerMail));
-                    
-                        /*$find = User::where(['email'=>$customerMail])->first();
-                        $vendName = $find->name;
-                        $data = ['name'=>$vendName, 'data'=>'has booked your vendor', 'us'=>'vendor'];
-                        $user['to'] = $emails;
-                        Mail::send('mail',$data,function($messages) use ($user){
-                            $messages->to($user['to']);
-                            $messages->subject('Alert New Booking!!');
-                        });*/
+                $vendor = Approved::where(['email'=>$emails])->first();
+                $vendor->notify(new booked($vendor, $customerMail));
+            
+                /*$find = User::where(['email'=>$customerMail])->first();
+                $vendName = $find->name;
+                $data = ['name'=>$vendName, 'data'=>'has booked your vendor', 'us'=>'vendor'];
+                $user['to'] = $emails;
+                Mail::send('mail',$data,function($messages) use ($user){
+                    $messages->to($user['to']);
+                    $messages->subject('Alert New Booking!!');
+                });*/
 
-                        return redirect()->back()->with('status','Booking complete !! Please proceed to advance payment'); 
-           
+                return redirect()->back()->with('status','Booking complete !! Please proceed to advance payment'); 
+    
             }else{
                 return redirect()->back()->with('status','Please login as a customer to book !!'); 
             }

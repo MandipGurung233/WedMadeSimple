@@ -1,6 +1,3 @@
-
-
-
 /*start of animation*/
 
 .animate{
@@ -274,12 +271,12 @@
 }
 
 #feature-img1{
-    background-image: url("/image/home/feature1.png") ;
-    border-radius: 2%;
     background-position: center center;
     background-repeat: no-repeat;
-    background-size: cover;
-    min-height: 200px;
+    border-radius: 2%;
+    vertical-align: middle;
+    width: 250px !important;
+    max-height: 200px;  
 }
 
 @media (min-width: 768px){

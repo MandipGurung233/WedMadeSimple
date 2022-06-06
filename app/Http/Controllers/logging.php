@@ -59,19 +59,6 @@ class logging extends Controller
       
         }
         
-        /*$user = Approved::where(['email'=>$request->email])->first();
-        if (!$user){
-            return redirect()->back()->with('status','Incorrect email or password');
-        } else{
-            $password = $user->password;
-            $Password1 = $request->password;
-            if ($password == $Password1){
-                $request->session()->put('user',$user);
-                return redirect('/vendDash');
-            } else{
-                return redirect()->back()->with('status','Incorrect password');
-            }
-        }*/
     }
 
     public function adminLogin(Request $request)
@@ -153,6 +140,13 @@ class logging extends Controller
             $filename = time().'.'.$extention;
             $file->move('uploads/doc/',$filename);
             $approved->file = $filename;    
+        }
+        if($request->hasfile('img')){
+            $file = $request->file('img');
+            $extention = $file->getClientOriginalExtension();
+            $filename = time().'.'.$extention;
+            $file->move('uploads/vendor/',$filename);
+            $approved->img = $filename;    
         }
         $approved->description=$request->description;
         $approved->save();

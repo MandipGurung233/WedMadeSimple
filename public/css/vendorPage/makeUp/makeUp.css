@@ -72,14 +72,15 @@
     box-shadow: 1px 13px 20px 1px rgb(0 0 0 / 5%);
 }
 
-#success-carousel-img1{
-    background-image: url("/image/home/wed4.jpg") ;
+#success-carousel-img1 {
+
     border-radius: 2%;
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
+    max-width:200px;
     margin-top: 20px;
-    min-height: 255px;
+    min-height: 200px;
     position: relative;
 }
 

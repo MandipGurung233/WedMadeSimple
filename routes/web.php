@@ -7,6 +7,8 @@ use App\Http\Controllers\followSystem;
 use App\Http\Controllers\recommend;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\generateReport;
+use App\Http\Controllers\reviewSystem;
+use App\Http\Controllers\ratingSystem;
 
 /*
 |--------------------------------------------------------------------------
@@ -77,6 +79,9 @@ Route::get('/anyBooking',[home::class,'anyBook']);
 
 /*Customer newsfeed */
 Route::get('/newsFeed',[home::class,'newsFeed']);
+Route::get('/review',[reviewSystem::class,'listReview']);
+Route::get('/reviewVendor',[reviewSystem::class,'reviewVendor']);
+Route::delete('destroyReview/{id}',[reviewSystem::class,'destroyReview']);
 
 /*contact details */
 Route::post('/contact',[home::class,'contacts']);
@@ -88,6 +93,11 @@ Route::delete('deletePost/{id}',[home::class,'deletePost']);
 /*Follow system*/
 Route::post('followSystem/{userEmail}',[followSystem::class,'following']);
 Route::post('deleteFollow/{iid}',[followSystem::class,'deleteFollow']);
+
+/*review system and rating system*/
+Route::post('/reviewSystem',[reviewSystem::class,'review']);
+Route::post('/ratingSystem',[ratingSystem::class,'rating']);
+Route::delete('destroyRating/{id}',[ratingSystem::class,'destroyRating']);
 
 /*Feature page*/
 Route::get('customizeFeature/{id}', [followSystem::class,'customizeFeature']);
@@ -103,7 +113,7 @@ Route::get('/markasread/{id}',[home::class, 'markasread'])->name('markasread');
 Route::get('/mark_as_read/{id}',[home::class, 'mark_as_read'])->name('mark_as_read');
 
 Route::post('/khalti/payment/verify',[PaymentController::class,'verifyPayment'])->name('khalti.verifyPayment');
-Route::post('/khalti/payment/store',[PaymentController::class,'storePayment'])->name('khalti.storePayment');
+Route::post('/khalti/payment/storee',[PaymentController::class,'storePayment'])->name('khalti.storePayment');
 Route::post('/khalti/payment/store',[PaymentController::class,'storePayments'])->name('khalti.storePayments');
 
 /* Recommendation*/
@@ -113,3 +123,18 @@ Route::get('/exportBook',[generateReport::class,'exportBook']);
 Route::get('/exportContact',[generateReport::class,'exportContact']);
 Route::get('exportBooks',[generateReport::class,'exportBooks']);
 Route::get('/vendorExport',[generateReport::class,'vendorExport']);
+
+
+/*download file */
+Route::get('/download/{file}',[home::class,'file']);
+Route::get('/view/{id}',[home::class,'view']);
+
+/* vendor update info*/
+Route::get('/setting',[home::class,'setting']);
+Route::get('editInfo/{id}', [home::class,'editInf']);
+Route::put('updateApprove/{id}', [home::class,'updateApprove']);
+
+/* customer update info*/
+Route::get('/customerInfo',[home::class,'updateCustomer']);
+Route::get('editCustomer/{id}', [home::class,'editCustomer']);
+Route::put('updateApproved/{id}', [home::class,'updateApproved']);

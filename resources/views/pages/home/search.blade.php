@@ -66,6 +66,9 @@
                    
                         <a href="{{ url('customizeFeature/'.$data->id) }}">
                             <div class="col-md-3 text-center" id="featuretxt">
+                            <img id="feature-img1" src ="{{ asset('uploads/vendor/'.$data->img) }}" alt="image">                                                            
+                                                
+                    
                                 <div class="container" id="feature-img1">                                                              
                                                                         
                                 </div>

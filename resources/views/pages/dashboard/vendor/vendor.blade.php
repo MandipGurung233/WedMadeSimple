@@ -4,6 +4,9 @@
 <?php
     use App\Models\vendorDetails;
     use App\Models\Post;
+    use App\Models\Review;
+    use App\Models\Rating;
+    use App\Models\User;
     use App\Models\Approved;
     $detail = vendorDetails::all();
     $post = Post::all();
@@ -59,7 +62,8 @@ $txt = 'N\A';
                 
                         <div class="row justify-content-center">
                                         <div class="col-md-10">
-                                                    <div class="container" id="success-carousel-img1">                                                              
+                                                    <div class="container"> 
+                                                        <img id="success-carousel-img1" src ="{{ asset('uploads/postImg/'.$imgFile) }}" alt="image">                                                            
                                                         <p>{{$uploadDate}}</p>            
                                                     </div>
                                                     <div class=" container success-carousel-details">
@@ -250,36 +254,111 @@ $txt = 'N\A';
           
           </p>
             </div>
+                    
+            <?php
+             $emails = Session::get('user')['email']; 
+            ?>
             <div class="col-md-7">
-                <form>
+                <form action="/ratingSystem" method="POST">
+                    @csrf
+                    <input class="form-check-input" type="hidden" name="followedVendor" value={{$emails}}>
+                    <?php
+                    $rating = Rating::all();
+                    $vendEmail = $emails;
+                    $reviewRating = array();
+                    foreach ($rating as $item){
+                        if ( $item->vendorEmail == $vendEmail){
+                            $rating = $item->rating;
+                            array_push($reviewRating, $rating);
+                        }                  
+                    }
+                    $totals = count($reviewRating);
+                    ?>
+                    @if ($totals)
+                        @php
+                            $sum = 0;
+                        @endphp
+                        @for ($i = 0; $i < $totals; $i++)
+                            <?php
+                                $value = $reviewRating[$i];
+                                $sum = $sum + $value;
+                            ?>
+                        @endfor
+                        <?php
+                        $avg = $sum / $totals;
+                        if (gettype($avg) == 'double'){
+                            $avg = bcdiv($avg, 1, 1);
+                        } 
+                        ?>
+                        <p style="margin-bottom:15px !important; background-color:#7872726e;width:fit-content; border-radius:20px;"><span style="padding:10px;"><span style="color: #e72e77;"><i class="bi bi-star-fill"></i></span>&nbsp;{{$avg}}</span></p>
+                    @endif 
                     <div class="form-group pt-3 rating">
                         <ul style="padding-left:0px !important;margin-bottom:0px !important;">
                             <li>
                                 <p><span style="font-weight:bold;color: rgb(39 39 39 / 87%);">Provide rating: </span></p>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='1'>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='2'>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='3'>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='4'>
                                 </div>
                                 <div class="form-check">
-                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                    <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='5'>
                                 </div>
+                                <br>
+                                <button type="submit" class="btn btn-danger mb-5">Submit</button>
                             </li>
-                        </ul>
-                        
-                        <br>
-                        <textarea type="text" class="form-control" placeholder="Write your review" rows="9"></textarea>
-                        <br>
-                        <button type="button" class="btn btn-danger mb-5">Submit</button>
+                        </ul> 
+                        <span style="color: red; font-size:12px;">@error('flexRadioDefault'){{ $message }}@enderror</span>                    
                     </div>
                 </form>
+           
+            <form action="/reviewSystem" method="POST">
+                @csrf
+                <input class="form-check-input" type="hidden" name="followedVendor" value={{$emails}}>
+                <br>
+                <textarea type="text" class="form-control" style="margin-bottom:5px;" name="review" placeholder="Write your review" rows="9"></textarea>
+                
+                <span style="color: red; font-size:12px;">@error('review'){{ $message }}@enderror</span>
+                <br>
+               
+            <?php
+                $review = Review::all();
+                $vendEmail = $emails;
+                $reviewID = array();
+                foreach ($review as $item){
+                    if ( $item->vendorEmail == $vendEmail){
+                        $reviewid = $item->id;
+                        array_push($reviewID, $reviewid);
+                    }                  
+                }
+                $totals = count($reviewID);
+            ?>
+            @for ($i = 0; $i < $totals; $i++)
+                <?php
+                    $value = Review::find($reviewID[$i]);
+                    $review = $value->review;
+                    $userEm = $value->userEmail;
+                    $finds = User::where(['email'=>$userEm])->first();
+                    if ($finds){
+                        $customer = $finds->name;
+                    } else{
+                        $finds = Approved::where(['email'=>$userEm])->first();
+                        $customer = $finds->name;
+                    }
+                    
+                ?>
+                <p style="background-color:#1a09091f;border-radius:22px;width:max-content;"><span style="font-size:12px;font-style:arial;padding:15px;padding-bottom:0px!important;">{{$customer}}</span><br>
+                <span style="font-style:arial;padding-top:0px!important;padding:15px;font-size:15px;">{{$review}}</p>
+            @endfor
+            <button type="submit" class="btn btn-danger mb-5">Submit</button>
+            </form>
             </div>
         </div>
     </div>

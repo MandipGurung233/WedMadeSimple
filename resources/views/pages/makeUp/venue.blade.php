@@ -1,5 +1,6 @@
 <?php
     use App\Models\Approved;
+    use App\Models\Rating;
     $make = Approved::all();
 ?>
 @extends('pages.makeUp.makeUpMain')
@@ -10,25 +11,10 @@
         <div class="row justify-content-center slider-text align-items-center mt-6">
             <div class="col-md-6 col-lg-8 area">
                 <div class="text-center">
-                    <h1 class="mt-5" style="color: white;font-size:35px;">Vendor that best fit for you</h1>
+                    <h1 class="mt-3" style="color: white;font-size:35px;">Vendor that best fit for you</h1>
                     <h1 id="bann"><a href="/">Home</a>><a href="/service">Service</a>><a href="/venue">Venue Vendors</a></h1>
                 </div>
-                <form action="/search" class="search-location mt-md-5">
-                    <div class="row justify-content-center">
-                        <div class="col-lg-10 align-items-end">
-                        <div class="form-group">
-                            <div class="form-field">
-                            
-                            <input type="text" name="search" class="form-control" placeholder="Search City">
-                            <button>
-                                    <i class="bi bi-search" id="nn"></i>
-                            </button>
-                            
-                            </div>
-                        </div>
-                        </div>
-                    </div>
-                </form> 
+                
             </div>
         </div>   
     </div>
@@ -53,15 +39,54 @@
                 @foreach ($make as $item)
                     @if ( $item->vendorType == $name && $item->approves == 1)
                         <div class="col-md-3" id="categoryCol1" style="background-color: rgb(223, 178, 173);">
-                                <div class=" img1 d-none d-md-block">
+                        <img class ="img1" src ="{{ asset('uploads/vendor/'.$item->img) }}" alt="image">                                                         
+                                                                                                                     
+                                            
+                             
                                 
                                 <a href="{{ url('customizeVenue/'.$item->email) }}" class="btn btn-primary btn-sm">
                                     <button type="submit" class="btn mt-2" id="blog-btn">Details</button>
                                 </a>
                                     
-                                </div>  
+                             
                                 <div class="" id="categorytxt">
-                                    <h5>{{ $item->name}}</h5>
+                                    <ul style="list-style:none;display:flex;padding:0px !important;margin:0px!important;">
+                                        <li>
+                                            <h5>{{ $item->name}} &nbsp;</h5>
+                                        </li>
+                                    <?php
+                                    $rating = Rating::all();
+                                    $vendEmail = $item->email;
+                                    $reviewRating = array();
+                                    foreach ($rating as $item){
+                                        if ( $item->vendorEmail == $vendEmail){
+                                            $rating = $item->rating;
+                                            array_push($reviewRating, $rating);
+                                        }                  
+                                    }
+                                    $totals = count($reviewRating);
+                                    ?>
+                                    @if ($totals)
+                                        @php
+                                            $sum = 0;
+                                        @endphp
+                                        @for ($i = 0; $i < $totals; $i++)
+                                            <?php
+                                                $value = $reviewRating[$i];
+                                                $sum = $sum + $value;
+                                            ?>
+                                        @endfor
+                                        <?php
+                                        $avg = $sum / $totals;
+                                        if (gettype($avg) == 'double'){
+                                            $avg = bcdiv($avg, 1, 1);
+                                        } 
+                                        ?>
+                                        <li>
+                                            <p style="margin-bottom:15px !important; background-color:#7872726e;width:fit-content; border-radius:20px;"><span style="padding:10px;"><span style="color: #e72e77;"><i class="bi bi-star-fill"></i></span>&nbsp;{{$avg}}</span></p>
+                                        </li>
+                                    @endif 
+                                    </ul>
                                     <p><span style="font-weight:bold;">Location: {{ $item->address}}</span></p>            
                                 </div>
                         </div>

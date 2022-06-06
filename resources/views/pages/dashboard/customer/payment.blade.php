@@ -76,15 +76,15 @@ if(Session::has('user')){
                                     
                                 </div>
                             </div>
-                            
                             <div class="dropdown">
                                 
                                 <a class="dropdown-toggle " data-bs-toggle="dropdown" href="{{$name}}" class="signup"><button type="button" class="btns" id="banner-btn-1">{{ Session::get('user')['name'] }}</button></a>        
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="/bookingHistory">Booking Details</a>
                                     <a class="dropdown-item" href="/newsFeed">NewsFeed</a>
-                                    <a class="dropdown-item" href="/payment">Payment</a>
-                                    <a class="dropdown-item" href="#">Status | <span style="color:green">Pending</span></a>
+                                    <a class="dropdown-item" href="{{ url('exportBooks') }}" name="export" class="btn btn-primary float-end repo" style="margin-right:40px; color:red; font-weight:bold;">Booking Details .CSV</a>
+                                    <a class="dropdown-item" href="/review">Review & Rating</a>
+                                    <a class="dropdown-item" href="/customerInfo">Update Info</a>
                                     <a class="dropdown-item" href="/logout">Logout</a>
                                 </div>
                             </div>
@@ -156,6 +156,7 @@ if(Session::has('user')){
 ?>
 <div class="container">    
                 <div class="row pt-2 justify-content-center">
+                
                     <div class="col-md-4">
                         @if (session('status'))
                             <h6 class="alert alert-success">{{ session('status') }}</h6>
@@ -188,7 +189,7 @@ if(Session::has('user')){
    <script>
         var config = {
             // replace the publicKey with yours
-            "publicKey": "test_public_key_7d1e222d9bec48cf92d19e0e744ca8e2",
+            "publicKey": "test_public_key_26636c3e2c644eb9a018ed70612fb0a1",
             "productIdentity": "1234567890",
             "productName": "Dragon",
             "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
@@ -221,7 +222,7 @@ if(Session::has('user')){
                                     },
                                     success: function(res){
                                         
-                                        console.log('transaction successfull');
+                                        alert('Transaction Successfull !!');
                                     }
                                 });
                                 console.log(res);

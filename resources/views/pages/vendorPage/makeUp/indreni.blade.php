@@ -8,6 +8,8 @@
     use App\Models\makeUp;
     use App\Models\User;
     use App\Models\service;
+    use App\Models\Review;
+    use App\Models\Rating;
     use App\Models\vendorDate;
     $detail = vendorDetails::all();
     $vendorDate = vendorDate::all();
@@ -48,7 +50,8 @@
                 
                         <div class="row justify-content-center">
                                         <div class="col-md-10">
-                                                    <div class="container" id="success-carousel-img1">                                                              
+                                                    <div class="container"> 
+                                                        <img id="success-carousel-img1" src ="{{ asset('uploads/postImg/'.$imgFile) }}" alt="image">                                                                                                                                                                                
                                                         <p>{{$uploadDate}}</p>            
                                                     </div>
                                                     <div class=" container success-carousel-details">
@@ -358,15 +361,7 @@
                                             </button>
                                         </a>
                                     </div>
-                                    <div>
-                                        <button class="book" data-toggle="modal" data-target=".bd-example-modal-lg3">
-                                            <span class="sth">
-                                                <div id="content">
-                                                    <p>Cancel</p>
-                                                </div>
-                                            </span>
-                                        </button>
-                                    </div>  
+                                   
                                 </li>  
                             </ul> 
             </div> 
@@ -393,35 +388,110 @@
           </p>
         </div>
         <div class="col-md-7">
-            <form>
+            <form action="/ratingSystem" method="POST">
+                @csrf
+                <input class="form-check-input" type="hidden" name="followedVendor" value={{$venEmail}}>
                 <div class="form-group pt-3 rating">
+                <?php
+                    $rating = Rating::all();
+                    $vendEmail = $values;
+                    $reviewRating = array();
+                    foreach ($rating as $item){
+                        if ( $item->vendorEmail == $vendEmail){
+                            $rating = $item->rating;
+                            array_push($reviewRating, $rating);
+                        }                  
+                    }
+                    $totals = count($reviewRating);
+                ?>
+                @if ($totals)
+                    @php
+                        $sum = 0;
+                    @endphp
+                    @for ($i = 0; $i < $totals; $i++)
+                        <?php
+                            $value = $reviewRating[$i];
+                            $sum = $sum + $value;
+                        ?>
+                    @endfor
+                    <?php
+                    $avg = $sum / $totals;
+                    if (gettype($avg) == 'double'){
+                        $avg = bcdiv($avg, 1, 1);
+                    } 
+                    ?>
+                    <p style="margin-bottom:15px !important; background-color:#7872726e;width:fit-content; border-radius:20px;"><span style="padding:10px;"><span style="color: #e72e77;"><i class="bi bi-star-fill"></i></span>&nbsp;{{$avg}}</span></p>
+                @endif 
+                <span style="color: red; font-size:12px;">@error('flexRadioDefault'){{ $message }}@enderror</span>
+                
                     <ul style="padding-left:0px !important;margin-bottom:0px !important;">
                         <li>
                             <p><span style="font-weight:bold;color: rgb(39 39 39 / 87%);">Provide rating: </span></p>
+                            
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='1'>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='2'>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='3'>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='4'>
                             </div>
                             <div class="form-check">
-                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1">
+                                <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value='5'>
                             </div>
+                            <br>
+                           <button type="submit" class="btn btn-danger mb-5">Submit</button>
                         </li>
-                    </ul>
-                    
-                    <br>
-                    <textarea type="text" class="form-control" placeholder="Write your review" rows="9"></textarea>
-                    <br>
-                    <button type="button" class="btn btn-danger mb-5">Submit</button>
-                </div>
+                        
+                    </ul> 
+                                
+                </div>                
             </form>
+            <form action="/reviewSystem" method="POST">
+                @csrf
+                <input class="form-check-input" type="hidden" name="followedVendor" value={{$venEmail}}>
+             
+                <textarea type="text" class="form-control" style="margin-bottom:5px;" name="review" placeholder="Write your review" rows="9"></textarea>
+                
+                <span style="color: red; font-size:12px;">@error('review'){{ $message }}@enderror</span>
+                <br>
+               
+            <?php
+                $review = Review::all();
+                $vendEmail = $values;
+                $reviewID = array();
+                foreach ($review as $item){
+                    if ( $item->vendorEmail == $vendEmail){
+                        $reviewid = $item->id;
+                        array_push($reviewID, $reviewid);
+                    }                  
+                }
+                $totals = count($reviewID);
+            ?>
+            @for ($i = 0; $i < $totals; $i++)
+                <?php
+                    $value = Review::find($reviewID[$i]);
+                    $review = $value->review;
+                    $userEm = $value->userEmail;
+                    $finds = User::where(['email'=>$userEm])->first();
+                    if ($finds){
+                        $customer = $finds->name;
+                    } else{
+                        $finds = Approved::where(['email'=>$userEm])->first();
+                        $customer = $finds->name;
+                    }
+                    
+                ?>
+                <p style="background-color:#1a09091f;border-radius:22px;width:max-content;"><span style="font-size:12px;font-style:arial;padding:15px;padding-bottom:0px!important;">{{$customer}}</span><br>
+                <span style="font-style:arial;padding-top:0px!important;padding:15px;font-size:15px;">{{$review}}</p>
+            @endfor
+            <button type="submit" class="btn btn-danger mb-5">Submit</button>
+            </form>
+           
         </div>
     </div>
 </div>
@@ -541,76 +611,7 @@
     </div>
 </div>
 
-<div class="modal fade bd-example-modal-lg1" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h6 class="modal-title" id="exampleModalLabel" style="font-weight:bold;">Make a Reservation</h6>  
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="container">    
-                <div class="row pt-2 justify-content-center">
-                    <div class="col-md-4">
-                        <br>
-                        <h5>Powered By:</h5>
-                        <img src="/image/Book/Khalti logo.png" alt="image" class="img-fluid">
-                        <form>
-                            <div class="form-group pt-3">
-                                <button type="button" class="btn btn-danger mb-5" data-toggle="modal" data-target=".bd-example-modal-lg2" data-dismiss="modal">Advance Payment</button>              
-                            </div>
-                        </form>
-                    </div>  
-                    <div class="col-md-7">
-                        <form>
-                            <div class="form-group pt-3">
-                                <h6 style="font-weight:550px;">Total Payment</h6>
-                                <input type="text" class="form-control" placeholder="5000">
-                                <br>
-                                <h6 style="font-weight:550px;">Comment/question *</h6>
-                                <textarea type="text" class="form-control" placeholder="Message" rows="8"></textarea>
-                                <br>    
-                            </div>
-                        </form>
-                    </div>
-                             
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
 
-<div class="modal bd-example-modal-lg2" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header alert alert-success">
-        <h5 class="modal-title" id="exampleModalLabel">Message</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <p>Successfully Booked !!</p>   
-      </div>
-    </div>
-  </div>
-</div>
 
-<div class="modal bd-example-modal-lg3" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header alert alert-danger">
-        <h5 class="modal-title" id="exampleModalLabel">Cancellation</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-      <p>Your booking has been cancelled !</p>   
-      </div>
-    </div>
-  </div>
-</div>
 @endsection

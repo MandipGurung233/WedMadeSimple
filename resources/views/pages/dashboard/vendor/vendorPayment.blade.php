@@ -40,7 +40,7 @@
    <script>
         var config = {
             // replace the publicKey with yours
-            "publicKey": "test_public_key_7d1e222d9bec48cf92d19e0e744ca8e2",
+            "publicKey": "test_public_key_26636c3e2c644eb9a018ed70612fb0a1",
             "productIdentity": "1234567890",
             "productName": "Dragon",
             "productUrl": "http://gameofthrones.wikia.com/wiki/Dragons",
@@ -72,14 +72,13 @@
                                         "_token" : "{{ csrf_token() }}"
                                     },
                                     success: function(res){
-                                        
-                                        console.log('transaction successfull');
+                                   
+                                        alert('Transaction Successfull !!');
                                     }
                                 });
                                 console.log(res);
                             }
                         });
-                        
                     console.log(payload);
                 },
                 onError (error) {

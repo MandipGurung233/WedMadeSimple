@@ -22,6 +22,7 @@ class CreateApprovedsTable extends Migration
             $table->string('vendorType');
             $table->string('file')->nullable(); 
             $table->string('description'); 
+            $table->string('img');
             $table->string('view')->nullable();
             $table->string('bookNo')->nullable();
             $table->string('value')->nullable(); 

@@ -21,8 +21,9 @@ class vendorApprove extends Seeder
                 'email' => 'gurungmandip111@gmail.com',
                 'password' => 'mandip',
                 'vendorType' => 'Make Up',
-                'file' => 'photo.png',
+                'file' => 'ShantiMakeup.pdf',
                 'description' => 'One stop solution for all your make up offering both home and studio service with 2 years of experience',
+                'img' => 'makeup1.jpg',
            ],
             [
                 'name' => 'Niraj Make Up',
@@ -30,8 +31,9 @@ class vendorApprove extends Seeder
                 'email' => 'tamu0057@gmail.com',
                 'password' => 'mandip',
                 'vendorType' => 'Make Up',
-                'file' => 'photo.png',
+                'file' => 'niraj.pdf',
                 'description' => 'Offers multiple make up as per customer demands with both home and studio service',
+                'img' => 'makeup2.jpg',
       
             ],
             [
@@ -40,8 +42,9 @@ class vendorApprove extends Seeder
                 'email' => 'rishi@gmail.com',
                 'password' => 'mandip',
                 'vendorType' => 'Make Up',
-                'file' => 'photo.png',
+                'file' => 'RishiMakeup.pdf',
                 'description' => 'Get all your make up need with best price and get both home as well as studio service',
+                'img' => 'makeup3.jpg',
             ],
             [
                 'name' => 'Hancy Make Up',
@@ -49,8 +52,9 @@ class vendorApprove extends Seeder
                 'email' => 'hancy@gmail.com',
                 'password' => 'mandip',
                 'vendorType' => 'Make Up',
-                'file' => 'photo.png',
+                'file' => 'HancyMakeup.pdf',
                 'description' => 'Make up makes you looks good so book it at best price with both home and studio service',
+                'img' => 'makeup4.jpg',
             ],
             [
                 'name' => 'Hancy kto Make Up',
@@ -58,26 +62,30 @@ class vendorApprove extends Seeder
                 'email' => 'kto@gmail.com',
                 'password' => 'mandip',
                 'vendorType' => 'Make Up',
-                'file' => 'photo.png',
+                'file' => 'HancyKtoMakeup.pdf',
                 'description' => 'Hancy Make up makes you looks confidence so book it with both service as per demands',
+                'img' => 'makeup5.jpg',
             ],
+            
             [
                 'name' => 'Darpan Bhojan',
                 'address' => 'Tarahara',
                 'email' => 'darpan@gmail.com',
                 'password' => 'mandip',
                 'vendorType' => 'Venue',
-                'file' => 'photo.png',
+                'file' => 'DarpanMakeup.pdf',
                 'description' => 'Darapan palace offers best venue with asthetic environment to make your day special at best price',
-             ],
+                'img' => 'venue1.jpg',
+            ],
             [
                 'name' => 'Rcity palace',
                 'address' => 'Jhumka',
                 'email' => 'rcity@gmail.com',
                 'password' => 'mandip',
                 'vendorType' => 'Venue',
-                'file' => 'photo.png',
+                'file' => 'RcityPalace.pdf',
                 'description' => 'Our venue offers an asthetic and decorative environment to make your moment memorable',
+                'img' => 'venue2.jpg',
           
             ],
             [
@@ -86,8 +94,9 @@ class vendorApprove extends Seeder
                 'email' => 'simple@gmail.com',
                 'password' => 'mandip',
                 'vendorType' => 'Venue',
-                'file' => 'photo.png',
+                'file' => 'SimplePalace.pdf',
                 'description' => 'Our simple venue offers an asthetic environment to cherish your moment',
+                'img' => 'venue3.jpg',
           
             ],
             [
@@ -96,8 +105,9 @@ class vendorApprove extends Seeder
                 'email' => 'indra@gmail.com',
                 'password' => 'mandip',
                 'vendorType' => 'Venue',
-                'file' => 'photo.png',
+                'file' => 'IndraPalace.pdf',
                 'description' => 'With one hundred customer satisfaction we offer at best price best venue with high decoration to make your program special',
+                'img' => 'venue4.jpg',
            ],
            [
             'name' => '3 star palace',
@@ -105,8 +115,9 @@ class vendorApprove extends Seeder
             'email' => 'star@gmail.com',
             'password' => 'mandip',
             'vendorType' => 'Venue',
-            'file' => 'photo.png',
+            'file' => 'StarPalace.pdf',
             'description' => 'we offer at best price with high decoration to make it special with natural environment',
+            'img' => 'venue5.jpg',
        ],
         ]);
     }

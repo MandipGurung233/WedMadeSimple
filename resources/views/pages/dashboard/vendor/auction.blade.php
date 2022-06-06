@@ -4,8 +4,9 @@
     use App\Models\Approved;
     $value = Approved::all();
     $betting = array();
+    $bettingg = '0';
     foreach ($value as $item){
-        $bettingg = '';
+       
         $bettings = $item->value;
         if (!$bettings){
             $bettingg = '0';

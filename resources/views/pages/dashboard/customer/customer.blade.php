@@ -120,10 +120,8 @@
                                     <td>{{ $book_date }}</td>
                                     <td>{{ $service }}</td>
                                     <td>{{ $amount }}</td>
-                                    <td>{{ $comment }}</td>
-                                   
-                                   
-                                        <td><a href="{{ url('payment/'.$item->id) }}" class="btn btn-primary btn-sm">Pay advance</a></td>
+                                    <td>{{ $comment }}</td>                                         
+                                    <td><a href="{{ url('payment/'.$item->id) }}" class="btn btn-primary btn-sm">Pay advance</a></td>
                                   
                                    
                                     <td>
@@ -145,6 +143,140 @@
         
     </div>
     <br>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <br>
+                @if (session('status'))
+                  <h6 class="alert alert-success">{{ session('status') }}</h6>
+                @endif
+                <br>
+                <div class="card-header">
+                    <h5>Approved booking
+                    </h5>
+                </div>
+
+                <div class="card-body">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr class="heading">
+                             
+                                <th>Name</th>
+                                <th>Address</th>
+                                <th>Type</th>
+                                <th>bookDate</th>
+                                <th>Service</th>
+                                <th>Booking Price</th>
+                                <th>Remaining Price</th>
+                                <th>Comment</th>
+                                
+                              
+                        </thead>
+                        <tbody>
+                        @foreach ($value as $item)
+                          
+                            <?php
+                                $mail=Session::get('user')['email'];
+                               
+                                $mail1 = $item->email;
+                                $paid = $item->paid;
+                            
+                                if ($mail == $mail1 && $paid == 1)
+                                {
+                                  
+
+                                    $book_date = $item->bookDate;
+                                    $service = $item->service;
+                                    $veEmail = $item->venEmail;
+                                    $comment = $item->comment;
+                                    $pay = $item->payment;
+                                   
+                                    $find = Approved::where(['email'=>$veEmail])->first();
+                                   
+                                    $vendName = $find->name;
+                                    $vendAddress = $find->address;
+                                    $vendType = $find->vendorType;
+                                } else{
+                                 
+                                    $book_date = 'N\A';
+                                    $service = 'N\A';
+                                    $veEmail = 'N\A';
+                                    $pay = 'N\A';
+                                    $amount = 'N\A';
+                                    $vendName = 'N\A';
+                                    $vendAddress = 'N\A';
+                                    $vendType = 'N\A';
+                                    $comment = 'N\A';
+                                }
+                            ?>
+                            
+                            <?php
+                          
+                             $servicee = service::all();
+                             $counti = count($servicee);
+                             $amounts = 'N\A'; 
+                             $serviceTypes = array();
+      
+                            for ($x = 0; $x < $counti; $x++) {
+                                $values = $servicee[$x];
+                                if ($veEmail ==  $values['email']){
+                                    array_push($serviceTypes,  $values['service']);
+                                }
+                            } 
+                            $totall = count($serviceTypes);
+                            if (in_array($service, $serviceTypes)){
+                                for ($i = 0; $i < $totall;$i++){
+                                    $sth = $serviceTypes[$i];
+                                    if ($service == $sth){
+                                        for ($x = 0; $x < $counti; $x++) {
+                                            $values = $servicee[$x];
+                                            if ($veEmail ==  $values['email']){
+                                                if ($values['service'] == $sth){
+                                                    $amounts = $values['price'];
+                                                }
+                                               
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                           
+                             $amount = (int)$amounts;
+                             $half = $amount/2; 
+                            ?>
+                            @if ($mail == $mail1 && $paid == 1)
+
+                                <tr class="heading-value">
+                                  
+                                    
+                                    <td>{{ $vendName }}</td>
+                                    <td>{{ $vendAddress }}</td>
+                                    <td>{{ $vendType }}</td>
+                                    <td>{{ $book_date }}</td>
+                                    <td>{{ $service }}</td>
+                                    <td>{{ $amount }}</td>
+                                    <td>{{ $half }}</td>
+                                    <td>{{ $comment }}</td>                                         
+                                   
+                                    <td>
+                                        <form action="{{ url('cancel/'.$item->id) }}" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-danger btn-sm">Cancel</button>
+                                        </form>
+                                    </td>
+                                   
+                                </tr>
+                            @endif
+                        @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    <!--
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -250,7 +382,7 @@
             </div>
         </div>
         
-    </div>
+    </div>-->
 </div>
 <br><br>
 @endsection
