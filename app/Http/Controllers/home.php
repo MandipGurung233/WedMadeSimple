@@ -1,5 +1,4 @@
 <?php
-
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Vendor;
@@ -17,13 +16,14 @@ use App\Models\Approved;
 use App\Models\vendorDetails;
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Distance;
 use App\Models\vendorDate;
 use App\Models\service;
 use App\Models\contact;
 use App\Models\bookDetail;
 use Session;
-use Mail;
 
+use Mail;
 class home extends Controller
 {
     //
@@ -53,6 +53,14 @@ class home extends Controller
 
     public function venued(){
         return view ('pages.makeUp.venue');
+    }
+
+    public function clothing(){
+        return view ('pages.makeUp.cloth');
+    }
+
+    public function photographer(){
+        return view ('pages.makeUp.photo');
     }
   
     public function adminLogin(){
@@ -93,6 +101,11 @@ class home extends Controller
         return view('pages.dashboard.customer.customerInformation',compact('approved'));
     }
 
+    public function enterDistance($id){
+        $distance = Distance::find($id);
+        return view('pages.dashboard.admin.adminDistance',compact('distance'));
+    }
+
     public function updateApprove(Request $request, $id)
     {
         $request->validate([
@@ -126,6 +139,19 @@ class home extends Controller
         return redirect()->back()->with('status','Information updated');
     }
 
+
+    public function enterDistan(Request $request, $id)
+    {
+        $request->validate([
+            'calculatedDistance' => 'required',
+        ]);
+
+        $book = Distance::find($id);
+        $book->calculatedDistance = $request->input('calculatedDistance');
+        $book->update();
+        return view ('pages.dashboard.admin.distance');
+    }
+
     public function updateApproved(Request $request, $id)
     {
         $request->validate([
@@ -140,6 +166,39 @@ class home extends Controller
         $book->address = $request->input('address');
         $book->update();
         return redirect()->back()->with('status','Information updated');
+    }
+
+    public function vendDist(){
+        $approve = Approved::all();
+        $dista = Distance::all();
+        $user = User::all();
+        $k = 0;
+        Distance::truncate();
+        foreach ($user as $users){
+           foreach ($approve as $item){
+               if ($item->approves == 1){
+                   /*foreach ($dista as $distan){
+                       $pemail = $distan->email;
+                       $pvendorEmail = $distan->vendorEmail;
+                       if ($pemail == $users->email && $pvendorEmail == $item->email){
+                            $k = 1;
+                            break;
+                       }                  
+                   }*/
+                  
+                   if ($k == 0){
+                        $distance = new Distance;
+                        $distance->email=$users->email; 
+                        $distance->custAddress=$users->address; 
+                        $distance->vendorEmail=$item->email;
+                        $distance->vendAddress=$item->address; 
+                        $distance->save();   
+                   }    
+               }
+           }
+        }
+        $value = Distance::all();
+        return view ('pages.dashboard.admin.distance',compact('value'));
     }
 
     public function customerDash(){
@@ -197,14 +256,15 @@ class home extends Controller
         $user = User::where(['email'=>$value1])->first();
         $user->notify(new booking($user, $value));
 
-        /*$find = Approved::where(['email'=>$venEmail])->first();
+        
+        $find = Approved::where(['email'=>$venEmail])->first();
         $vendName = $find->name;
         $data = ['name'=>$vendName,'data'=>'cancelled your booking', 'us'=>'User'];
         $user['to'] = $value1;
         Mail::send('mail',$data,function($messages) use ($user){
             $messages->to($user['to']);
             $messages->subject('Booking Cancellation !!');
-        });*/
+        });
         $value->delete();
         return redirect()->back();
     }
@@ -522,14 +582,14 @@ class home extends Controller
                 $vendor = Approved::where(['email'=>$emails])->first();
                 $vendor->notify(new booked($vendor, $customerMail));
             
-                /*$find = User::where(['email'=>$customerMail])->first();
+                $find = User::where(['email'=>$customerMail])->first();
                 $vendName = $find->name;
                 $data = ['name'=>$vendName, 'data'=>'has booked your vendor', 'us'=>'vendor'];
                 $user['to'] = $emails;
                 Mail::send('mail',$data,function($messages) use ($user){
                     $messages->to($user['to']);
                     $messages->subject('Alert New Booking!!');
-                });*/
+                });
 
                 return redirect()->back()->with('status','Booking complete !! Please proceed to advance payment'); 
     
@@ -562,7 +622,6 @@ class home extends Controller
         else{
             return view ('pages.home.search',compact('id'));   
         }
-        
     }
 
 

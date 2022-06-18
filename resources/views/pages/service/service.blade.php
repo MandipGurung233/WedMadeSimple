@@ -56,7 +56,7 @@
                 </a>   
             </div>
             <div class="row justify-content-evenly" id="categoryRow1">
-                <a href="/avaVend">
+                <a href="/photographer">
                     <div class="col-md-5" id="categoryCol1" style="background-color: rgb(207, 205, 184);">
                         <div class="row justify-content-evenly">
                             <div class="col-md-5" id="categorytxt">
@@ -69,7 +69,7 @@
                     </div>
                 </a>
 
-                <a href="/avaVend">
+                <a href="/clothing">
                     <div class="col-md-5" id="categoryCol1" style="background-color: rgb(229, 211, 189);">
                         <div class="row justify-content-evenly">
                             <div class="col-md-5" id="categorytxt">

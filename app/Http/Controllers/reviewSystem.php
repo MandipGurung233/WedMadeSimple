@@ -16,12 +16,16 @@ class reviewSystem extends Controller
         if($request->session()->has('user'))
         {
             $currentUser = Session::get('user')['email'];
-            $review = new Review;
-            $review->userEmail=$currentUser;
-            $review->vendorEmail=$request->followedVendor;
-            $review->review=$request->review;
-            $review->save(); 
-            return redirect()->back();
+            if ($currentUser != 'admin@gmail.com'){
+                $review = new Review;
+                $review->userEmail=$currentUser;
+                $review->vendorEmail=$request->followedVendor;
+                $review->review=$request->review;
+                $review->save(); 
+                return redirect()->back();
+            } else{
+                return redirect()->back()->with('status','Please login as customer or vendor');  
+            }
          
         }else{
             return redirect('/custLogin');

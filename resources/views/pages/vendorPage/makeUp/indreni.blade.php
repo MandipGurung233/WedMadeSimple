@@ -9,6 +9,7 @@
     use App\Models\User;
     use App\Models\service;
     use App\Models\Review;
+    use App\Models\Distance;
     use App\Models\Rating;
     use App\Models\vendorDate;
     $detail = vendorDetails::all();
@@ -63,9 +64,12 @@
                                                         <ul style="display:flex">
                                                                   
                                                             <li>
-                                                                <a href="/indereni"> 
-                                                                    <button type="button" class="btn" id="blog-btn">Share</button>
-                                                                </a>
+                                                                <form action="/share" method="get">
+                                                                    @csrf
+                                                                    <button type="submit" class="btn" id="blog-btn">Share</button>
+                                                             
+                                                                </form>
+                                                               
                                                             
                                                             </li>
                                                             @if(Session::has('user'))
@@ -140,10 +144,40 @@
             }?>
 
             <div class="col-md-5 desc " style="margin-left:10px;">
+                        <?php
+                       
+                            $u = 'a';
+                            $distance = '0';
+                            if(Session::has('user')){
+                                $e=Session::get('user')['email'];
+                                  
+                                $u = User::where(['email'=>$e])->first();
+                            }
+                        ?>
+                        @if ($u != 'a')
+                            <?php
+                               
+                                $dist = Distance::all();
+                                $f=Session::get('user')['email'];
+                                $vendMail = $values;
+                                foreach ($dist as $item){
+                                    if ( $item->vendorEmail == $vendMail && $item->email == $f){
+                                        $distance = $item->calculatedDistance;
+                                        break;
+                                    }                  
+                                }
+                               
+                            ?>
+                        @endif
+                       
+                            
+                    
                             <div>
                             
-                                    <h2> <span style="font-weight:bold">|</span> {{$name}}   <span style="color:grey; font-size:13px; margin-left:10px;">{{$view}} views</span></h2>
-                                  
+                                    <h2 style="margin-bottom: 0rem !important;"> <span style="font-weight:bold">|</span> {{$name}}   <span style="color:grey; font-size:13px; margin-left:10px;">{{$view}} views </span></h2>
+                                 
+                                    <h5><span style="font-size:12px;color:grey;padding-left:17px;">{{$distance}} km from your address</span></h5>     
+                                 
                        
                             </div>
                             @if(Session::has('user'))
@@ -387,6 +421,7 @@
           
           </p>
         </div>
+    
         <div class="col-md-7">
             <form action="/ratingSystem" method="POST">
                 @csrf
@@ -451,6 +486,7 @@
                                 
                 </div>                
             </form>
+          
             <form action="/reviewSystem" method="POST">
                 @csrf
                 <input class="form-check-input" type="hidden" name="followedVendor" value={{$venEmail}}>
@@ -480,18 +516,16 @@
                     $finds = User::where(['email'=>$userEm])->first();
                     if ($finds){
                         $customer = $finds->name;
-                    } else{
+                    } elseif (!$finds){
                         $finds = Approved::where(['email'=>$userEm])->first();
                         $customer = $finds->name;
-                    }
-                    
+                    }                   
                 ?>
                 <p style="background-color:#1a09091f;border-radius:22px;width:max-content;"><span style="font-size:12px;font-style:arial;padding:15px;padding-bottom:0px!important;">{{$customer}}</span><br>
                 <span style="font-style:arial;padding-top:0px!important;padding:15px;font-size:15px;">{{$review}}</p>
             @endfor
             <button type="submit" class="btn btn-danger mb-5">Submit</button>
-            </form>
-           
+            </form>      
         </div>
     </div>
 </div>

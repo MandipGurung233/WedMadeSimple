@@ -28,6 +28,8 @@ Route::get('/service',[home::class,'service']);
 Route::get('/contact',[home::class,'contact']);
 Route::get('/makeUp',[home::class,'makeUp']);
 Route::get('/venue',[home::class,'venued']);
+Route::get('/photographer',[home::class,'photographer']);
+Route::get('/clothing',[home::class,'clothing']);
 Route::get('/adminDashboard',[home::class,'adminDash']);
 Route::get('/custDash',[home::class,'customerDash']);
 Route::get('/vendDash',[home::class,'vendorDash']);
@@ -46,9 +48,12 @@ Route::get('/logout',[logging::class,'logout']);
 /* Admin dashboard*/
 Route::get('approved/{id}', [home::class,'approved']);
 Route::get('appro', [home::class,'appro']);
+Route::get('/vendorDistance', [home::class,'vendDist']);
 Route::get('customize/{email}', [home::class,'customize']);
 Route::get('customizeVenue/{email}', [home::class,'customizeVenue']);
 Route::get('/generate', [home::class,'generate']);
+Route::get('enterDistance/{id}', [home::class,'enterDistance']);
+Route::post('updateDistance/{id}', [home::class,'enterDistan']);
 Route::delete('destroy/{id}', [home::class,'destroy']);
 Route::delete('destroyApprove/{id}', [home::class,'destroyApprove']);
 
@@ -97,6 +102,8 @@ Route::post('deleteFollow/{iid}',[followSystem::class,'deleteFollow']);
 /*review system and rating system*/
 Route::post('/reviewSystem',[reviewSystem::class,'review']);
 Route::post('/ratingSystem',[ratingSystem::class,'rating']);
+Route::get('/share',[ratingSystem::class,'share']);
+Route::post('shareCustomer/{custEmail}',[ratingSystem::class,'shareCustomer']);
 Route::delete('destroyRating/{id}',[ratingSystem::class,'destroyRating']);
 
 /*Feature page*/

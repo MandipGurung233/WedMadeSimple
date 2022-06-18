@@ -12,10 +12,10 @@
                 <div class="ftco-footer-widget mb-4 ">
                     <h2 class="ftco-heading-2">Quick Link</h2>
                     <ul class="list-unstyled">
-                        <li><a href="#"><i class="bi bi-arrow-right-short mr-2"></i>About Us</a></li>
-                        <li><a href="#"><i class="bi bi-arrow-right-short mr-2"></i>Category</a></li>
-                        <li><a href="#"><i class="bi bi-arrow-right-short mr-2"></i>Services</a></li>
-                        <li><a href="#"><i class="bi bi-arrow-right-short mr-2"></i>Contact</a></li>
+                        <li><a href="/about"><i class="bi bi-arrow-right-short mr-2"></i>About Us</a></li>
+                        <li><a href="/blog"><i class="bi bi-arrow-right-short mr-2"></i>Blog</a></li>
+                        <li><a href="/service"><i class="bi bi-arrow-right-short mr-2"></i>Service</a></li>
+                        <li><a href="/contact"><i class="bi bi-arrow-right-short mr-2"></i>Contact</a></li>
                     </ul>
                 </div>
             </div>
@@ -24,10 +24,10 @@
                 <div class="ftco-footer-widget mb-4 ">
                     <h2 class="ftco-heading-2">Vendor Category</h2>
                     <ul class="list-unstyled">
-                        <li><a href="#"><i class="bi bi-arrow-right-short mr-2"></i>Venue</a></li>
-                        <li><a href="#"><i class="bi bi-arrow-right-short mr-2"></i>Make-up</a></li>
-                        <li><a href="#"><i class="bi bi-arrow-right-short mr-2"></i>Clothing</a></li>
-                        <li><a href="#"><i class="bi bi-arrow-right-short mr-2"></i>Photography</a></li>
+                        <li><a href="/venue"><i class="bi bi-arrow-right-short mr-2"></i>Venue</a></li>
+                        <li><a href="/makeUp"><i class="bi bi-arrow-right-short mr-2"></i>Make-up</a></li>
+                        <li><a href="/clothing"><i class="bi bi-arrow-right-short mr-2"></i>Clothing</a></li>
+                        <li><a href="/photographer"><i class="bi bi-arrow-right-short mr-2"></i>Photography</a></li>
                     </ul>
                 </div>
             </div>

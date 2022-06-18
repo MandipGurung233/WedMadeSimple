@@ -1,8 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+</head>
+<body>
 <table>
     <tr>Dear {{$us}}, </tr>
     <tr>
-        <td> The vendor {{$name}}, </td>
-        <td>{{$data}}</td>
+        <td> {{$name}}, </td>
+        <td>{{$data}}<br></td>
     </tr>
-    <tr>Thank you !!</tr>
+   
 </table>
+</body>
+</html>

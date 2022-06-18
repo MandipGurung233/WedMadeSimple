@@ -147,9 +147,7 @@
         <div class="col-md-12">
             <div class="card">
                 <br>
-                @if (session('status'))
-                  <h6 class="alert alert-success">{{ session('status') }}</h6>
-                @endif
+              
                 <br>
                 <div class="card-header">
                     <h5>Approved booking

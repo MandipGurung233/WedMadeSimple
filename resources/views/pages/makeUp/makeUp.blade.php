@@ -50,11 +50,11 @@
                                 <a href="{{ url('customize/'.$item->email) }}" class="btn btn-primary btn-sm">
                                     <button type="submit" class="btn mt-2" id="blog-btn">Details</button>
                                 </a>
-                                <ul style="list-style:none;display:flex;padding:0px !important;margin:0px!important;">
-                                    <li>
+                                <!--<ul style="list-style:none;display:flex;padding:0px !important;margin:0px!important;">-->
+                                    
                                         <h5>{{ $item->name}} &nbsp;</h5>
-                                    </li>
-                                 
+                                        <p style="margin-bottom:10px;"><span style="font-weight:bold;">Location: {{ $item->address}}</span></p>
+                                  
                                     <?php
                                     $rating = Rating::all();
                                     $vendEmail = $item->email;
@@ -83,13 +83,16 @@
                                             $avg = bcdiv($avg, 1, 1);
                                         } 
                                         ?>
-                                        <li>
+                                        
                                         <p style="margin-bottom:15px !important; background-color:#7872726e;width:fit-content; border-radius:20px;"><span style="padding:10px;"><span style="color: #e72e77;"><i class="bi bi-star-fill"></i></span>&nbsp;{{$avg}}</span></p>
                                     
-                                </li>    @endif 
-                                </ul>
-                                    <p><span style="font-weight:bold;">Location: {{ $item->address}}</span></p>            
-                                </div>
+                                   
+                                @endif 
+                                
+                                
+                              
+                                               
+                            </div>
                         </div>
                     @endif
                 @endforeach
