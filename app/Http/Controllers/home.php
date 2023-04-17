@@ -690,6 +690,12 @@ class home extends Controller
             $value->delete();
             return redirect()->back();
     }
+
+    public function deleteBook($id){
+        $value = bookDetail::find($id);
+        $value->delete();
+        return redirect()->back()->with('status','Deleted !!');
+}
     
     public function markasread($id){
         $iid = Session::get('user')['id']; 

@@ -21,7 +21,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr class="heading">
-                                <th>id</th>
+                        
                                 <th>name</th>
                                 <th>address</th>
                                 <th>email</th>
@@ -35,7 +35,7 @@
                             @foreach ($approve as $item)
                                 @if ( $item->approves != 1)
                                     <tr class="heading-value">
-                                        <td>{{ $item->id }}</td>
+                                   
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->address }}</td>
                                         <td>{{ $item->email }}</td>
@@ -80,7 +80,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr class="heading">
-                                <th>id</th>
+                       
                                 <th>name</th>
                                 <th>address</th>
                                 <th>email</th>
@@ -94,7 +94,7 @@
                             @foreach ($approve as $item)
                                 @if ( $item->approves == 1 )
                                     <tr class="heading-value">
-                                        <td>{{ $item->id }}</td>
+                                        
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->address }}</td>
                                         <td>{{ $item->email }}</td>
@@ -139,7 +139,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr class="heading">
-                                <th>id</th>
+                          
                                 <th>name</th>
                                 <th>address</th>
                                 <th>email</th>
@@ -156,7 +156,7 @@
                             @foreach ($approve as $item)
                                 @if ( $item->vendorType == $name && $item->approves == 1 )
                                     <tr class="heading-value">
-                                        <td>{{ $item->id }}</td>
+                                   
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->address }}</td>
                                         <td>{{ $item->email }}</td>
@@ -187,7 +187,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr class="heading">
-                                <th>id</th>
+                          
                                 <th>name</th>
                                 <th>address</th>
                                 <th>email</th>
@@ -204,7 +204,7 @@
                             @foreach ($approve as $item)
                                 @if ( $item->vendorType == $name && $item->approves == 1 )
                                     <tr class="heading-value">
-                                        <td>{{ $item->id }}</td>
+                                    
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->address }}</td>
                                         <td>{{ $item->email }}</td>
@@ -237,7 +237,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr class="heading">
-                                <th>id</th>
+                            
                                 <th>name</th>
                                 <th>address</th>
                                 <th>email</th>
@@ -255,7 +255,7 @@
                             @foreach ($approve as $item)
                                 @if ( $item->vendorType == $name && $item->approves == 1 )
                                     <tr class="heading-value">
-                                        <td>{{ $item->id }}</td>
+                                    
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->address }}</td>
                                         <td>{{ $item->email }}</td>
@@ -288,7 +288,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr class="heading">
-                                <th>id</th>
+                            
                                 <th>name</th>
                                 <th>address</th>
                                 <th>email</th>
@@ -306,7 +306,7 @@
                             @foreach ($approve as $item)
                                 @if ( $item->vendorType == $name && $item->approves == 1 )
                                     <tr class="heading-value">
-                                        <td>{{ $item->id }}</td>
+                                     
                                         <td>{{ $item->name }}</td>
                                         <td>{{ $item->address }}</td>
                                         <td>{{ $item->email }}</td>

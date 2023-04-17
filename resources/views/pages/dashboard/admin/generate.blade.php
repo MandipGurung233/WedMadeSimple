@@ -12,7 +12,7 @@
     <div class="row">
         <div class="col-md-12">
             @if (session('status'))
-            <h6 class="alert alert-success">{{ session('status') }}</h6>
+            <h6 class="alert alert-success" style="width:fit-content;">{{ session('status') }}</h6>
             @endif
 
             <div class="card">
@@ -25,7 +25,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr class="heading">
-                                <th>id</th>
+                              
                                 <th>name</th>
                                 <th>address</th>
                                 <th>email</th>
@@ -39,7 +39,7 @@
                             <?php   $approve = Approved::all(); ?>
                             @foreach ($approve as $item)
                             <tr class="heading-value">
-                                <td>{{ $item->id }}</td>
+                             
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->address }}</td>
                                 <td>{{ $item->email }}</td>
@@ -63,9 +63,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            @if (session('status'))
-            <h6 class="alert alert-success">{{ session('status') }}</h6>
-            @endif
 
             <div class="card">
                 <div class="card-header">
@@ -77,7 +74,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr class="heading">
-                                <th>id</th>
+                         
                                 <th>bookDate</th>
                                 <th>service</th>
                                 <th>venEmail</th>
@@ -91,7 +88,7 @@
 
                             @foreach ($books as $item)
                             <tr class="heading-value">
-                                <td>{{ $item->id }}</td>
+                            
                                 <td>{{ $item->bookDate }}</td>
                                 <td>{{ $item->service }}</td>
                                 <td>{{ $item->venEmail }}</td>
@@ -99,7 +96,7 @@
                                 <td>{{ $item->comment }}</td>
                                 <td>{{ $item->paid }}</td>
                                 <td>{{ $item->created_at }}</td>
-                                <td>  <form action="{{ url('deleteContact/'.$item->id) }}" method="POST">
+                                <td>  <form action="{{ url('deleteBook/'.$item->id) }}" method="POST">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="btn btn-danger btn-sm">Delete</button>
@@ -121,10 +118,6 @@
 <div class="container">
     <div class="row">
         <div class="col-md-12">
-            @if (session('status'))
-            <h6 class="alert alert-success">{{ session('status') }}</h6>
-            @endif
-
             <div class="card">
                 <div class="card-header">
                     <h4> Contact Details
@@ -135,7 +128,7 @@
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr class="heading">
-                                <th>id</th>
+                           
                                 <th>Name</th>
                                 <th>Number</th>
                                 <th>Email</th>
@@ -148,7 +141,7 @@
 
                             @foreach ($contact as $item)
                             <tr class="heading-value">
-                                <td>{{ $item->id }}</td>
+                           
                                 <td>{{ $item->name }}</td>
                                 <td>{{ $item->number }}</td>
                                 <td>{{ $item->email }}</td>

@@ -176,10 +176,11 @@
                             
                                     <h2 style="margin-bottom: 0rem !important;"> <span style="font-weight:bold">|</span> {{$name}}   <span style="color:grey; font-size:13px; margin-left:10px;">{{$view}} views </span></h2>
                                  
-                                    <h5><span style="font-size:12px;color:grey;padding-left:17px;">{{$distance}} km from your address</span></h5>     
+                                   <!-- <h5><span style="font-size:12px;color:grey;padding-left:17px;">{{$distance}} km from your address</span></h5>     -->
                                  
                        
                             </div>
+                            
                             @if(Session::has('user'))
                                 <?php
                                     $venEmail = $values;

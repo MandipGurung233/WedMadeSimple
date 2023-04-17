@@ -94,6 +94,7 @@ Route::get('replyContact/{email}',[home::class,'replyContact']);
 Route::post('replyAdmin/{email}',[home::class,'replyAdmin']);
 Route::delete('deleteContact/{id}',[home::class,'deleteContact']);
 Route::delete('deletePost/{id}',[home::class,'deletePost']);
+Route::delete('deleteBook/{id}',[home::class,'deleteBook']);
 
 /*Follow system*/
 Route::post('followSystem/{userEmail}',[followSystem::class,'following']);

@@ -62,7 +62,7 @@ if(Session::has('user')){
                                 <div class="dropdown-menu">
                                     <a class="dropdown-item" href="/adminDashboard">Approve</a>
                                     <a class="dropdown-item" href="/generate">Generate Report</a>
-                                    <a class="dropdown-item" href="/vendorDistance">Vendor Distance</a>
+                                    <!--<a class="dropdown-item" href="/vendorDistance">Vendor Distance</a>-->
                                     <a class="dropdown-item" href="/logout">Logout</a>
                                 </div>
                             </div>

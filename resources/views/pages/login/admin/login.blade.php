@@ -15,7 +15,7 @@
                             @endif
                             <div class="form-group1">
                                 <label for="your_name" class="labels"><span style="color:#6dabe4;"><i class="bi bi-person-fill"></i></span></label>
-                                <input type="text" class="value form-control inputs" name="email" id="your_name" placeholder="Your email"/>
+                                <input type="email" class="value form-control inputs" name="email" id="your_name" placeholder="Your email"/>
                                 <span style="color: red; font-size:12px;">@error('email'){{ $message }}@enderror</span>
     
                             </div>
